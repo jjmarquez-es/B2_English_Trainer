@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>EXAM_CLINIC // NEURAL DECK</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Rajdhani:wght@500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <script src="theme.js"></script>
+    <style>
+        .main-content {
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            box-sizing: border-box;
+            overflow: hidden;
+        }
+
+        .content-split {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            flex: 1;
+            min-height: 0;
+            padding: 12px;
+        }
+
+        .answer-blur-container {
+            filter: blur(8px);
+            user-select: none;
+            transition: filter 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            padding: 4px 0;
+        }
+
+        .answer-blur-container.revealed {
+            filter: blur(0);
+            user-select: text;
+        }
+
+        .admin-only {
+            transition: opacity 0.2s ease;
+        }
+
+        @media (max-width: 960px) {
+            .content-split {
+                display: flex;
+                flex-direction: column;
+                overflow-y: auto;
+            }
+        }
+    </style>
+</head>
+<body class="subpage">
+
+    <div class="sidebar-overlay" id="sidebar-overlay" onclick="toggleSidebar()"></div>
+
+    <!-- BARRA LATERAL -->
+    <div class="sidebar" id="sidebar">
+        <div class="brand-header">
+            <div class="brand-info">
+                <div>
+                    <div class="brand-title">EXAM_MODULE</div>
+                    <div class="brand-subtitle">
+                        OPERATOR: <span id="current-user-sidebar" style="color: var(--neon-yellow);">SYNC...</span>
+                    </div>
+                </div>
+            </div>
+            <button class="close-sidebar-btn" onclick="toggleSidebar()">[X]</button>
+        </div>
+
+        <div class="section-label">SYSTEM_NAVIGATION</div>
+        <a href="index.html" class="category-btn" style="text-decoration:none; border-color: var(--neon-yellow); color: var(--neon-yellow);">MISSION_CONTROL (TRACKER)</a>
+        <a href="types_of_text.html" class="category-btn" style="text-decoration:none;">TYPES_OF_TEXT</a>
+        <a href="grammar_deck.html" class="category-btn" style="text-decoration:none; border-color: var(--neon-pink); color: var(--neon-pink);">GRAMMAR_CLINIC</a>
+        <a href="vobaudi.html" class="category-btn" style="text-decoration:none;">VOBAUDI</a>
+        <a href="speaking.html" class="category-btn" style="text-decoration:none; border-color: var(--neon-cyan); color: var(--neon-cyan);">SPEAKING_DECK</a>
+
+        <div class="section-label admin-only">ADMIN_OPERATIONS</div>
+        <div style="padding: 6px 0;" class="admin-only">
+            <button class="cyber-btn yellow" style="width: 100%; font-size: 0.7rem;" onclick="generateFullExam()">+ GENERAR EXAMEN IA</button>
+        </div>
+        <div style="padding: 6px 0;" class="admin-only">
+            <input type="file" id="exam-pdf-input" accept=".pdf" style="display: none;" onchange="uploadExamPDF(this)">
+            <button class="cyber-btn cyan" style="width: 100%; font-size: 0.7rem;" onclick="document.getElementById('exam-pdf-input').click()">SUBIR EXAMEN PDF</button>
+        </div>
+
+        <div class="section-label" style="margin-top: 10px;">BANCO DE EXÁMENES</div>
+        <div id="dynamic-exams-list"></div>
+
+        <div style="margin-top: 14px; padding-top: 10px; border-top: 1px solid rgba(255, 0, 85, 0.2);">
+            <button class="cyber-btn pink" onclick="logout()" style="width:100%; justify-content:center;">LOGOUT</button>
+        </div>
+    </div>
+
+    <!-- CONTENEDOR PRINCIPAL -->
+    <div class="main-content" id="workspace-container" style="margin-bottom: 0;">
+        <div class="deck-header">
+            <div style="display: flex; align-items: center; gap: 10px; min-width: 0;">
+                <button class="mobile-menu-trigger" onclick="toggleSidebar()">MENU</button>
+                <div style="min-width: 0;">
+                    <div style="font-family: 'Share Tech Mono'; font-size: 0.68rem; color: var(--neon-cyan);">EXAM_SESSION // ACTIVE</div>
+                    <div class="deck-title" id="exam-title">SINCRONIZANDO BANCO...</div>
+                </div>
+            </div>
+            <div class="hud-actions">
+                <div class="admin-only" style="display: flex; align-items: center; gap: 6px;">
+                    <label for="model-select" style="font-family: 'Share Tech Mono'; font-size: 0.75rem; color: var(--neon-yellow);">ENGINE:</label>
+                    <select id="model-select" class="cyber-select" onchange="changeActiveModel(this.value)">
+                        <option value="">Cargando...</option>
+                    </select>
+                </div>
+                <label for="theme-select" style="color: var(--neon-pink); font-family: 'Share Tech Mono'; font-size: 0.75rem;">THEME:</label>
+                <select id="theme-select" class="cyber-select" onchange="changeActiveTheme(this.value)">
+                    <option value="cyberpunk">CYBERPUNK</option>
+                    <option value="matrix">MATRIX</option>
+                    <option value="university">UNIVERSITARIO</option>
+                    <option value="synthwave">OCHENTERO</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- PANTALLA PARTIDA -->
+        <div class="content-split">
+            <!-- COLUMNA IZQUIERDA: VISOR DE TEXTOS Y REDACCIÓN -->
+            <div class="tracks-column" style="display: flex; flex-direction: column; gap: 14px; padding-right: 10px; min-height: 0;">
+                <div class="protocol-card" style="border-color: var(--neon-cyan); flex: 1; display: flex; flex-direction: column; min-height: 0;">
+                    <h2 style="font-size: 1rem; color: var(--neon-cyan);">TEXTOS Y PREGUNTAS DEL EXAMEN</h2>
+                    <div id="pdf-text-viewer" class="terminal-display" style="overflow-y: auto; flex: 1; margin-top: 8px; font-size: 0.83rem; line-height: 1.5;">
+                        Cargando examen seleccionado...
+                    </div>
+                </div>
+
+                <div class="protocol-card" style="border-color: var(--neon-pink);">
+                    <h2 style="font-size: 1rem; color: var(--neon-pink);">REDACCIÓN (TASK 3 & 4)</h2>
+                    <textarea id="exam-essay-input" class="cyber-input" style="height: 100px; margin-top: 8px;" placeholder="Escribe tu artículo o ensayo (150-180 palabras)..."></textarea>
+                    <div style="margin-top: 8px;" class="admin-only">
+                        <button class="cyber-btn pink" onclick="auditExamWriting()">AUDITAR REDACCIÓN CON IA</button>
+                    </div>
+                    <div class="terminal-display" id="exam-feedback-display" style="display: none; margin-top: 8px; border-left: 3px solid var(--neon-pink);"></div>
+                </div>
+            </div>
+
+            <!-- COLUMNA DERECHA: PANEL DE RESPUESTAS OFICIALES -->
+            <div class="markdown-column" style="display: flex; flex-direction: column; min-height: 0;">
+                <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(0, 240, 255, 0.2); padding-bottom: 8px; margin-bottom: 12px; flex-wrap: wrap; gap: 8px;">
+                    <span id="exam-status-tag" style="font-family: 'Share Tech Mono'; font-size: 0.75rem; color: var(--neon-green);">STATUS: SOLUCIONARIO DISPONIBLE</span>
+                    <button class="cyber-btn yellow" id="btn-toggle-blur" style="font-size: 0.65rem; padding: 4px 10px;" onclick="toggleAnswerBlur()">
+                        QUITAR BLUR
+                    </button>
+                </div>
+                
+                <div id="answer-viewer" class="terminal-display" style="overflow-y: auto; flex: 1; font-size: 0.82rem; line-height: 1.5;">
+                    <div id="answer-content" class="answer-blur-container">Cargando soluciones...</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const API_BASE = "/api";
+        let currentExamData = null;
+        let allExams = [];
+        let userState = { username: "candidate_operator", role: "user", selected_model: "kalikorpz/glm-4.7-flash:latest", theme: "cyberpunk" };
+
+        async function init() {
+			// Si no hay operador autenticado, enviar a login
+			const whoRes = await fetch('/api/user/whoami', { credentials: 'include' });
+			if (!whoRes.ok) {
+				window.location.href = '/login.html';
+				return;
+			}
+            try {
+                const res = await fetch(`${API_BASE}/user/state`, { credentials: 'include' });
+                if (res.ok) {
+                    const data = await res.json();
+                    userState = Object.assign(userState, data);
+                }
+            } catch (e) { 
+                console.warn("Modo local/fallback:", e); 
+            }
+
+            applyRolePermissions();
+
+            if (userState.theme && typeof applyTheme === 'function') {
+                applyTheme(userState.theme);
+            }
+
+            if (userState.role === 'admin') {
+                await loadModels();
+            }
+            await fetchExamBank();
+        }
+
+        function applyRolePermissions() {
+            const isAdmin = userState.role === 'admin';
+            document.querySelectorAll('.admin-only').forEach(el => {
+                el.style.display = isAdmin ? '' : 'none';
+            });
+
+            const operatorElem = document.getElementById('current-user-sidebar');
+            if (operatorElem) {
+                const badgeColor = isAdmin ? 'var(--neon-pink)' : 'var(--neon-cyan)';
+                const badgeText = isAdmin ? '[ADMIN]' : '[STUDENT]';
+                operatorElem.innerHTML = `${(userState.username || "OPERATOR").toUpperCase()} <span style="font-size:0.65rem; color:${badgeColor}; font-weight:bold;">${badgeText}</span>`;
+            }
+        }
+
+        async function loadModels() {
+            const select = document.getElementById('model-select');
+            try {
+                const res = await fetch(`${API_BASE}/models`, { credentials: 'include' });
+                if (res.ok) {
+                    const data = await res.json();
+                    select.innerHTML = '';
+                    data.models.forEach(m => {
+                        const opt = document.createElement('option');
+                        opt.value = m;
+                        opt.innerText = m;
+                        select.appendChild(opt);
+                    });
+                    const active = userState.selected_model || "kalikorpz/glm-4.7-flash:latest";
+                    select.value = data.models.includes(active) ? active : data.models[0];
+                    userState.selected_model = select.value;
+                }
+            } catch (e) { console.warn("Modelos:", e); }
+        }
+
+        function changeActiveModel(val) {
+            userState.selected_model = val;
+        }
+
+        async function fetchExamBank() {
+            const listContainer = document.getElementById('dynamic-exams-list');
+            listContainer.innerHTML = "<span style='font-size:0.75rem; color:var(--text-dim);'>Sincronizando banco...</span>";
+
+            try {
+                const res = await fetch(`${API_BASE}/exams/bank`, { credentials: 'include' });
+                if (!res.ok) throw new Error("No se pudo obtener el banco.");
+                const data = await res.json();
+                allExams = data.exams || [];
+
+                listContainer.innerHTML = '';
+                allExams.forEach((exam, index) => {
+                    const btn = document.createElement('button');
+                    btn.className = `category-btn ${index === 0 ? 'active' : ''}`;
+                    btn.id = `btn-exam-${exam.exam_id}`;
+                    btn.innerText = `> ${exam.title.split(':')[0].trim().toUpperCase()}`;
+                    btn.title = exam.title;
+                    btn.onclick = () => {
+                        selectExam(exam.exam_id);
+                        closeSidebarOnMobile();
+                    };
+                    listContainer.appendChild(btn);
+                });
+
+                if (allExams.length > 0) {
+                    selectExam(allExams[0].exam_id);
+                }
+            } catch (err) {
+                listContainer.innerHTML = `<span style='color:var(--neon-pink); font-size:0.75rem;'>[ERROR] ${err.message}</span>`;
+            }
+        }
+
+        function selectExam(examId) {
+            const exam = allExams.find(e => e.exam_id === examId);
+            if (!exam) return;
+            currentExamData = exam;
+
+            document.querySelectorAll('#dynamic-exams-list .category-btn').forEach(b => b.classList.remove('active'));
+            const activeBtn = document.getElementById(`btn-exam-${examId}`);
+            if (activeBtn) activeBtn.classList.add('active');
+
+            document.getElementById('exam-title').innerText = exam.title.toUpperCase();
+            document.getElementById('exam-essay-input').value = "";
+            document.getElementById('exam-feedback-display').style.display = "none";
+
+            const ansCont = document.getElementById('answer-content');
+            const blurBtn = document.getElementById('btn-toggle-blur');
+            if (ansCont) ansCont.classList.remove('revealed');
+            if (blurBtn) blurBtn.innerText = "QUITAR BLUR";
+
+            const t1 = exam.tasks.task_1_long_reading;
+            const t2 = exam.tasks.task_2_multi_text;
+
+            let examMarkdown = `# ${t1.title}\n\n${t1.reading_text}\n\n`;
+
+            if (t1.title_options && t1.title_options.length) {
+                examMarkdown += `### Titles (Questions 1-5 Options):\n`;
+                t1.title_options.forEach(opt => { examMarkdown += `* ${opt}\n`; });
+                examMarkdown += `\n`;
+            }
+
+            examMarkdown += `### Questions 1 to 5 (Paragraph Title Matching):\n`;
+            t1.questions.slice(0, 5).forEach(q => {
+                examMarkdown += `* **Q${q.id}**: ${q.text}\n`;
+            });
+
+            if (t1.true_false_statements && t1.true_false_statements.length) {
+                examMarkdown += `\n### Statements (Questions 6-10 Options):\n`;
+                t1.true_false_statements.forEach(st => { examMarkdown += `* ${st}\n`; });
+                examMarkdown += `\n`;
+            }
+
+            examMarkdown += `### Questions 6 to 10 (Select TRUE Statements):\n`;
+            t1.questions.slice(5, 10).forEach(q => {
+                examMarkdown += `* **Q${q.id}**: ${q.text}\n`;
+            });
+
+            examMarkdown += `\n### Questions 11 to 15 (Sentence Completion):\n`;
+            t1.questions.slice(10, 15).forEach(q => {
+                examMarkdown += `* **Q${q.id}**: ${q.text}\n`;
+            });
+
+            examMarkdown += `\n---\n\n# ${t2.title}\n\n${t2.reading_text}\n\n`;
+
+            examMarkdown += `### Questions 16 to 20 (Multi-Text Matching):\n`;
+            t2.questions.slice(0, 5).forEach(q => {
+                examMarkdown += `* **Q${q.id}**: ${q.text}\n`;
+            });
+
+            examMarkdown += `\n### Questions 21 to 25 (True Statements):\n`;
+            t2.questions.slice(5, 10).forEach(q => {
+                examMarkdown += `* **Q${q.id}**: ${q.text}\n`;
+            });
+
+            examMarkdown += `\n### Questions 26 to 30 (Summary Notes Completion):\n`;
+            t2.questions.slice(10, 15).forEach(q => {
+                examMarkdown += `* **Q${q.id}**: ${q.text}\n`;
+            });
+
+            examMarkdown += `\n---\n\n# WRITING TASKS\n* **TASK 3:** ${exam.tasks.task_3_writing}\n\n* **TASK 4:** ${exam.tasks.task_4_writing}\n`;
+
+            document.getElementById('pdf-text-viewer').innerHTML = marked.parse(examMarkdown);
+
+            let answersMd = `### CLAVE OFICIAL // ${exam.title.split(':')[0]}\n\n**TASK 1 (Long Reading):**\n`;
+            t1.questions.forEach(q => {
+                answersMd += `* **Q${q.id}**: \`${q.answer}\`\n`;
+            });
+
+            answersMd += `\n**TASK 2 (Multi-Text):**\n`;
+            t2.questions.forEach(q => {
+                answersMd += `* **Q${q.id}**: \`${q.answer}\`\n`;
+            });
+
+            document.getElementById('answer-content').innerHTML = marked.parse(answersMd);
+        }
+
+        function toggleAnswerBlur() {
+            const container = document.getElementById('answer-content');
+            const btn = document.getElementById('btn-toggle-blur');
+            if (!container || !btn) return;
+
+            const isRevealed = container.classList.toggle('revealed');
+            btn.innerText = isRevealed ? "APLICAR BLUR" : "QUITAR BLUR";
+        }
+
+        async function auditExamWriting() {
+            if (userState.role !== 'admin') return alert("Función restringida a administradores.");
+            const text = document.getElementById('exam-essay-input').value.trim();
+            const feedback = document.getElementById('exam-feedback-display');
+            const modelToUse = userState.selected_model || document.getElementById('model-select').value;
+
+            if (!text) return alert("Escribe o pega una redacción antes de auditar.");
+
+            feedback.style.display = "block";
+            feedback.innerHTML = `<span style='color: var(--neon-yellow);'>[>] Auditando texto con ${modelToUse.toUpperCase()}...</span>`;
+
+            try {
+                const res = await fetch(`${API_BASE}/exams/audit-writing`, {
+                    method: 'POST',
+                    credentials: 'include',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        text: text,
+                        task_type: currentExamData ? `${currentExamData.title} Writing Task` : "Exam Task",
+                        model: modelToUse
+                    })
+                });
+                if (!res.ok) throw new Error(await res.text());
+                const data = await res.json();
+                feedback.innerHTML = marked.parse(data.feedback);
+            } catch (e) {
+                feedback.innerHTML = `<span style='color: var(--neon-pink);'>[ERROR] ${e.message}</span>`;
+            }
+        }
+
+        async function generateFullExam() {
+            if (userState.role !== 'admin') return alert("Función restringida a administradores.");
+            const status = document.getElementById('exam-status-tag');
+            const modelToUse = userState.selected_model || document.getElementById('model-select').value;
+            status.innerText = "STATUS: GENERANDO EXAMEN IA...";
+            document.getElementById('pdf-text-viewer').innerHTML = "<span style='color: var(--neon-yellow);'>[PROCESANDO] Sintetizando e indexando nuevo examen en el banco de datos...</span>";
+
+            try {
+                const res = await fetch(`${API_BASE}/exams/generate`, {
+                    method: 'POST',
+                    credentials: 'include',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ model: modelToUse })
+                });
+                if (!res.ok) throw new Error(await res.text());
+                const data = await res.json();
+
+                await fetchExamBank();
+                if (data.exam && data.exam.exam_id) {
+                    selectExam(data.exam.exam_id);
+                }
+                status.innerText = "STATUS: EXAMEN GUARDADO EN BANCO";
+            } catch (e) {
+                alert("Error: " + e.message);
+                status.innerText = "STATUS: ERROR";
+            }
+        }
+
+        async function uploadExamPDF(input) {
+            if (userState.role !== 'admin') return alert("Función restringida a administradores.");
+            if (!input.files || input.files.length === 0) return;
+            const file = input.files[0];
+            const status = document.getElementById('exam-status-tag');
+            status.innerText = "STATUS: LEYENDO PDF...";
+
+            const formData = new FormData();
+            formData.append('file', file);
+
+            try {
+                const res = await fetch(`${API_BASE}/exams/upload-pdf`, { 
+                    method: 'POST', 
+                    credentials: 'include',
+                    body: formData 
+                });
+                if (!res.ok) throw new Error(await res.text());
+                const data = await res.json();
+                document.getElementById('pdf-text-viewer').innerText = `=== DOCUMENTO: ${data.filename} ===\n\n${data.preview}`;
+                status.innerText = "STATUS: PDF CARGADO";
+            } catch (e) {
+                alert("Error al subir PDF: " + e.message);
+                status.innerText = "STATUS: ERROR PDF";
+            }
+        }
+
+        function toggleSidebar() {
+            document.getElementById('sidebar').classList.toggle('open');
+            document.getElementById('sidebar-overlay').classList.toggle('active');
+        }
+
+        function closeSidebarOnMobile() {
+            if (window.innerWidth <= 960) {
+                document.getElementById('sidebar').classList.remove('open');
+                document.getElementById('sidebar-overlay').classList.remove('active');
+            }
+        }
+
+	async function logout() {
+		try {
+			await fetch('/api/auth/logout', { method: 'POST', credentials: 'include' });
+		} catch (e) {}
+		window.location.href = '/login.html';
+	}
+
+        window.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>

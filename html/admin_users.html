@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SECURITY // USER MANAGEMENT</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script src="theme.js"></script>
+    <style>
+        .table-cyber {
+            width: 100%;
+            border-collapse: collapse;
+            font-family: 'Share Tech Mono', monospace;
+            margin-top: 15px;
+        }
+        .table-cyber th {
+            text-align: left;
+            padding: 10px;
+            background: rgba(0, 240, 255, 0.1);
+            color: var(--neon-cyan);
+            border-bottom: 2px solid var(--neon-cyan);
+            font-size: 0.8rem;
+        }
+        .table-cyber td {
+            padding: 12px 10px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            font-size: 0.85rem;
+        }
+        .badge-role {
+            display: inline-block;
+            padding: 2px 8px;
+            font-size: 0.7rem;
+            font-weight: bold;
+            border-radius: 2px;
+        }
+        .badge-admin { border: 1px solid var(--neon-pink); color: var(--neon-pink); }
+        .badge-user { border: 1px solid var(--neon-green); color: var(--neon-green); }
+    </style>
+</head>
+<body class="subpage">
+    <div class="prompt-container" style="max-width: 900px;">
+        <header class="prompt-nav" style="border-bottom-color: var(--neon-pink);">
+            <div>
+                <div style="font-family: 'Share Tech Mono'; font-size: 0.75rem; color: var(--neon-pink); margin-bottom: 4px;">
+                    SECURITY_MODULE // ACCESS_CONTROL_LEVEL_0
+                </div>
+                <h1 style="font-family: 'Orbitron'; font-size: 1.4rem; color: #fff; margin: 0;">
+                    GESTOR DE OPERADORES Y USUARIOS
+                </h1>
+            </div>
+            <div class="nav-actions">
+                <a href="index.html" class="nav-back-btn yellow">TRACKER</a>
+                <a href="prompt.html" class="nav-back-btn green">PROMPTS</a>
+                <button class="nav-back-btn pink" onclick="logout()">LOGOUT</button>
+            </div>
+        </header>
+
+        <!-- FORMULARIO ALTA DE USUARIO -->
+        <section class="protocol-card" style="border-color: var(--neon-pink); margin-bottom: 20px;">
+            <h2 style="color: var(--neon-pink); font-size: 1rem;">// REGISTRAR NUEVO ACCESO</h2>
+            <div style="display: grid; grid-template-columns: 1fr 1fr 120px auto; gap: 12px; margin-top: 15px; align-items: flex-end;">
+                <div>
+                    <label style="font-family: 'Share Tech Mono'; font-size: 0.75rem; color: var(--neon-cyan);">USUARIO:</label>
+                    <input type="text" id="new-user" class="cyber-input" placeholder="ej. operador_2">
+                </div>
+                <div>
+                    <label style="font-family: 'Share Tech Mono'; font-size: 0.75rem; color: var(--neon-yellow);">CONTRASEÑA TEMPORAL:</label>
+                    <input type="password" id="new-pass" class="cyber-input" placeholder="Min. 6 caracteres">
+                </div>
+                <div>
+                    <label style="font-family: 'Share Tech Mono'; font-size: 0.75rem; color: var(--text-dim);">ROL:</label>
+                    <select id="new-role" class="cyber-select" style="width: 100%;">
+                        <option value="user">USER</option>
+                        <option value="admin">ADMIN</option>
+                    </select>
+                </div>
+                <button class="cyber-btn pink" onclick="handleCreateUser()">REGISTRAR</button>
+            </div>
+            <div id="status-msg" style="font-family: 'Share Tech Mono'; font-size: 0.8rem; margin-top: 10px;"></div>
+        </section>
+
+        <!-- LISTA DE USUARIOS ACTIVOS -->
+        <section class="protocol-card" style="border-color: var(--neon-cyan);">
+            <h2 style="color: var(--neon-cyan); font-size: 1rem;">// OPERADORES REGISTRADOS EN BASE DE DATOS</h2>
+            <table class="table-cyber">
+                <thead>
+                    <tr>
+                        <th>USUARIO</th>
+                        <th>ROL</th>
+                        <th>ULTIMA ACTIVIDAD</th>
+                        <th style="text-align: right;">ACCIONES</th>
+                    </tr>
+                </thead>
+                <tbody id="user-rows">
+                    <tr><td colspan="4" style="text-align: center; color: var(--text-dim);">Cargando directorio...</td></tr>
+                </tbody>
+            </table>
+        </section>
+    </div>
+
+    <script>
+        const API_BASE = "/api";
+        let currentAdminUser = "";
+
+        async function init() {
+            // Guardián de acceso: debe ser admin
+            try {
+                const res = await fetch(`${API_BASE}/user/whoami`, { credentials: 'include' });
+                if (!res.ok) throw new Error("No autenticado");
+                const who = await res.json();
+                
+                if (who.role !== 'admin') {
+                    alert("Acceso denegado: Zona exclusiva para administradores.");
+                    window.location.href = '/index.html';
+                    return;
+                }
+                currentAdminUser = who.username;
+            } catch (e) {
+                window.location.href = '/login.html';
+                return;
+            }
+
+            await loadUserList();
+        }
+
+        async function loadUserList() {
+            const tbody = document.getElementById('user-rows');
+            try {
+                const res = await fetch(`${API_BASE}/admin/users`, { credentials: 'include' });
+                if (!res.ok) throw new Error(await res.text());
+                const users = await res.json();
+
+                tbody.innerHTML = users.map(u => {
+                    const isSelf = u.username.toLowerCase() === currentAdminUser.toLowerCase();
+                    const dateStr = u.updated_at ? new Date(u.updated_at * 1000).toLocaleString() : 'N/A';
+                    const roleBadge = u.role === 'admin' 
+                        ? '<span class="badge-role badge-admin">ADMIN</span>' 
+                        : '<span class="badge-role badge-user">STUDENT</span>';
+
+                    return `
+                        <tr>
+                            <td style="color: #fff; font-weight: bold;">${u.username} ${isSelf ? '<span style="color: var(--neon-yellow); font-size: 0.7rem;">(TU CUENTA)</span>' : ''}</td>
+                            <td>${roleBadge}</td>
+                            <td style="color: var(--text-dim);">${dateStr}</td>
+                            <td style="text-align: right;">
+                                <button class="play-btn-mini" onclick="promptResetPass('${u.username}')" style="margin-right: 6px;">PASS</button>
+                                ${!isSelf ? `<button class="del-btn" onclick="handleDeleteUser('${u.username}')">BORRAR</button>` : ''}
+                            </td>
+                        </tr>
+                    `;
+                }).join('');
+            } catch (err) {
+                tbody.innerHTML = `<tr><td colspan="4" style="color: var(--neon-pink);">Error cargando usuarios: ${err.message}</td></tr>`;
+            }
+        }
+
+        async function handleCreateUser() {
+            const username = document.getElementById('new-user').value.trim();
+            const password = document.getElementById('new-pass').value.trim();
+            const role = document.getElementById('new-role').value;
+            const status = document.getElementById('status-msg');
+
+            if (!username || !password) {
+                status.innerHTML = "<span style='color: var(--neon-pink);'>Debes indicar usuario y contraseña.</span>";
+                return;
+            }
+
+            status.innerHTML = "<span style='color: var(--neon-yellow);'>Registrando operador...</span>";
+
+            try {
+                const res = await fetch(`${API_BASE}/admin/users`, {
+                    method: 'POST',
+                    credentials: 'include',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username, password, role })
+                });
+
+                if (!res.ok) {
+                    const errData = await res.json();
+                    throw new Error(errData.detail || "Error registrando usuario");
+                }
+
+                status.innerHTML = `<span style='color: var(--neon-green);'>Usuario '${username}' registrado con éxito.</span>`;
+                document.getElementById('new-user').value = "";
+                document.getElementById('new-pass').value = "";
+                await loadUserList();
+            } catch (e) {
+                status.innerHTML = `<span style='color: var(--neon-pink);'>${e.message}</span>`;
+            }
+        }
+
+        async function handleDeleteUser(user) {
+            if (!confirm(`¿Confirmas la baja inmediata del usuario '${user}'? Sus datos y sesiones se purgarán.`)) return;
+
+            try {
+                const res = await fetch(`${API_BASE}/admin/users/${user}`, {
+                    method: 'DELETE',
+                    credentials: 'include'
+                });
+                if (!res.ok) {
+                    const errData = await res.json();
+                    throw new Error(errData.detail || "Error eliminando usuario");
+                }
+                await loadUserList();
+            } catch (e) {
+                alert(`Fallo al eliminar: ${e.message}`);
+            }
+        }
+
+        async function promptResetPass(user) {
+            const newPass = prompt(`Introduce la nueva contraseña para '${user}' (mínimo 6 caracteres):`);
+            if (!newPass || newPass.trim().length < 6) return;
+
+            try {
+                const res = await fetch(`${API_BASE}/admin/users/${user}/reset-password`, {
+                    method: 'POST',
+                    credentials: 'include',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ new_password: newPass.trim() })
+                });
+                if (!res.ok) throw new Error(await res.text());
+                alert(`Contraseña actualizada para '${user}'.`);
+            } catch (e) {
+                alert(`Error restableciendo contraseña: ${e.message}`);
+            }
+        }
+
+        async function logout() {
+            try {
+                await fetch(`${API_BASE}/auth/logout`, { method: 'POST', credentials: 'include' });
+            } catch (e) {}
+            window.location.replace('/login.html');
+        }
+
+        window.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>

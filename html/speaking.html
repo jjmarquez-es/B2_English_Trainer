@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>SPEAKING_DECK // PART 3 & 4 PREP</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Rajdhani:wght@500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script src="theme.js"></script>
+    <style>
+        .admin-only {
+            transition: opacity 0.2s ease;
+        }
+    </style>
+</head>
+<body class="subpage">
+
+    <div class="prompt-container">
+        <header class="prompt-nav" style="border-bottom-color: var(--neon-cyan);">
+            <div>
+                <div style="font-family: 'Share Tech Mono'; font-size: 0.75rem; color: var(--neon-cyan); display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 4px;">
+                    <span>OPERATOR: <strong id="current-user-tag" style="color: var(--neon-yellow);">SYNCING...</strong></span>
+                    <span class="admin-only">//</span>
+                    <label for="model-select" class="admin-only" style="color: var(--neon-cyan);">ENGINE:</label>
+                    <select id="model-select" class="cyber-select admin-only" onchange="changeActiveModel(this.value)">
+                        <option value="">Cargando modelos...</option>
+                    </select>
+                    <span>//</span>
+                    <label for="theme-select" style="color: var(--neon-pink);">THEME:</label>
+                    <select id="theme-select" class="cyber-select" onchange="changeActiveTheme(this.value)">
+                        <option value="cyberpunk">CYBERPUNK</option>
+                        <option value="matrix">MATRIX</option>
+                        <option value="university">UNIVERSITARIO</option>
+                        <option value="synthwave">OCHENTERO</option>
+                    </select>
+                </div>
+                <h1 style="font-family: 'Orbitron'; font-size: 1.4rem; color: #fff; letter-spacing: 1px;">
+                    SPEAKING_DECK // PART 3 & 4 (PREP TECHNIQUE)
+                </h1>
+            </div>
+            <div class="nav-actions">
+                <a href="vobaudi.html" class="nav-back-btn yellow">VOBAUDI</a>
+                <a href="grammar_deck.html" class="nav-back-btn pink">GRAMMAR</a>
+                <a href="speaking.html" class="nav-back-btn">SPEAKING</a>
+                <a href="prompt.html" class="nav-back-btn green">PROMPTS</a>
+                <a href="types_of_text.html" class="nav-back-btn yellow">TEXT_TYPES</a>
+                <button class="nav-back-btn pink" onclick="logout()">LOGOUT</button>
+            </div>
+        </header>
+
+        <!-- SELECTOR DE MODO -->
+        <div class="mode-selector-grid">
+            <div class="mode-card admin-only" id="card-mode-auto" onclick="setMode('auto')">
+                <h3 style="color: var(--neon-cyan);">
+                    <span>01 // MODO AUTOMATICO (IA)</span>
+                    <span id="badge-auto" style="font-size: 0.7rem; color: var(--neon-yellow);">[ACTIVO]</span>
+                </h3>
+                <p style="font-size: 0.85rem; color: var(--text-dim); font-family: 'Share Tech Mono';">
+                    El motor formula un debate temático y redacta una respuesta modelo con estructura PREP.
+                </p>
+                <div style="margin-top: 12px;">
+                    <button class="cyber-btn" onclick="fetchAISpeaking(event)">GENERAR NUEVO DEBATE CON IA</button>
+                </div>
+            </div>
+
+            <div class="mode-card green active" id="card-mode-manual" onclick="setMode('manual')">
+                <h3 style="color: var(--neon-green);">
+                    <span>02 // BANCO DE PREGUNTAS (MANUAL / PDF)</span>
+                    <span id="badge-manual" style="font-size: 0.7rem; color: var(--neon-green);">[ACTIVO]</span>
+                </h3>
+                <p style="font-size: 0.85rem; color: var(--text-dim); font-family: 'Share Tech Mono';">
+                    Explora y practica las preguntas oficiales clasificadas por temáticas y técnica PREP.
+                </p>
+                <div style="margin-top: 12px; display: flex; gap: 8px; flex-wrap: wrap;">
+                    <button class="cyber-btn green" onclick="loadRandomSpeakingQuestion(event)">PREGUNTA ALEATORIA</button>
+                    <select id="speaking-bank-select" class="cyber-select" onchange="loadSelectedSpeakingQuestion(this.value, event)" style="max-width: 260px;">
+                        <option value="">-- SELECCIONAR PREGUNTA --</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <!-- VISUALIZADOR -->
+        <section class="protocol-card" style="border-color: var(--neon-cyan);">
+            <h2>
+                <span id="display-title">03 // SIMULACRO DE SPEAKING (PREGUNTA + PREP)</span>
+                <span id="source-tag" style="font-size: 0.7rem; color: var(--neon-yellow); font-family: 'Share Tech Mono';">FUENTE: STANDBY</span>
+            </h2>
+
+            <div class="terminal-display" id="speaking-display">Selecciona una pregunta del banco o pulsa "PREGUNTA ALEATORIA" para comenzar el entrenamiento...</div>
+
+            <div style="margin-top: 16px; display: flex; gap: 12px; flex-wrap: wrap; align-items: center;">
+                <button class="cyber-btn" id="btn-audio-question" onclick="speakCurrentQuestion()" style="display: none;">
+                    ESCUCHAR PREGUNTA (EXAMINADOR)
+                </button>
+                <button class="cyber-btn yellow admin-only" id="btn-generate-prep" onclick="generatePrepForCurrentQuestion()" style="display: none;">
+                    GENERAR / REGENERAR RESPUESTA PREP CON IA
+                </button>
+                <button class="cyber-btn green" id="btn-audio-answer" onclick="speakCurrentAnswer()" style="display: none;">
+                    ESCUCHAR RESPUESTA MODELO (CANDIDATO)
+                </button>
+            </div>
+        </section>
+
+        <!-- PANEL DE GESTION (ADMIN ONLY) -->
+        <section class="protocol-card admin-only" style="border-color: var(--neon-pink);">
+            <h2 style="color: var(--neon-pink); cursor: pointer;" onclick="toggleAddSpeakingPanel()">
+                <span>04 // GESTOR DE PREGUNTAS SPEAKING (SUBIR PDF / MANUAL)</span>
+                <span id="toggle-panel-icon" style="font-size: 0.8rem;">[DESPLEGAR]</span>
+            </h2>
+
+            <div id="add-speaking-panel" style="display: none; margin-top: 14px;">
+                <div class="upload-drop-zone">
+                    <div style="font-family: 'Orbitron'; font-size: 0.85rem; color: var(--neon-cyan); margin-bottom: 6px;">
+                        EXTRAER PREGUNTAS DE SPEAKING DIRECTAMENTE DESDE PDF
+                    </div>
+                    <p style="font-size: 0.78rem; color: var(--text-dim); font-family: 'Share Tech Mono'; margin-bottom: 12px;">
+                        Sube un simulacro o examen oficial en PDF. El modelo identificará todas las preguntas de debate (Part 3 y 4) y las indexará automáticamente.
+                    </p>
+                    <input type="file" id="speaking-pdf-input" accept=".pdf" style="display: none;" onchange="handleSpeakingPDFUpload(this)">
+                    <button class="cyber-btn" onclick="document.getElementById('speaking-pdf-input').click()">SELECCIONAR ARCHIVO PDF</button>
+                    <div id="pdf-speaking-status" style="font-family: 'Share Tech Mono'; font-size: 0.8rem; margin-top: 8px;"></div>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 2fr; gap: 12px;">
+                    <div>
+                        <label style="font-family: 'Share Tech Mono'; font-size: 0.78rem; color: var(--neon-yellow);">TEMA / CATEGORIA:</label>
+                        <input type="text" id="new-speaking-topic" class="cyber-input" placeholder="Ej. Environment, Values, Public Figures">
+                    </div>
+                    <div>
+                        <label style="font-family: 'Share Tech Mono'; font-size: 0.78rem; color: var(--neon-cyan);">PREGUNTA DEL EXAMINADOR:</label>
+                        <input type="text" id="new-speaking-question" class="cyber-input" placeholder="Ej. Do you think cars should be banned from city centers?">
+                    </div>
+                </div>
+
+                <label style="font-family: 'Share Tech Mono'; font-size: 0.78rem; color: var(--text-dim);">RESPUESTA PREP OPCIONAL:</label>
+                <textarea id="new-speaking-answer" class="cyber-input" placeholder="Point, Reason, Example, Point rephrased..."></textarea>
+
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 6px;">
+                    <button class="cyber-btn pink" onclick="saveNewSpeakingToBank()">GUARDAR EN EL BANCO DE PREGUNTAS</button>
+                    <span id="save-speaking-status" style="font-family: 'Share Tech Mono'; font-size: 0.8rem; color: var(--neon-green);"></span>
+                </div>
+
+                <div style="margin-top: 20px; border-top: 1px solid rgba(255, 0, 85, 0.2); padding-top: 14px;">
+                    <div style="font-family: 'Orbitron'; font-size: 0.82rem; color: #fff; margin-bottom: 8px;">PREGUNTAS EN MEMORIA:</div>
+                    <div id="speaking-list-container"></div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        const API_BASE = "/api";
+        let activeMode = "manual";
+        let currentSpeakingData = { topic: "", question: "", model_answer: "", source: "" };
+        let userState = { username: "candidate_operator", role: "user", selected_model: "kalikorpz/glm-4.7-flash:latest", theme: "cyberpunk", custom_speaking: [] };
+
+        async function init() {
+			// Si no hay operador autenticado, enviar a login
+			const whoRes = await fetch('/api/user/whoami', { credentials: 'include' });
+			if (!whoRes.ok) {
+				window.location.href = '/login.html';
+				return;
+			}
+            try {
+                const res = await fetch(`${API_BASE}/user/state`, { credentials: 'include' });
+                if (res.ok) {
+                    const data = await res.json();
+                    userState = Object.assign(userState, data);
+                    if (!userState.custom_speaking) userState.custom_speaking = [];
+                }
+            } catch (e) { 
+                console.warn("Modo fallback local:", e); 
+            }
+
+            applyRolePermissions();
+
+            if (userState.theme && typeof applyTheme === 'function') {
+                applyTheme(userState.theme);
+            }
+
+            if (userState.role === 'admin') {
+                await loadModels();
+            }
+
+            renderBankDropdown();
+            renderBankList();
+        }
+
+        function applyRolePermissions() {
+            const isAdmin = userState.role === 'admin';
+            document.querySelectorAll('.admin-only').forEach(el => {
+                el.style.display = isAdmin ? '' : 'none';
+            });
+
+            if (!isAdmin) {
+                setMode('manual');
+            }
+
+            const userTag = document.getElementById('current-user-tag');
+            if (userTag) {
+                const badgeColor = isAdmin ? 'var(--neon-pink)' : 'var(--neon-cyan)';
+                const badgeText = isAdmin ? '[ADMIN]' : '[STUDENT]';
+                userTag.innerHTML = `${(userState.username || "SPACEMANS8").toUpperCase()} <span style="font-size:0.65rem; color:${badgeColor}; font-weight:bold;">${badgeText}</span>`;
+            }
+        }
+
+        async function loadModels() {
+            const select = document.getElementById('model-select');
+            try {
+                const res = await fetch(`${API_BASE}/models`, { credentials: 'include' });
+                if (res.ok) {
+                    const data = await res.json();
+                    select.innerHTML = '';
+                    data.models.forEach(m => {
+                        const opt = document.createElement('option');
+                        opt.value = m;
+                        opt.innerText = m;
+                        select.appendChild(opt);
+                    });
+                    const chosen = userState.selected_model || data.models[0];
+                    select.value = data.models.includes(chosen) ? chosen : data.models[0];
+                    userState.selected_model = select.value;
+                }
+            } catch (err) { console.warn("No se pudieron cargar modelos:", err); }
+        }
+
+        function changeActiveModel(val) {
+            userState.selected_model = val;
+            persistState();
+        }
+
+        async function persistState() {
+            try {
+                await fetch(`${API_BASE}/user/state`, {
+                    method: 'POST',
+                    credentials: 'include',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(userState)
+                });
+            } catch (err) { console.error("Error persistiendo datos:", err); }
+        }
+
+        function setMode(mode) {
+            activeMode = mode;
+            const isAuto = mode === 'auto';
+            const autoCard = document.getElementById('card-mode-auto');
+            const manualCard = document.getElementById('card-mode-manual');
+            
+            if (autoCard) autoCard.classList.toggle('active', isAuto);
+            if (manualCard) manualCard.classList.toggle('active', !isAuto);
+
+            const badgeAuto = document.getElementById('badge-auto');
+            const badgeManual = document.getElementById('badge-manual');
+            if (badgeAuto) {
+                badgeAuto.innerText = isAuto ? '[ACTIVO]' : '[INACTIVO]';
+                badgeAuto.style.color = isAuto ? 'var(--neon-yellow)' : 'var(--text-dim)';
+            }
+            if (badgeManual) {
+                badgeManual.innerText = !isAuto ? '[ACTIVO]' : '[INACTIVO]';
+                badgeManual.style.color = !isAuto ? 'var(--neon-green)' : 'var(--text-dim)';
+            }
+        }
+
+        async function fetchAISpeaking(e) {
+            if (e) e.stopPropagation();
+            if (userState.role !== 'admin') return alert("Operación exclusiva de administradores.");
+            setMode('auto');
+            const display = document.getElementById('speaking-display');
+            const modelToUse = userState.selected_model || document.getElementById('model-select').value;
+            display.innerHTML = `<span style='color: var(--neon-yellow);'>[>] GENERANDO DEBATE Y RESPUESTA PREP CON ${modelToUse.toUpperCase()}...</span>`;
+            hideActionButtons();
+
+            try {
+                const res = await fetch(`${API_BASE}/generate`, {
+                    method: 'POST',
+                    credentials: 'include',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ category: "speaking", model: modelToUse })
+                });
+                if (!res.ok) throw new Error(await res.text());
+                const data = await res.json();
+                renderSpeakingOutput(data.content, "IA_GENERATOR // " + modelToUse.toUpperCase());
+            } catch (err) {
+                display.innerHTML = `<span style='color: var(--neon-pink);'>[ERROR] ${err.message}</span>`;
+            }
+        }
+
+        function loadRandomSpeakingQuestion(e) {
+            if (e) e.stopPropagation();
+            setMode('manual');
+            const bank = userState.custom_speaking || [];
+            if (!bank.length) return alert("El banco está vacío. Ejecuta seed_speaking_directo.py.");
+            const item = bank[Math.floor(Math.random() * bank.length)];
+            displaySpeakingItem(item);
+        }
+
+        function loadSelectedSpeakingQuestion(id, e) {
+            if (e) e.stopPropagation();
+            if (!id) return;
+            setMode('manual');
+            const item = (userState.custom_speaking || []).find(q => q.id === id);
+            if (item) displaySpeakingItem(item);
+        }
+
+        function displaySpeakingItem(item) {
+            const text = item.question || item.prompt || item.text || "";
+            currentSpeakingData = {
+                topic: item.topic || "General Discussion",
+                question: text,
+                model_answer: item.model_answer || "",
+                source: "BANCO_LOCAL"
+            };
+
+            let formatted = `TOPIC: ${currentSpeakingData.topic}\n\n`;
+            formatted += `QUESTION:\n"${text}"\n\n`;
+
+            if (item.model_answer && item.model_answer.trim()) {
+                formatted += `MODEL_ANSWER (PREP TECHNIQUE):\n${item.model_answer}`;
+            } else {
+                formatted += `MODEL_ANSWER (PREP TECHNIQUE):\n[!] Aún no hay respuesta PREP generada.${userState.role === 'admin' ? " Pulsa 'GENERAR RESPUESTA PREP CON IA'." : ""}`;
+            }
+
+            const display = document.getElementById('speaking-display');
+            display.innerText = formatted;
+            document.getElementById('source-tag').innerText = "FUENTE: BANCO // " + currentSpeakingData.topic.toUpperCase();
+
+            document.getElementById('btn-audio-question').style.display = "inline-flex";
+            document.getElementById('btn-generate-prep').style.display = (userState.role === 'admin') ? "inline-flex" : "none";
+            document.getElementById('btn-audio-answer').style.display = (item.model_answer && item.model_answer.trim()) ? "inline-flex" : "none";
+        }
+
+        async function generatePrepForCurrentQuestion() {
+            if (userState.role !== 'admin') return alert("Operación exclusiva de administradores.");
+            if (!currentSpeakingData.question) return alert("No hay ninguna pregunta seleccionada.");
+            const modelToUse = userState.selected_model || document.getElementById('model-select').value;
+            const btn = document.getElementById('btn-generate-prep');
+            btn.innerText = "FORMULANDO RESPUESTA PREP...";
+
+            try {
+                const res = await fetch(`${API_BASE}/generate`, {
+                    method: 'POST',
+                    credentials: 'include',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        category: "speaking_prep",
+                        user_input: currentSpeakingData.question,
+                        model: modelToUse
+                    })
+                });
+                if (!res.ok) throw new Error(await res.text());
+                const data = await res.json();
+
+                currentSpeakingData.model_answer = data.content;
+
+                let fullText = `TOPIC: ${currentSpeakingData.topic}\n\n`;
+                fullText += `QUESTION:\n"${currentSpeakingData.question}"\n\n`;
+                fullText += `MODEL_ANSWER (PREP TECHNIQUE):\n${data.content}`;
+
+                document.getElementById('speaking-display').innerText = fullText;
+                document.getElementById('btn-audio-answer').style.display = "inline-flex";
+
+                const bankItem = userState.custom_speaking.find(q => q.question === currentSpeakingData.question);
+                if (bankItem) {
+                    bankItem.model_answer = data.content;
+                    persistState();
+                }
+
+                btn.innerText = "RESPUESTA PREP ACTUALIZADA";
+                setTimeout(() => { btn.innerText = "GENERAR / REGENERAR RESPUESTA PREP CON IA"; }, 2500);
+            } catch (err) {
+                alert(`Error: ${err.message}`);
+                btn.innerText = "GENERAR / REGENERAR RESPUESTA PREP CON IA";
+            }
+        }
+
+        function renderSpeakingOutput(rawText, sourceLabel) {
+            const display = document.getElementById('speaking-display');
+            display.innerText = rawText;
+            document.getElementById('source-tag').innerText = "FUENTE: " + sourceLabel;
+
+            const qMatch = rawText.match(/QUESTION:\s*([\s\S]*?)(?=MODEL_ANSWER:|$)/i);
+            const aMatch = rawText.match(/MODEL_ANSWER:\s*([\s\S]*?)$/i);
+
+            currentSpeakingData.question = qMatch ? qMatch[1].replace(/^"|"$/g, '').trim() : rawText;
+            currentSpeakingData.model_answer = aMatch ? aMatch[1].trim() : "";
+            currentSpeakingData.topic = (rawText.match(/TOPIC:\s*(.*?)\n/i) || ["", "B2 Discussion"])[1];
+
+            document.getElementById('btn-audio-question').style.display = "inline-flex";
+            document.getElementById('btn-generate-prep').style.display = (userState.role === 'admin') ? "inline-flex" : "none";
+            document.getElementById('btn-audio-answer').style.display = currentSpeakingData.model_answer ? "inline-flex" : "none";
+        }
+
+        function hideActionButtons() {
+            document.getElementById('btn-audio-question').style.display = "none";
+            document.getElementById('btn-generate-prep').style.display = "none";
+            document.getElementById('btn-audio-answer').style.display = "none";
+        }
+
+        async function speakCurrentQuestion() {
+            if (!currentSpeakingData.question) return;
+            playNeuralTTS(currentSpeakingData.question, "en-GB-RyanNeural");
+        }
+
+        async function speakCurrentAnswer() {
+            if (!currentSpeakingData.model_answer) return;
+            playNeuralTTS(currentSpeakingData.model_answer, "en-GB-SoniaNeural");
+        }
+
+        async function playNeuralTTS(textToRead, voiceName) {
+            try {
+                const res = await fetch(`${API_BASE}/tts`, {
+                    method: 'POST',
+                    credentials: 'include',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ text: textToRead, voice: voiceName, rate: "-5%" })
+                });
+                if (!res.ok) throw new Error(await res.text());
+                const data = await res.json();
+                new Audio(data.audio_url).play();
+            } catch (err) { alert(`Error Edge-TTS: ${err.message}`); }
+        }
+
+        async function handleSpeakingPDFUpload(input) {
+            if (userState.role !== 'admin') return alert("Operación exclusiva de administradores.");
+            if (!input.files || input.files.length === 0) return;
+            const file = input.files[0];
+            const status = document.getElementById('pdf-speaking-status');
+            const modelToUse = userState.selected_model || document.getElementById('model-select').value;
+
+            status.innerHTML = `<span style="color: var(--neon-yellow);">[PROCESANDO] Extrayendo preguntas con ${modelToUse.toUpperCase()}...</span>`;
+
+            const formData = new FormData();
+            formData.append('file', file);
+            formData.append('model', modelToUse);
+
+            try {
+                const res = await fetch(`${API_BASE}/upload-pdf-speaking`, { 
+                    method: 'POST', 
+                    credentials: 'include',
+                    body: formData 
+                });
+                if (!res.ok) throw new Error(await res.text());
+                const data = await res.json();
+
+                const rawList = data.custom_speaking || data.extracted_questions || [];
+                const normalized = rawList.map((item, idx) => ({
+                    id: item.id || `spk_pdf_${Date.now()}_${idx}`,
+                    topic: item.topic || "General Discussion",
+                    question: item.question || item.prompt || item.text || "Pregunta sin título",
+                    model_answer: item.model_answer || (Array.isArray(item.bullet_points) ? item.bullet_points.join(", ") : "")
+                })).filter(q => q.question.trim().length > 0);
+
+                userState.custom_speaking = [...(userState.custom_speaking || []), ...normalized];
+                await persistState();
+
+                renderBankDropdown();
+                renderBankList();
+
+                status.innerHTML = `<span style="color: var(--neon-green);">[OK] Se han extraído e indexado ${normalized.length} preguntas desde el PDF.</span>`;
+                input.value = "";
+                setTimeout(() => { status.innerHTML = ""; }, 5000);
+            } catch (err) {
+                status.innerHTML = `<span style="color: var(--neon-pink);">[ERROR] ${err.message}</span>`;
+            }
+        }
+
+        function toggleAddSpeakingPanel() {
+            const panel = document.getElementById('add-speaking-panel');
+            const icon = document.getElementById('toggle-panel-icon');
+            const isOpen = panel.style.display === 'block';
+            panel.style.display = isOpen ? 'none' : 'block';
+            icon.innerText = isOpen ? '[DESPLEGAR]' : '[OCULTAR]';
+        }
+
+        function saveNewSpeakingToBank() {
+            if (userState.role !== 'admin') return alert("Operación exclusiva de administradores.");
+            const topic = document.getElementById('new-speaking-topic').value.trim();
+            const question = document.getElementById('new-speaking-question').value.trim();
+            const answer = document.getElementById('new-speaking-answer').value.trim();
+
+            if (!question) return alert("La pregunta es obligatoria.");
+
+            userState.custom_speaking.push({
+                id: "spk_" + Date.now(),
+                topic: topic || "Discussion",
+                question: question,
+                model_answer: answer
+            });
+            persistState();
+
+            document.getElementById('new-speaking-topic').value = "";
+            document.getElementById('new-speaking-question').value = "";
+            document.getElementById('new-speaking-answer').value = "";
+
+            renderBankDropdown();
+            renderBankList();
+
+            const status = document.getElementById('save-speaking-status');
+            status.innerText = "PREGUNTA GUARDADA";
+            setTimeout(() => { status.innerText = ""; }, 2500);
+        }
+
+        function deleteSpeakingItem(id) {
+            if (userState.role !== 'admin') return alert("Operación exclusiva de administradores.");
+            if (!confirm("¿Deseas eliminar esta pregunta del banco?")) return;
+            userState.custom_speaking = userState.custom_speaking.filter(q => q.id !== id);
+            persistState();
+            renderBankDropdown();
+            renderBankList();
+        }
+
+        function renderBankDropdown() {
+            const select = document.getElementById('speaking-bank-select');
+            select.innerHTML = '<option value="">-- SELECCIONAR PREGUNTA --</option>';
+            (userState.custom_speaking || []).forEach(q => {
+                const opt = document.createElement('option');
+                opt.value = q.id;
+                const txt = q.question || q.prompt || q.text || "Sin enunciado";
+                opt.innerText = `[${q.topic || 'B2'}] ${txt.substring(0, 45)}...`;
+                select.appendChild(opt);
+            });
+        }
+
+        function renderBankList() {
+            const container = document.getElementById('speaking-list-container');
+            container.innerHTML = "";
+            if (!userState.custom_speaking || !userState.custom_speaking.length) {
+                container.innerHTML = "<div style='color: var(--text-dim); font-size:0.8rem;'>No hay preguntas guardadas en el banco.</div>";
+                return;
+            }
+
+            userState.custom_speaking.forEach(q => {
+                const row = document.createElement('div');
+                row.className = 'prompt-bank-item';
+                const txt = q.question || q.prompt || q.text || "Sin enunciado";
+                row.innerHTML = `
+                    <div style="min-width: 0; flex: 1; padding-right: 10px;">
+                        <span style="color: var(--neon-yellow); font-size: 0.72rem;">[${q.topic || 'General'}]</span>
+                        <span style="color: var(--text-main);">${txt}</span>
+                    </div>
+                    <button class="del-btn admin-only" onclick="deleteSpeakingItem('${q.id}')">BORRAR</button>
+                `;
+                container.appendChild(row);
+            });
+            applyRolePermissions();
+        }
+
+		async function logout() {
+			try {
+				await fetch('/api/auth/logout', { method: 'POST', credentials: 'include' });
+			} catch (e) {}
+			window.location.href = '/login.html';
+		}
+
+        window.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>

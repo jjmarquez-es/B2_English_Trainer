@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>PROMPT_DECK // INTERACTIVE PROMPTS</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Rajdhani:wght@500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script src="theme.js"></script>
+    <style>
+        .admin-only {
+            transition: opacity 0.2s ease;
+        }
+
+        .drill-block {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .drill-label {
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.72rem;
+            color: var(--text-dim);
+            letter-spacing: 1px;
+        }
+
+        .play-btn-mini {
+            background: transparent;
+            border: 1px solid var(--neon-green);
+            color: var(--neon-green);
+            font-family: 'Orbitron', monospace;
+            font-size: 0.65rem;
+            padding: 3px 8px;
+            cursor: pointer;
+            transition: 0.2s;
+            white-space: nowrap;
+        }
+
+        .play-btn-mini:hover {
+            background: var(--neon-green);
+            color: #000;
+        }
+
+        .phrases-box {
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.86rem;
+            color: var(--text-main);
+            line-height: 1.6;
+            white-space: pre-line;
+        }
+    </style>
+</head>
+<body class="subpage">
+
+    <div class="prompt-container">
+        <header class="prompt-nav" style="border-bottom-color: var(--neon-green);">
+            <div>
+                <div style="font-family: 'Share Tech Mono'; font-size: 0.75rem; color: var(--neon-green); display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 4px;">
+                    <span>OPERATOR: <strong id="current-user-tag" style="color: var(--neon-yellow);">SYNCING...</strong></span>
+                    <span class="admin-only">//</span>
+                    <label for="model-select" class="admin-only" style="color: var(--neon-green);">ENGINE:</label>
+                    <select id="model-select" class="cyber-select admin-only" onchange="changeActiveModel(this.value)">
+                        <option value="">Cargando modelos...</option>
+                    </select>
+                    <span>//</span>
+                    <label for="theme-select" style="color: var(--neon-pink);">THEME:</label>
+                    <select id="theme-select" class="cyber-select" onchange="changeActiveTheme(this.value)">
+                        <option value="cyberpunk">CYBERPUNK</option>
+                        <option value="matrix">MATRIX</option>
+                        <option value="university">UNIVERSITARIO</option>
+                        <option value="synthwave">OCHENTERO</option>
+                    </select>
+                </div>
+                <h1 style="font-family: 'Orbitron'; font-size: 1.4rem; color: #fff; letter-spacing: 1px;">
+                    PROMPT_DECK // INTERACTIVE DRILLS & CHALLENGES
+                </h1>
+            </div>
+            <div class="nav-actions">
+                <a href="index.html" class="nav-back-btn yellow">TRACKER</a>
+                <a href="vobaudi.html" class="nav-back-btn yellow">VOBAUDI</a>
+                <a href="grammar_deck.html" class="nav-back-btn pink">GRAMMAR</a>
+                <a href="speaking.html" class="nav-back-btn cyan">SPEAKING</a>
+                <a href="types_of_text.html" class="nav-back-btn yellow">TEXT_TYPES</a>
+                <button class="nav-back-btn pink" onclick="logout()">LOGOUT</button>
+            </div>
+        </header>
+
+        <!-- SELECTOR DE MODO -->
+        <div class="mode-selector-grid">
+            <div class="mode-card admin-only" id="card-mode-auto" onclick="setMode('auto')">
+                <h3 style="color: var(--neon-cyan);">
+                    <span>01 // MODO AUTOMATICO (IA)</span>
+                    <span id="badge-auto" style="font-size: 0.7rem; color: var(--neon-yellow);">[ACTIVO]</span>
+                </h3>
+                <p style="font-size: 0.85rem; color: var(--text-dim); font-family: 'Share Tech Mono';">
+                    El motor genera un reto interactivo aleatorio ajustado a los estándares de certificación B2/C1.
+                </p>
+                <div style="margin-top: 12px;">
+                    <button class="cyber-btn" onclick="fetchAIPrompt(event)">GENERAR NUEVO PROMPT CON IA</button>
+                </div>
+            </div>
+
+            <div class="mode-card green active" id="card-mode-manual" onclick="setMode('manual')">
+                <h3 style="color: var(--neon-green);">
+                    <span>02 // BANCO DE PROMPTS REGISTRADOS</span>
+                    <span id="badge-manual" style="font-size: 0.7rem; color: var(--neon-green);">[ACTIVO]</span>
+                </h3>
+                <p style="font-size: 0.85rem; color: var(--text-dim); font-family: 'Share Tech Mono';">
+                    Explora y practica las consignas, debates y situaciones oficiales indexadas en el sistema.
+                </p>
+                <div style="margin-top: 12px; display: flex; gap: 8px; flex-wrap: wrap;">
+                    <button class="cyber-btn green" onclick="loadRandomPrompt(event)">PROMPT ALEATORIO</button>
+                    <select id="prompt-bank-select" class="cyber-select" onchange="loadSelectedPrompt(this.value, event)" style="max-width: 260px;">
+                        <option value="">-- SELECCIONAR PROMPT --</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <!-- VISUALIZADOR Y AREA DE RESPUESTA -->
+        <section class="protocol-card" style="border-color: var(--neon-green);">
+            <h2>
+                <span id="display-title">03 // PROTOCOLO DE PRACTICA</span>
+                <span id="source-tag" style="font-size: 0.7rem; color: var(--neon-yellow); font-family: 'Share Tech Mono';">FUENTE: STANDBY</span>
+            </h2>
+
+            <div class="terminal-display" id="prompt-display">
+                Cargando repositorio de prompts interactivos...
+            </div>
+
+            <div style="margin-top: 16px; display: flex; gap: 12px; flex-wrap: wrap; align-items: center;">
+                <button class="cyber-btn green" id="btn-audio-prompt" onclick="speakCurrentPrompt()" style="display: none;">
+                    ESCUCHAR SITUACION COMPLETA (TTS)
+                </button>
+            </div>
+        </section>
+
+        <!-- PANEL DE GESTION (ADMIN ONLY) -->
+        <section class="protocol-card admin-only" style="border-color: var(--neon-pink);">
+            <h2 style="color: var(--neon-pink); cursor: pointer;" onclick="toggleAddPromptPanel()">
+                <span>04 // GESTOR DE PROMPTS (SUBIR PDF / MANUAL)</span>
+                <span id="toggle-panel-icon" style="font-size: 0.8rem;">[DESPLEGAR]</span>
+            </h2>
+
+            <div id="add-prompt-panel" style="display: none; margin-top: 14px;">
+                <div class="upload-drop-zone">
+                    <div style="font-family: 'Orbitron'; font-size: 0.85rem; color: var(--neon-cyan); margin-bottom: 6px;">
+                        EXTRAER PROMPTS DIRECTAMENTE DESDE ARCHIVO PDF
+                    </div>
+                    <p style="font-size: 0.78rem; color: var(--text-dim); font-family: 'Share Tech Mono'; margin-bottom: 12px;">
+                        Sube un examen oficial en PDF. El motor aislará las situaciones y formulará las preguntas sugeridas de indagación.
+                    </p>
+                    <input type="file" id="prompt-pdf-input" accept=".pdf" style="display: none;" onchange="handlePromptPDFUpload(this)">
+                    <button class="cyber-btn" onclick="document.getElementById('prompt-pdf-input').click()">SELECCIONAR ARCHIVO PDF</button>
+                    <div id="pdf-prompt-status" style="font-family: 'Share Tech Mono'; font-size: 0.8rem; margin-top: 8px;"></div>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 2fr; gap: 12px; margin-top: 16px;">
+                    <div>
+                        <label style="font-family: 'Share Tech Mono'; font-size: 0.78rem; color: var(--neon-yellow);">TEMA / CATEGORIA:</label>
+                        <input type="text" id="new-prompt-topic" class="cyber-input" placeholder="Ej. Workplace Relocation, AI Adoption">
+                    </div>
+                    <div>
+                        <label style="font-family: 'Share Tech Mono'; font-size: 0.78rem; color: var(--neon-cyan);">ENUNCIADO DEL DILEMA / SITUACION:</label>
+                        <input type="text" id="new-prompt-text" class="cyber-input" placeholder="Ej. I have been offered a senior position...">
+                    </div>
+                </div>
+
+                <div style="margin-top: 8px;">
+                    <label style="font-family: 'Share Tech Mono'; font-size: 0.78rem; color: var(--neon-yellow);">OBJETIVO DEL CANDIDATO (GOAL):</label>
+                    <input type="text" id="new-prompt-goal" class="cyber-input" placeholder="Ej. Inquire about transportation, working flexibility...">
+                </div>
+
+                <div style="margin-top: 8px;">
+                    <label style="font-family: 'Share Tech Mono'; font-size: 0.78rem; color: var(--neon-green);">PREGUNTAS SUGERIDAS (UNA POR LINEA O NUMERADAS):</label>
+                    <textarea id="new-prompt-questions" class="cyber-input" style="height: 85px;" placeholder="1. Could you tell me whether the company allows hybrid work?&#10;2. Have you taken into consideration the vehicle running costs?&#10;3. Would you mind explaining the local amenities?&#10;4. What would you say to a trial period?"></textarea>
+                </div>
+
+                <div style="margin-top: 8px;">
+                    <label style="font-family: 'Share Tech Mono'; font-size: 0.78rem; color: var(--text-dim);">CONECTORES / FRASES CLAVE:</label>
+                    <input type="text" id="new-prompt-connectors" class="cyber-input" placeholder="- In stark contrast to... - Taking everything into account...">
+                </div>
+
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 12px;">
+                    <button class="cyber-btn pink" onclick="saveNewPromptToBank()">GUARDAR PROMPT EN EL BANCO</button>
+                    <span id="save-prompt-status" style="font-family: 'Share Tech Mono'; font-size: 0.8rem; color: var(--neon-green);"></span>
+                </div>
+
+                <div style="margin-top: 20px; border-top: 1px solid rgba(255, 0, 85, 0.2); padding-top: 14px;">
+                    <div style="font-family: 'Orbitron'; font-size: 0.82rem; color: #fff; margin-bottom: 8px;">PROMPTS EN BASE DE DATOS CIFRADA:</div>
+                    <div id="prompt-list-container"></div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        const API_BASE = "/api";
+        let activeMode = "manual";
+        let currentPromptData = { topic: "", text: "", goal: "", suggested_questions: [], connectors: "", source: "" };
+        let userState = { username: "candidate_operator", role: "user", selected_model: "kalikorpz/glm-4.7-flash:latest", theme: "cyberpunk", custom_prompts: [] };
+
+        function sanitizeForHtmlAttr(str) {
+            if (!str) return "";
+            return String(str)
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#39;')
+                .replace(/\n/g, ' ');
+        }
+
+        async function init() {
+            try {
+                const whoRes = await fetch(`${API_BASE}/user/whoami`, { credentials: 'include' });
+                if (!whoRes.ok) {
+                    window.location.href = '/login.html';
+                    return;
+                }
+            } catch (e) {
+                window.location.href = '/login.html';
+                return;
+            }
+
+            try {
+                const res = await fetch(`${API_BASE}/user/state`, { credentials: 'include' });
+                if (res.ok) {
+                    const data = await res.json();
+                    userState = Object.assign(userState, data);
+                    if (!userState.custom_prompts) userState.custom_prompts = [];
+                }
+            } catch (e) {
+                console.warn("Modo fallback local:", e);
+            }
+
+            applyRolePermissions();
+
+            if (userState.theme && typeof applyTheme === 'function') {
+                applyTheme(userState.theme);
+            }
+
+            if (userState.role === 'admin') {
+                await loadModels();
+            }
+
+            renderBankDropdown();
+            renderBankList();
+
+            if (userState.custom_prompts.length > 0) {
+                displayPromptItem(userState.custom_prompts[0]);
+            }
+        }
+
+        function applyRolePermissions() {
+            const isAdmin = userState.role === 'admin';
+            document.querySelectorAll('.admin-only').forEach(el => {
+                el.style.display = isAdmin ? '' : 'none';
+            });
+
+            if (!isAdmin) {
+                setMode('manual');
+            }
+
+            const userTag = document.getElementById('current-user-tag');
+            if (userTag) {
+                const badgeColor = isAdmin ? 'var(--neon-pink)' : 'var(--neon-cyan)';
+                const badgeText = isAdmin ? '[ADMIN]' : '[STUDENT]';
+                userTag.innerHTML = `${(userState.username || "OPERATOR").toUpperCase()} <span style="font-size:0.65rem; color:${badgeColor}; font-weight:bold;">${badgeText}</span>`;
+            }
+        }
+
+        async function loadModels() {
+            const select = document.getElementById('model-select');
+            try {
+                const res = await fetch(`${API_BASE}/models`, { credentials: 'include' });
+                if (res.ok) {
+                    const data = await res.json();
+                    select.innerHTML = '';
+                    data.models.forEach(m => {
+                        const opt = document.createElement('option');
+                        opt.value = m;
+                        opt.innerText = m;
+                        select.appendChild(opt);
+                    });
+                    const chosen = userState.selected_model || data.models[0];
+                    select.value = data.models.includes(chosen) ? chosen : data.models[0];
+                    userState.selected_model = select.value;
+                }
+            } catch (err) {
+                console.warn("No se pudieron cargar modelos:", err);
+            }
+        }
+
+        function changeActiveModel(val) {
+            userState.selected_model = val;
+            persistState();
+        }
+
+        async function persistState() {
+            try {
+                await fetch(`${API_BASE}/user/state`, {
+                    method: 'POST',
+                    credentials: 'include',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(userState)
+                });
+            } catch (err) {
+                console.error("Error persistiendo datos:", err);
+            }
+        }
+
+        function setMode(mode) {
+            activeMode = mode;
+            const isAuto = mode === 'auto';
+            const autoCard = document.getElementById('card-mode-auto');
+            const manualCard = document.getElementById('card-mode-manual');
+
+            if (autoCard) autoCard.classList.toggle('active', isAuto);
+            if (manualCard) manualCard.classList.toggle('active', !isAuto);
+
+            const badgeAuto = document.getElementById('badge-auto');
+            const badgeManual = document.getElementById('badge-manual');
+            if (badgeAuto) {
+                badgeAuto.innerText = isAuto ? '[ACTIVO]' : '[INACTIVO]';
+                badgeAuto.style.color = isAuto ? 'var(--neon-yellow)' : 'var(--text-dim)';
+            }
+            if (badgeManual) {
+                badgeManual.innerText = !isAuto ? '[ACTIVO]' : '[INACTIVO]';
+                badgeManual.style.color = !isAuto ? 'var(--neon-green)' : 'var(--text-dim)';
+            }
+        }
+
+        function renderPromptCard(data) {
+            const display = document.getElementById('prompt-display');
+            document.getElementById('source-tag').innerText = "FUENTE: " + (data.source || "BANCO");
+
+            const questionsList = (data.suggested_questions && data.suggested_questions.length > 0)
+                ? data.suggested_questions.map((q, idx) => {
+                    const cleanQ = sanitizeForHtmlAttr(q);
+                    return `
+                        <li style="display: flex; gap: 10px; align-items: flex-start; background: rgba(0, 255, 102, 0.04); padding: 8px 12px; border-left: 2px solid var(--neon-green); font-family: 'Share Tech Mono';">
+                            <span style="color: var(--neon-green); font-weight: bold; font-size: 0.85rem;">[Q${idx + 1}]</span>
+                            <span style="color: #fff; flex: 1; font-size: 0.9rem; line-height: 1.4;">${q}</span>
+                            <button class="play-btn-mini" onclick="playNeuralTTS('${cleanQ}', 'en-GB-RyanNeural')" title="Escuchar pregunta">TTS</button>
+                        </li>
+                    `;
+                }).join('')
+                : `<li style="color: var(--text-dim); font-family: 'Share Tech Mono'; padding: 8px 0;">[!] No hay preguntas de indagación predefinidas.</li>`;
+
+            const goalBlock = data.goal ? `
+                <div style="margin-top: 14px; background: rgba(255, 187, 0, 0.06); padding: 10px 12px; border-left: 3px solid var(--neon-yellow);">
+                    <div class="drill-label" style="color: var(--neon-yellow); font-weight: bold; margin-bottom: 4px;">// CANDIDATE OBJECTIVE / GOAL</div>
+                    <div style="font-family: 'Share Tech Mono'; font-size: 0.88rem; color: #fff; line-height: 1.45;">${data.goal}</div>
+                </div>
+            ` : '';
+
+            const connectorsBlock = data.connectors ? `
+                <div style="margin-top: 14px; background: rgba(255, 0, 85, 0.06); padding: 10px 12px; border-left: 3px solid var(--neon-pink);">
+                    <div class="drill-label" style="color: var(--neon-pink); font-weight: bold; margin-bottom: 4px;">// STRATEGIC CONNECTORS & PHRASES (B2/C1)</div>
+                    <div class="phrases-box">${data.connectors}</div>
+                </div>
+            ` : '';
+
+            display.innerHTML = `
+                <div class="drill-block">
+                    <div>
+                        <div class="drill-label" style="color: var(--neon-cyan); font-weight: bold; margin-bottom: 4px;">// SITUACION / DILEMA (EXAMINER STATEMENT)</div>
+                        <div style="font-family: 'Share Tech Mono'; font-size: 1.05rem; color: #fff; line-height: 1.5; background: rgba(0, 240, 255, 0.05); padding: 14px; border-left: 3px solid var(--neon-cyan);">
+                            "${data.text}"
+                        </div>
+                    </div>
+
+                    ${goalBlock}
+
+                    <div style="margin-top: 14px;">
+                        <div class="drill-label" style="color: var(--neon-green); font-weight: bold; margin-bottom: 8px;">// PREGUNTAS SUGERIDAS DE INDAGACION (4 STRATEGIC QUESTIONS)</div>
+                        <ul style="list-style: none; padding-left: 0; margin: 0; display: flex; flex-direction: column; gap: 8px;">
+                            ${questionsList}
+                        </ul>
+                    </div>
+
+                    ${connectorsBlock}
+                </div>
+            `;
+
+            document.getElementById('btn-audio-prompt').style.display = "inline-flex";
+        }
+
+        function displayPromptItem(item) {
+            if (!item) return;
+
+            // Soporte universal de claves: statement (tu BD) || prompt || scenario || text
+            const rawText = item.statement || item.prompt || item.scenario || item.text || item.dilemma || "Sin enunciado disponible";
+            const goalText = item.goal || item.objective || "";
+
+            // Desglose de preguntas desde string con saltos de línea (1. ... \n 2. ...) o array
+            let qList = [];
+            const rawQ = item.questions || item.suggested_questions || item.hints || [];
+            if (Array.isArray(rawQ)) {
+                qList = rawQ.map(q => typeof q === 'string' ? q : (q.text || q.question || JSON.stringify(q)));
+            } else if (typeof rawQ === 'string' && rawQ.trim()) {
+                qList = rawQ.split('\n')
+                    .map(l => l.replace(/^[-*•\d\.\s\(\)]+/, '').trim())
+                    .filter(Boolean);
+            }
+
+            // Desglose de conectores: phrases (tu BD) || connectors
+            const phrasesText = item.phrases || item.connectors || "";
+
+            currentPromptData = {
+                topic: item.topic || "General Discussion",
+                text: rawText,
+                goal: goalText,
+                suggested_questions: qList,
+                connectors: phrasesText,
+                source: "BANCO // " + (item.topic || "B2").toUpperCase()
+            };
+
+            renderPromptCard(currentPromptData);
+        }
+
+        function loadRandomPrompt(e) {
+            if (e) e.stopPropagation();
+            setMode('manual');
+            const bank = userState.custom_prompts || [];
+            if (!bank.length) return alert("El banco de prompts está vacío.");
+            const item = bank[Math.floor(Math.random() * bank.length)];
+            displayPromptItem(item);
+        }
+
+        function loadSelectedPrompt(id, e) {
+            if (e) e.stopPropagation();
+            if (!id) return;
+            setMode('manual');
+            const item = (userState.custom_prompts || []).find(p => p.id === id);
+            if (item) displayPromptItem(item);
+        }
+
+        function parseAIPromptResponse(rawText, modelName) {
+            const topicMatch = rawText.match(/TOPIC:\s*(.*?)(?=\n|STATEMENT:|PROMPT:|$)/i);
+            const statementMatch = rawText.match(/(?:STATEMENT|PROMPT|SITUATION):\s*([\s\S]*?)(?=\nGOAL:|\nQUESTIONS:|\nSUGGESTED_QUESTIONS:|\nPHRASES:|\nCONNECTORS:|$)/i);
+            const goalMatch = rawText.match(/GOAL:\s*([\s\S]*?)(?=\nQUESTIONS:|\nSUGGESTED_QUESTIONS:|\nPHRASES:|\nCONNECTORS:|$)/i);
+            const questionsMatch = rawText.match(/(?:QUESTIONS|SUGGESTED_QUESTIONS):\s*([\s\S]*?)(?=\nPHRASES:|\nCONNECTORS:|$)/i);
+            const phrasesMatch = rawText.match(/(?:PHRASES|CONNECTORS):\s*([\s\S]*?)$/i);
+
+            let questions = [];
+            if (questionsMatch) {
+                questions = questionsMatch[1]
+                    .split('\n')
+                    .map(line => line.replace(/^[-*•\d\.\s\(\)]+/, '').trim())
+                    .filter(line => line.length > 0);
+            }
+
+            return {
+                topic: topicMatch ? topicMatch[1].trim() : "Interactive Challenge",
+                text: statementMatch ? statementMatch[1].replace(/^"|"$/g, '').trim() : rawText.trim(),
+                goal: goalMatch ? goalMatch[1].trim() : "Inquire about details, assess options, and propose a viable compromise.",
+                suggested_questions: questions.length ? questions : [
+                    "Could you elaborate on the reasons behind this situation?",
+                    "What alternative arrangements might be feasible in the short term?",
+                    "How would this decision impact our current workload?",
+                    "Would it be possible to pilot a provisional trial period?"
+                ],
+                connectors: phrasesMatch ? phrasesMatch[1].trim() : "- In stark contrast to...\n- Taking everything into account...\n- Have you weighed up the pros and cons of...?",
+                source: "IA_GENERATOR // " + modelName.toUpperCase()
+            };
+        }
+
+        async function fetchAIPrompt(e) {
+            if (e) e.stopPropagation();
+            if (userState.role !== 'admin') return alert("Operación exclusiva de administradores.");
+
+            setMode('auto');
+            const display = document.getElementById('prompt-display');
+            const modelToUse = userState.selected_model || (document.getElementById('model-select') ? document.getElementById('model-select').value : "");
+            display.innerHTML = `<span style='color: var(--neon-yellow);'>[>] GENERANDO RETO INTERACTIVO CON ${modelToUse.toUpperCase()}...</span>`;
+            document.getElementById('btn-audio-prompt').style.display = "none";
+
+            try {
+                const res = await fetch(`${API_BASE}/generate`, {
+                    method: 'POST',
+                    credentials: 'include',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ category: "prompt", model: modelToUse })
+                });
+                if (!res.ok) throw new Error(await res.text());
+                const data = await res.json();
+
+                currentPromptData = parseAIPromptResponse(data.content, modelToUse);
+                renderPromptCard(currentPromptData);
+            } catch (err) {
+                display.innerHTML = `<span style='color: var(--neon-pink);'>[ERROR] ${err.message}</span>`;
+            }
+        }
+
+        async function speakCurrentPrompt() {
+            if (!currentPromptData.text) return;
+            playNeuralTTS(currentPromptData.text, "en-GB-RyanNeural");
+        }
+
+        async function playNeuralTTS(textToRead, voiceName) {
+            try {
+                const res = await fetch(`${API_BASE}/tts`, {
+                    method: 'POST',
+                    credentials: 'include',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ text: textToRead, voice: voiceName, rate: "-5%" })
+                });
+                if (!res.ok) throw new Error(await res.text());
+                const data = await res.json();
+                new Audio(data.audio_url).play();
+            } catch (err) {
+                alert(`Error TTS: ${err.message}`);
+            }
+        }
+
+        async function handlePromptPDFUpload(input) {
+            if (userState.role !== 'admin') return alert("Operación exclusiva de administradores.");
+            if (!input.files || input.files.length === 0) return;
+            const file = input.files[0];
+            const status = document.getElementById('pdf-prompt-status');
+            const modelToUse = userState.selected_model || (document.getElementById('model-select') ? document.getElementById('model-select').value : "");
+
+            status.innerHTML = `<span style="color: var(--neon-yellow);">[PROCESANDO] Extrayendo prompts con ${modelToUse.toUpperCase()}...</span>`;
+
+            const formData = new FormData();
+            formData.append('file', file);
+            formData.append('model', modelToUse);
+
+            try {
+                const res = await fetch(`${API_BASE}/upload-pdf-prompts`, {
+                    method: 'POST',
+                    credentials: 'include',
+                    body: formData
+                });
+                if (!res.ok) throw new Error(await res.text());
+                const data = await res.json();
+
+                const rawList = data.custom_prompts || data.extracted_prompts || [];
+                const normalized = rawList.map((item, idx) => ({
+                    id: item.id || `p_${Date.now()}_${idx}`,
+                    topic: item.topic || "Discussion",
+                    statement: item.statement || item.prompt || item.text || "Consigna sin título",
+                    goal: item.goal || item.objective || "",
+                    questions: typeof item.questions === 'string' ? item.questions : (Array.isArray(item.suggested_questions) ? item.suggested_questions.join('\n') : ""),
+                    phrases: item.phrases || item.connectors || ""
+                })).filter(p => p.statement.trim().length > 0);
+
+                userState.custom_prompts = [...(userState.custom_prompts || []), ...normalized];
+                await persistState();
+
+                renderBankDropdown();
+                renderBankList();
+
+                status.innerHTML = `<span style="color: var(--neon-green);">[OK] Indexados ${normalized.length} prompts desde el PDF.</span>`;
+                input.value = "";
+                setTimeout(() => { status.innerHTML = ""; }, 5000);
+            } catch (err) {
+                status.innerHTML = `<span style="color: var(--neon-pink);">[ERROR] ${err.message}</span>`;
+            }
+        }
+
+        function toggleAddPromptPanel() {
+            const panel = document.getElementById('add-prompt-panel');
+            const icon = document.getElementById('toggle-panel-icon');
+            const isOpen = panel.style.display === 'block';
+            panel.style.display = isOpen ? 'none' : 'block';
+            icon.innerText = isOpen ? '[DESPLEGAR]' : '[OCULTAR]';
+        }
+
+        function saveNewPromptToBank() {
+            if (userState.role !== 'admin') return alert("Operación exclusiva de administradores.");
+            const topic = document.getElementById('new-prompt-topic').value.trim();
+            const text = document.getElementById('new-prompt-text').value.trim();
+            const goal = document.getElementById('new-prompt-goal').value.trim();
+            const rawQuestions = document.getElementById('new-prompt-questions').value.trim();
+            const connectors = document.getElementById('new-prompt-connectors').value.trim();
+
+            if (!text) return alert("El enunciado de la situación es obligatorio.");
+
+            userState.custom_prompts.push({
+                id: "p_" + Date.now(),
+                topic: topic || "Discussion",
+                statement: text,
+                goal: goal,
+                questions: rawQuestions,
+                phrases: connectors
+            });
+            persistState();
+
+            document.getElementById('new-prompt-topic').value = "";
+            document.getElementById('new-prompt-text').value = "";
+            document.getElementById('new-prompt-goal').value = "";
+            document.getElementById('new-prompt-questions').value = "";
+            document.getElementById('new-prompt-connectors').value = "";
+
+            renderBankDropdown();
+            renderBankList();
+
+            const status = document.getElementById('save-prompt-status');
+            status.innerText = "PROMPT GUARDADO";
+            setTimeout(() => { status.innerText = ""; }, 2500);
+        }
+
+        function deletePromptItem(id) {
+            if (userState.role !== 'admin') return alert("Operación exclusiva de administradores.");
+            if (!confirm("¿Deseas eliminar este prompt del banco?")) return;
+            userState.custom_prompts = userState.custom_prompts.filter(p => p.id !== id);
+            persistState();
+            renderBankDropdown();
+            renderBankList();
+        }
+
+        function renderBankDropdown() {
+            const select = document.getElementById('prompt-bank-select');
+            select.innerHTML = '<option value="">-- SELECCIONAR PROMPT --</option>';
+            (userState.custom_prompts || []).forEach(p => {
+                const opt = document.createElement('option');
+                opt.value = p.id;
+                const txt = p.statement || p.prompt || p.text || "Sin enunciado";
+                opt.innerText = `[${p.topic || 'B2'}] ${txt.substring(0, 42)}...`;
+                select.appendChild(opt);
+            });
+        }
+
+        function renderBankList() {
+            const container = document.getElementById('prompt-list-container');
+            container.innerHTML = "";
+            const list = userState.custom_prompts || [];
+            if (!list.length) {
+                container.innerHTML = "<div style='color: var(--text-dim); font-size:0.8rem;'>No hay prompts guardados en el banco.</div>";
+                return;
+            }
+
+            list.forEach(p => {
+                const row = document.createElement('div');
+                row.className = 'prompt-bank-item';
+                const txt = p.statement || p.prompt || p.text || "Sin enunciado";
+                row.innerHTML = `
+                    <div style="min-width: 0; flex: 1; padding-right: 10px;">
+                        <span style="color: var(--neon-yellow); font-size: 0.72rem;">[${p.topic || 'General'}]</span>
+                        <span style="color: var(--text-main);">${txt}</span>
+                    </div>
+                    <button class="del-btn admin-only" onclick="deletePromptItem('${p.id}')">BORRAR</button>
+                `;
+                container.appendChild(row);
+            });
+            applyRolePermissions();
+        }
+
+        async function logout() {
+            try {
+                await fetch(`${API_BASE}/auth/logout`, { method: 'POST', credentials: 'include' });
+            } catch (e) {}
+            window.location.href = '/login.html';
+        }
+
+        window.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>

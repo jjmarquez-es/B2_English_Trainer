@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>VOBAUDI // NEURAL VOCAB DECK</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Rajdhani:wght@500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <script src="theme.js"></script>
+    <style>
+        .tabs-header {
+            display: flex;
+            gap: 8px;
+            border-bottom: 1px solid rgba(0, 240, 255, 0.2);
+            padding-bottom: 8px;
+            margin-bottom: 12px;
+        }
+
+        .tab-btn {
+            background: transparent;
+            border: 1px solid var(--border-glow);
+            color: var(--text-dim);
+            padding: 6px 14px;
+            font-family: 'Orbitron', monospace;
+            font-size: 0.72rem;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .tab-btn.active {
+            border-color: var(--neon-cyan);
+            color: var(--neon-cyan);
+            background: rgba(0, 240, 255, 0.1);
+        }
+
+        .tab-btn.pink.active {
+            border-color: var(--neon-pink);
+            color: var(--neon-pink);
+            background: rgba(255, 0, 85, 0.1);
+        }
+
+        .admin-only {
+            transition: opacity 0.2s ease;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="sidebar-overlay" id="sidebar-overlay" onclick="toggleSidebar()"></div>
+
+    <!-- BARRA LATERAL -->
+    <div class="sidebar" id="sidebar">
+        <div class="brand-header">
+            <div class="brand-info">
+                <div>
+                    <div class="brand-title">VOBAUDI</div>
+                    <div class="brand-subtitle">
+                        OPERATOR: <span id="current-user-sidebar" style="color: var(--neon-yellow);">SYNC...</span>
+                    </div>
+                </div>
+            </div>
+            <button class="close-sidebar-btn" onclick="toggleSidebar()">[X]</button>
+        </div>
+
+        <div class="search-container">
+            <input type="text" id="global-search" class="cyber-search" placeholder="SEARCH_DATABASE..." oninput="handleGlobalSearch(this.value)">
+        </div>
+
+        <div class="section-label">SYSTEM_NAVIGATION</div>
+        <a href="index.html" class="category-btn" style="text-decoration:none; border-color: var(--neon-yellow); color: var(--neon-yellow);">MISSION_CONTROL (TRACKER)</a>
+        <a href="grammar_deck.html" class="category-btn" style="text-decoration:none; border-color: var(--neon-pink); color: var(--neon-pink);">GRAMMAR_CLINIC</a>
+        <a href="speaking.html" class="category-btn" style="text-decoration:none; border-color: var(--neon-cyan); color: var(--neon-cyan);">SPEAKING_DECK</a>
+        <a href="prompt.html" class="category-btn" style="text-decoration:none; border-color: var(--neon-green); color: var(--neon-green);">INTERACTIVE_PROMPTS</a>
+
+        <div class="section-label">FOCUS_BANKS</div>
+        <button class="category-btn hard-btn" id="btn-hard-targets" onclick="loadHardTargets(); closeSidebarOnMobile();">HARD_TARGETS (<span id="hard-count">0</span>)</button>
+
+        <div class="section-label">DATA_BANKS</div>
+        <div id="category-list"></div>
+
+        <div class="section-label admin-only">MANAGEMENT</div>
+        <button class="category-btn admin-only" onclick="showAudioOps(); closeSidebarOnMobile();">> AUDIO_SYNTHESIS_OPS</button>
+
+        <div style="margin-top: 14px; padding-top: 10px; border-top: 1px solid rgba(255, 0, 85, 0.2);">
+            <button class="cyber-btn pink" onclick="logout()" style="width:100%; justify-content:center;">LOGOUT</button>
+        </div>
+    </div>
+
+    <!-- CONTENEDOR PRINCIPAL -->
+    <div class="main-content" id="workspace-container">
+        
+        <!-- VISTA DE REPRODUCCION -->
+        <div id="audio-view" style="height: 100%; display: flex; flex-direction: column;">
+            <div class="deck-header">
+                <div style="display: flex; align-items: center; gap: 10px; min-width: 0;">
+                    <button class="mobile-menu-trigger" onclick="toggleSidebar()">MENU</button>
+                    <div style="min-width: 0;">
+                        <div style="font-family: 'Share Tech Mono'; font-size: 0.68rem; color: var(--neon-cyan);" id="status-line">NODE_READY</div>
+                        <div class="deck-title" id="current-category-title">SELECT_DATA_NODE</div>
+                    </div>
+                </div>
+                <div class="hud-actions">
+                    <button class="cyber-btn yellow admin-only" id="btn-generate-md" onclick="generateCategoryMarkdown()" style="display:none; font-size:0.68rem; padding:6px 12px;">
+                        REGENERAR APUNTES IA
+                    </button>
+                    <button class="cyber-btn" id="recall-toggle-btn" onclick="toggleActiveRecall()">RECALL</button>
+                    <button class="cyber-btn" onclick="playAll()">EXECUTE</button>
+                    <button class="cyber-btn pink" onclick="playSelected()">SELECTED</button>
+                    <label for="theme-select" style="color: var(--neon-pink); font-family: 'Share Tech Mono'; font-size: 0.75rem;">THEME:</label>
+                    <select id="theme-select" class="cyber-select" onchange="changeActiveTheme(this.value)">
+                        <option value="cyberpunk">CYBERPUNK</option>
+                        <option value="matrix">MATRIX</option>
+                        <option value="university">UNIVERSITARIO</option>
+                        <option value="synthwave">OCHENTERO</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div id="shadow-progress"></div>
+
+            <div class="content-split" style="margin-top: 8px;">
+                <div class="tracks-column" id="track-list"></div>
+                <div class="markdown-column" id="markdown-content">
+                    <p style="color: var(--text-dim); font-family: 'Share Tech Mono';">PULSA 'MENU' O SELECCIONA UNA CATEGORIA PARA INICIALIZAR EL REPOSITORIO.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- VISTA DE GESTION Y SUBIDA DE AUDIOS (ADMIN ONLY) -->
+        <div id="ops-view" class="admin-only" style="display: none; height: 100%; overflow-y: auto; padding: 10px;">
+            <div class="deck-header">
+                <div style="display: flex; align-items: center; gap: 10px;">
+                    <button class="mobile-menu-trigger" onclick="toggleSidebar()">MENU</button>
+                    <div class="deck-title">> AUDIO_SYNTHESIS_OPS // GESTOR DE AUDIOS</div>
+                </div>
+            </div>
+
+            <div class="tabs-header" style="margin-top: 14px;">
+                <button class="tab-btn active" id="tab-btn-gen" onclick="switchOpsTab('gen')">01 // SINTETIZAR AUDIO NEURONAL</button>
+                <button class="tab-btn pink" id="tab-btn-up" onclick="switchOpsTab('up')">02 // SUBIR ARCHIVO MP3</button>
+            </div>
+
+            <div id="ops-gen-panel" class="protocol-card" style="border-color: var(--neon-cyan);">
+                <h3 style="font-family: 'Orbitron'; font-size: 1rem; color: var(--neon-cyan); margin-bottom: 8px;">
+                    SINTETIZAR NUEVO AUDIO NEURONAL (EDGE-TTS)
+                </h3>
+                <p style="font-size: 0.85rem; color: var(--text-dim); font-family: 'Share Tech Mono'; margin-bottom: 14px;">
+                    Genera un archivo MP3 en acento nativo británico y almacénalo en una categoría existente o escribe una nueva:
+                </p>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px;">
+                    <div>
+                        <label style="font-family: 'Share Tech Mono'; font-size: 0.78rem; color: var(--neon-yellow);">CATEGORIA:</label>
+                        <input type="text" id="gen-cat-input" class="cyber-input" placeholder="Ej. Environment o IrregularVerbs" list="existing-cats-list">
+                        <datalist id="existing-cats-list"></datalist>
+                    </div>
+                    <div>
+                        <label style="font-family: 'Share Tech Mono'; font-size: 0.78rem; color: var(--neon-cyan);">NOMBRE DEL ARCHIVO (OPCIONAL):</label>
+                        <input type="text" id="gen-name-input" class="cyber-input" placeholder="Ej. break_broke_broken">
+                    </div>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px;">
+                    <div>
+                        <label style="font-family: 'Share Tech Mono'; font-size: 0.78rem; color: var(--neon-green);">VOZ BRITANICA:</label>
+                        <select id="gen-voice-select" class="cyber-select" style="width: 100%; padding: 10px;">
+                            <option value="en-GB-SoniaNeural">en-GB-SoniaNeural (Femenina)</option>
+                            <option value="en-GB-RyanNeural">en-GB-RyanNeural (Masculina)</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label style="font-family: 'Share Tech Mono'; font-size: 0.78rem; color: var(--neon-cyan);">VELOCIDAD:</label>
+                        <select id="gen-rate-select" class="cyber-select" style="width: 100%; padding: 10px;">
+                            <option value="-5%">Normal (-5%)</option>
+                            <option value="-15%">Lenta (-15%)</option>
+                            <option value="+0%">Rápida (0%)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <label style="font-family: 'Share Tech Mono'; font-size: 0.78rem; color: var(--text-dim);">TEXTO / FRASE A PRONUNCIAR:</label>
+                <textarea id="gen-text-input" class="cyber-input" style="height: 90px;" placeholder="Escribe la frase o palabra en inglés..."></textarea>
+
+                <div style="margin-top: 10px; display: flex; align-items: center; gap: 12px;">
+                    <button class="cyber-btn" onclick="submitGenerateAudio()">SINTETIZAR Y GUARDAR EN DISCO</button>
+                    <span id="gen-status" style="font-family: 'Share Tech Mono'; font-size: 0.8rem;"></span>
+                </div>
+            </div>
+
+            <div id="ops-up-panel" class="protocol-card" style="display: none; border-color: var(--neon-pink);">
+                <h3 style="font-family: 'Orbitron'; font-size: 1rem; color: var(--neon-pink); margin-bottom: 8px;">
+                    SUBIR ARCHIVO MP3 AL SERVIDOR
+                </h3>
+                <p style="font-size: 0.85rem; color: var(--text-dim); font-family: 'Share Tech Mono'; margin-bottom: 14px;">
+                    Sube una pista de audio local a una categoría existente o crea una nueva:
+                </p>
+
+                <div style="margin-bottom: 12px;">
+                    <label style="font-family: 'Share Tech Mono'; font-size: 0.78rem; color: var(--neon-yellow);">CATEGORIA DE DESTINO:</label>
+                    <input type="text" id="up-cat-input" class="cyber-input" placeholder="Ej. Environment" list="existing-cats-list">
+                </div>
+
+                <div class="upload-drop-zone">
+                    <input type="file" id="up-file-input" accept=".mp3" style="display: none;" onchange="updateUploadLabel(this)">
+                    <button class="cyber-btn pink" onclick="document.getElementById('up-file-input').click()">SELECCIONAR ARCHIVO MP3</button>
+                    <div id="up-file-label" style="font-family: 'Share Tech Mono'; font-size: 0.8rem; margin-top: 8px; color: var(--text-dim);">Ningún archivo seleccionado</div>
+                </div>
+
+                <div style="margin-top: 14px; display: flex; align-items: center; gap: 12px;">
+                    <button class="cyber-btn" onclick="submitUploadAudio()">SUBIR ARCHIVO A CATEGORIA</button>
+                    <span id="up-status" style="font-family: 'Share Tech Mono'; font-size: 0.8rem;"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PLAYER HUD INFERIOR -->
+    <div class="player-hud">
+        <div class="now-playing-box">
+            <div class="now-playing-tag">
+                <span>// STREAM</span>
+                <span id="loop-indicator">LOOP: 1/1</span>
+            </div>
+            <div class="now-playing-title" id="now-playing">STANDBY...</div>
+            <div class="session-stats">SESSION: <span id="session-counter">0</span> TRACKS</div>
+        </div>
+
+        <div class="visualizer-container">
+            <canvas id="visualizer-canvas" width="110" height="36"></canvas>
+        </div>
+
+        <div class="hud-center-controls">
+            <audio id="main-player" controls></audio>
+            
+            <div class="hud-actions-row">
+                <button id="shuffle-btn" class="hud-mini-btn" onclick="toggleShuffle()">SHUFFLE</button>
+                
+                <div class="control-group">
+                    <span style="color: var(--text-dim);">L:</span>
+                    <button class="control-btn active" onclick="setLoopCount(1, this)">1x</button>
+                    <button class="control-btn" onclick="setLoopCount(2, this)">2x</button>
+                    <button class="control-btn" onclick="setLoopCount(3, this)">3x</button>
+                </div>
+
+                <div class="control-group">
+                    <span style="color: var(--neon-yellow);">SHAD:</span>
+                    <button class="control-btn active" onclick="setShadowDelay(0, this)">0s</button>
+                    <button class="control-btn" onclick="setShadowDelay(1.5, this)">1.5s</button>
+                    <button class="control-btn" onclick="setShadowDelay(3, this)">3s</button>
+                </div>
+
+                <div class="control-group">
+                    <span style="color: var(--text-dim);">SPD:</span>
+                    <button class="control-btn" onclick="setSpeed(0.8, this)">0.8x</button>
+                    <button class="control-btn active" onclick="setSpeed(1.0, this)">1.0x</button>
+                    <button class="control-btn" onclick="setSpeed(1.25, this)">1.25x</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const API_BASE = "/api";
+        let audioData = {};
+        let activeCategory = "";
+        let userState = { username: "candidate_operator", role: "user", theme: "cyberpunk", hard_targets: [] };
+
+        async function initUserProfile() {
+			// Si no hay operador autenticado, enviar a login
+			const whoRes = await fetch('/api/user/whoami', { credentials: 'include' });
+			if (!whoRes.ok) {
+				window.location.href = '/login.html';
+				return;
+			}
+            try {
+                const res = await fetch(`${API_BASE}/user/state`, { credentials: 'include' });
+                if (res.ok) {
+                    const data = await res.json();
+                    userState = Object.assign(userState, data);
+                    if (!userState.hard_targets) userState.hard_targets = [];
+                }
+            } catch (e) { console.warn("Modo local fallback:", e); }
+
+            applyRolePermissions();
+
+            if (userState.theme && typeof applyTheme === 'function') {
+                applyTheme(userState.theme);
+            }
+
+            updateHardCount();
+            await loadCatalog();
+        }
+
+        function applyRolePermissions() {
+            const isAdmin = userState.role === 'admin';
+            document.querySelectorAll('.admin-only').forEach(el => {
+                el.style.display = isAdmin ? '' : 'none';
+            });
+
+            const operatorElem = document.getElementById('current-user-sidebar');
+            if (operatorElem) {
+                const badgeColor = isAdmin ? 'var(--neon-pink)' : 'var(--neon-cyan)';
+                const badgeText = isAdmin ? '[ADMIN]' : '[STUDENT]';
+                operatorElem.innerHTML = `${(userState.username || "OPERATOR").toUpperCase()} <span style="font-size:0.65rem; color:${badgeColor}; font-weight:bold;">${badgeText}</span>`;
+            }
+        }
+
+        async function loadCatalog() {
+            try {
+                const res = await fetch(`${API_BASE}/vocab/catalog`, { credentials: 'include' });
+                if (res.ok) {
+                    audioData = await res.json();
+                    renderCategoryList();
+                    populateCategoryDatalists();
+                }
+            } catch (e) {
+                console.error("Error cargando catálogo:", e);
+            }
+        }
+
+        function renderCategoryList() {
+            const catList = document.getElementById('category-list');
+            catList.innerHTML = '';
+            for (const category in audioData) {
+                const btn = document.createElement('button');
+                btn.className = 'category-btn';
+                btn.id = 'cat-btn-' + category.replace(/\//g, '_');
+                btn.innerText = '> ' + category;
+                btn.onclick = () => {
+                    loadCategory(category, btn);
+                    closeSidebarOnMobile();
+                };
+                catList.appendChild(btn);
+            }
+        }
+
+        function populateCategoryDatalists() {
+            const dl = document.getElementById('existing-cats-list');
+            if (!dl) return;
+            dl.innerHTML = '';
+            for (const cat in audioData) {
+                const opt = document.createElement('option');
+                opt.value = cat;
+                dl.appendChild(opt);
+            }
+        }
+
+        function loadCategory(category, activeBtn) {
+            activeCategory = category;
+            document.getElementById('audio-view').style.display = 'flex';
+            document.getElementById('ops-view').style.display = 'none';
+            document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
+            if (activeBtn) activeBtn.classList.add('active');
+            
+            document.getElementById('current-category-title').innerText = category.toUpperCase();
+            document.getElementById('status-line').innerText = 'NODE_ACTIVE // ' + category;
+            
+            const categoryData = audioData[category];
+            renderTracks(categoryData.tracks);
+
+            const mdContent = document.getElementById('markdown-content');
+            const genMdBtn = document.getElementById('btn-generate-md');
+            if (userState.role === 'admin') {
+                genMdBtn.style.display = 'inline-flex';
+            }
+
+            if (categoryData.markdown && categoryData.markdown.trim() !== "") {
+                mdContent.innerHTML = marked.parse(categoryData.markdown);
+            } else {
+                mdContent.innerHTML = `
+                    <p style="color: var(--neon-yellow); font-family: Share Tech Mono;">
+                        [!] NO HAY APUNTES MARKDOWN DISPONIBLES EN ESTA CATEGORIA.
+                    </p>
+                    ${userState.role === 'admin' ? '<button class="cyber-btn yellow" style="margin-top: 10px;" onclick="generateCategoryMarkdown()">GENERAR APUNTES CON IA</button>' : ''}
+                `;
+            }
+        }
+
+        async function generateCategoryMarkdown() {
+            if (userState.role !== 'admin') return alert("Operación exclusiva de administradores.");
+            if (!activeCategory) return;
+            const mdContent = document.getElementById('markdown-content');
+            const modelToUse = (userState && userState.selected_model) ? userState.selected_model : "";
+
+            mdContent.innerHTML = `<p style="color: var(--neon-yellow); font-family: 'Share Tech Mono';">[PROCESANDO] Sintetizando apuntes con IA para '${activeCategory}'... Por favor espera.</p>`;
+
+            try {
+                const res = await fetch(`${API_BASE}/vocab/markdown?category=${encodeURIComponent(activeCategory)}&model=${encodeURIComponent(modelToUse)}&force_refresh=true`, { credentials: 'include' });
+                if (!res.ok) throw new Error(await res.text());
+                const data = await res.json();
+                audioData[activeCategory].markdown = data.markdown;
+                mdContent.innerHTML = marked.parse(data.markdown);
+            } catch (e) {
+                mdContent.innerHTML = `<p style="color: var(--neon-pink); font-family: 'Share Tech Mono';">[ERROR] ${e.message}</p>`;
+            }
+        }
+
+        function renderTracks(tracks) {
+            const trackList = document.getElementById('track-list');
+            trackList.innerHTML = '';
+            
+            tracks.forEach((trackPath, index) => {
+                const fileName = trackPath.split('/').pop().replace('.mp3', '');
+                const isHard = userState.hard_targets.includes(trackPath);
+                
+                const div = document.createElement('div');
+                div.className = 'track-item';
+                div.id = 'track-' + index;
+                div.innerHTML = `
+                    <input type="checkbox" class="track-checkbox" value="${trackPath}" data-index="${index}" checked>
+                    <button class="star-btn ${isHard ? 'starred' : ''}" onclick="toggleHardTarget('${trackPath}', this)">${isHard ? '[+]' : '[-]'}</button>
+                    <span class="track-name" onclick="playSingle('${trackPath}', ${index})">${fileName}</span>
+                    <button class="play-btn-mini" onclick="playSingle('${trackPath}', ${index})">RUN</button>
+                `;
+                trackList.appendChild(div);
+            });
+        }
+
+        function loadHardTargets() {
+            activeCategory = "";
+            document.getElementById('audio-view').style.display = 'flex';
+            document.getElementById('ops-view').style.display = 'none';
+            document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
+            document.getElementById('btn-hard-targets').classList.add('active');
+            document.getElementById('btn-generate-md').style.display = 'none';
+            
+            document.getElementById('current-category-title').innerText = 'HARD_TARGETS';
+            document.getElementById('status-line').innerText = 'PRIORITY_INTERCEPTION_BANK';
+            
+            renderTracks(userState.hard_targets);
+            document.getElementById('markdown-content').innerHTML = `
+                <h2>REVISION DE OBJETIVOS CRITICOS</h2>
+                <p>Terminos marcados para repaso intensivo: <strong>${userState.hard_targets.length}</strong></p>
+            `;
+        }
+
+        function handleGlobalSearch(query) {
+            if (!query || query.trim() === "") return;
+            const q = query.toLowerCase().trim();
+            const results = [];
+
+            for (const cat in audioData) {
+                audioData[cat].tracks.forEach(track => {
+                    if (track.toLowerCase().includes(q)) results.push(track);
+                });
+            }
+
+            document.getElementById('audio-view').style.display = 'flex';
+            document.getElementById('ops-view').style.display = 'none';
+            document.getElementById('current-category-title').innerText = 'SEARCH // ' + query.toUpperCase();
+            document.getElementById('status-line').innerText = `${results.length} COINCIDENCIAS`;
+            document.getElementById('btn-generate-md').style.display = 'none';
+            
+            renderTracks(results);
+            closeSidebarOnMobile();
+        }
+
+        function showAudioOps() {
+            if (userState.role !== 'admin') return alert("Operación exclusiva de administradores.");
+            document.getElementById('audio-view').style.display = 'none';
+            document.getElementById('ops-view').style.display = 'block';
+            document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
+        }
+
+        function switchOpsTab(tab) {
+            const isGen = tab === 'gen';
+            document.getElementById('ops-gen-panel').style.display = isGen ? 'block' : 'none';
+            document.getElementById('ops-up-panel').style.display = !isGen ? 'block' : 'none';
+            document.getElementById('tab-btn-gen').classList.toggle('active', isGen);
+            document.getElementById('tab-btn-up').classList.toggle('active', !isGen);
+        }
+
+        async function submitGenerateAudio() {
+            if (userState.role !== 'admin') return alert("Operación exclusiva de administradores.");
+            const cat = document.getElementById('gen-cat-input').value.trim();
+            const text = document.getElementById('gen-text-input').value.trim();
+            const filename = document.getElementById('gen-name-input').value.trim();
+            const voice = document.getElementById('gen-voice-select').value;
+            const rate = document.getElementById('gen-rate-select').value;
+            const status = document.getElementById('gen-status');
+
+            if (!cat || !text) return alert("La categoría y el texto son obligatorios.");
+
+            status.innerHTML = `<span style="color: var(--neon-yellow);">[PROCESANDO] Sintetizando audio...</span>`;
+
+            try {
+                const res = await fetch(`${API_BASE}/tts`, {
+                    method: 'POST',
+                    credentials: 'include',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ text: text, voice: voice, rate: rate })
+                });
+                if (!res.ok) throw new Error(await res.text());
+                const data = await res.json();
+                status.innerHTML = `<span style="color: var(--neon-green);">[OK] Audio guardado correctamente.</span>`;
+                document.getElementById('gen-text-input').value = "";
+                await loadCatalog();
+            } catch (err) {
+                status.innerHTML = `<span style="color: var(--neon-pink);">[ERROR] ${err.message}</span>`;
+            }
+        }
+
+        function updateUploadLabel(input) {
+            const label = document.getElementById('up-file-label');
+            label.innerText = (input.files && input.files.length > 0) ? input.files[0].name : "Ningún archivo seleccionado";
+            label.style.color = "var(--neon-cyan)";
+        }
+
+        async function submitUploadAudio() {
+            if (userState.role !== 'admin') return alert("Operación exclusiva de administradores.");
+            const cat = document.getElementById('up-cat-input').value.trim();
+            const fileInput = document.getElementById('up-file-input');
+            const status = document.getElementById('up-status');
+
+            if (!cat) return alert("Indica la categoría de destino.");
+            if (!fileInput.files || fileInput.files.length === 0) return alert("Selecciona un archivo MP3.");
+
+            status.innerHTML = `<span style="color: var(--neon-yellow);">[PROCESANDO] Subiendo archivo...</span>`;
+
+            const formData = new FormData();
+            formData.append('file', fileInput.files[0]);
+            formData.append('category', cat);
+
+            try {
+                const res = await fetch(`${API_BASE}/vocab/upload-audio`, {
+                    method: 'POST',
+                    credentials: 'include',
+                    body: formData
+                });
+                if (!res.ok) throw new Error(await res.text());
+                const data = await res.json();
+                status.innerHTML = `<span style="color: var(--neon-green);">[OK] Archivo '${data.filename}' subido exitosamente.</span>`;
+                fileInput.value = "";
+                document.getElementById('up-file-label').innerText = "Ningún archivo seleccionado";
+                await loadCatalog();
+            } catch (err) {
+                status.innerHTML = `<span style="color: var(--neon-pink);">[ERROR] ${err.message}</span>`;
+            }
+        }
+
+        let currentPlaylist = [];
+        let currentIndex = 0;
+        let isShuffle = false;
+        let currentSpeed = 1.0;
+        let loopLimit = 1;
+        let currentLoopCount = 1;
+        let shadowDelay = 0;
+        let shadowTimeout = null;
+        let completedSessionCount = 0;
+        let isRecallActive = false;
+
+        const player = document.getElementById('main-player');
+        const nowPlayingText = document.getElementById('now-playing');
+        const shuffleBtn = document.getElementById('shuffle-btn');
+        const loopIndicator = document.getElementById('loop-indicator');
+        const sessionCounter = document.getElementById('session-counter');
+        const progressBar = document.getElementById('shadow-progress');
+        const workspace = document.getElementById('workspace-container');
+        const sidebar = document.getElementById('sidebar');
+        const sidebarOverlay = document.getElementById('sidebar-overlay');
+
+        function toggleSidebar() {
+            sidebar.classList.toggle('open');
+            sidebarOverlay.classList.toggle('active');
+        }
+
+        function closeSidebarOnMobile() {
+            if (window.innerWidth <= 960) {
+                sidebar.classList.remove('open');
+                sidebarOverlay.classList.remove('active');
+            }
+        }
+
+        async function saveUserState() {
+            updateHardCount();
+            try {
+                await fetch(`${API_BASE}/user/state`, {
+                    method: 'POST',
+                    credentials: 'include',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(userState)
+                });
+            } catch(err) { console.error("Error guardando perfil:", err); }
+        }
+
+        function updateHardCount() {
+            document.getElementById('hard-count').innerText = userState.hard_targets.length;
+        }
+
+        function toggleHardTarget(path, btn) {
+            const idx = userState.hard_targets.indexOf(path);
+            if (idx > -1) {
+                userState.hard_targets.splice(idx, 1);
+                btn.classList.remove('starred');
+                btn.innerText = '[-]';
+            } else {
+                userState.hard_targets.push(path);
+                btn.classList.add('starred');
+                btn.innerText = '[+]';
+            }
+            saveUserState();
+        }
+
+        function toggleActiveRecall() {
+            isRecallActive = !isRecallActive;
+            const btn = document.getElementById('recall-toggle-btn');
+            if (isRecallActive) {
+                workspace.classList.add('recall-active');
+                btn.classList.add('active');
+                btn.innerText = 'BLUR: ON';
+            } else {
+                workspace.classList.remove('recall-active');
+                btn.classList.remove('active');
+                btn.innerText = 'RECALL';
+            }
+        }
+
+        let audioCtx, analyser, dataArray, bufferLength;
+        let isVisualizerInit = false;
+
+        function initVisualizer() {
+            if (isVisualizerInit || window.innerWidth <= 960) return;
+            try {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                const srcNode = audioCtx.createMediaElementSource(player);
+                analyser = audioCtx.createAnalyser();
+                analyser.fftSize = 64;
+                srcNode.connect(analyser);
+                analyser.connect(audioCtx.destination);
+                bufferLength = analyser.frequencyBinCount;
+                dataArray = new Uint8Array(bufferLength);
+                isVisualizerInit = true;
+                drawVisualizer();
+            } catch(e) { console.log("Visualizer:", e); }
+        }
+
+        function drawVisualizer() {
+            requestAnimationFrame(drawVisualizer);
+            if (!isVisualizerInit) return;
+            const canvas = document.getElementById('visualizer-canvas');
+            const ctx = canvas.getContext('2d');
+            analyser.getByteFrequencyData(dataArray);
+
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            const barWidth = (canvas.width / bufferLength) * 1.5;
+            let x = 0;
+            for (let i = 0; i < bufferLength; i++) {
+                const barHeight = (dataArray[i] / 255) * canvas.height;
+                ctx.fillStyle = i % 2 === 0 ? '#00f0ff' : '#ff0055';
+                ctx.fillRect(x, canvas.height - barHeight, barWidth - 1, barHeight);
+                x += barWidth;
+            }
+        }
+
+        function playAudio(path, index) {
+            initVisualizer();
+            if (audioCtx && audioCtx.state === 'suspended') audioCtx.resume();
+            
+            clearTimeout(shadowTimeout);
+            progressBar.style.width = '0%';
+            progressBar.style.transition = 'none';
+
+            player.src = path;
+            player.playbackRate = currentSpeed;
+            
+            const fileName = path.split('/').pop().replace('.mp3', '');
+            nowPlayingText.innerText = fileName.toUpperCase();
+            loopIndicator.innerText = `L: ${currentLoopCount}/${loopLimit}`;
+            
+            document.querySelectorAll('.track-item').forEach(el => el.classList.remove('playing'));
+            const activeItem = document.getElementById('track-' + index);
+            if (activeItem) {
+                activeItem.classList.add('playing');
+                activeItem.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }
+            player.play().catch(e => console.log("Play:", e));
+        }
+
+        player.addEventListener('play', () => { player.playbackRate = currentSpeed; });
+
+        function setSpeed(rate, btn) {
+            currentSpeed = rate;
+            player.playbackRate = rate;
+            btn.parentElement.querySelectorAll('.control-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+        }
+
+        function setLoopCount(count, btn) {
+            loopLimit = count;
+            currentLoopCount = 1;
+            loopIndicator.innerText = `L: 1/${loopLimit}`;
+            btn.parentElement.querySelectorAll('.control-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+        }
+
+        function setShadowDelay(delay, btn) {
+            shadowDelay = delay;
+            btn.parentElement.querySelectorAll('.control-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+        }
+
+        function toggleShuffle() {
+            isShuffle = !isShuffle;
+            shuffleBtn.classList.toggle('active', isShuffle);
+        }
+
+        function playSingle(path, originalIndex) {
+            const checkboxes = document.querySelectorAll('.track-checkbox');
+            currentPlaylist = Array.from(checkboxes).map(cb => ({ path: cb.value, id: cb.getAttribute('data-index') }));
+            currentIndex = currentPlaylist.findIndex(item => item.path === path);
+            currentLoopCount = 1;
+            playAudio(path, originalIndex);
+        }
+
+        function playAll() {
+            const checkboxes = document.querySelectorAll('.track-checkbox');
+            currentPlaylist = Array.from(checkboxes).map(cb => ({ path: cb.value, id: cb.getAttribute('data-index') }));
+            if (currentPlaylist.length > 0) {
+                currentIndex = isShuffle ? Math.floor(Math.random() * currentPlaylist.length) : 0;
+                currentLoopCount = 1;
+                playAudio(currentPlaylist[currentIndex].path, currentPlaylist[currentIndex].id);
+            }
+        }
+
+        function playSelected() {
+            const checkboxes = document.querySelectorAll('.track-checkbox:checked');
+            currentPlaylist = Array.from(checkboxes).map(cb => ({ path: cb.value, id: cb.getAttribute('data-index') }));
+            if (currentPlaylist.length > 0) {
+                currentIndex = isShuffle ? Math.floor(Math.random() * currentPlaylist.length) : 0;
+                currentLoopCount = 1;
+                playAudio(currentPlaylist[currentIndex].path, currentPlaylist[currentIndex].id);
+            }
+        }
+
+        player.addEventListener('ended', () => {
+            completedSessionCount++;
+            sessionCounter.innerText = completedSessionCount;
+
+            if (currentLoopCount < loopLimit) {
+                currentLoopCount++;
+                loopIndicator.innerText = `L: ${currentLoopCount}/${loopLimit}`;
+                player.currentTime = 0;
+                player.play();
+                return;
+            }
+
+            currentLoopCount = 1;
+            loopIndicator.innerText = `L: 1/${loopLimit}`;
+
+            if (shadowDelay > 0) {
+                progressBar.style.transition = `width ${shadowDelay}s linear`;
+                progressBar.style.width = '100%';
+                shadowTimeout = setTimeout(advanceToNext, shadowDelay * 1000);
+            } else {
+                advanceToNext();
+            }
+        });
+
+        function advanceToNext() {
+            if (currentPlaylist.length === 0) return;
+            if (isShuffle) {
+                let nextIdx = Math.floor(Math.random() * currentPlaylist.length);
+                if (currentPlaylist.length > 1 && nextIdx === currentIndex) {
+                    nextIdx = (nextIdx + 1) % currentPlaylist.length;
+                }
+                currentIndex = nextIdx;
+            } else {
+                currentIndex++;
+            }
+
+            if (currentIndex < currentPlaylist.length) {
+                playAudio(currentPlaylist[currentIndex].path, currentPlaylist[currentIndex].id);
+            } else {
+                nowPlayingText.innerText = '// COMPLETED';
+            }
+        }
+
+        function playPrevious() {
+            if (currentPlaylist.length === 0) return;
+            currentLoopCount = 1;
+            currentIndex = (currentIndex > 0) ? currentIndex - 1 : 0;
+            playAudio(currentPlaylist[currentIndex].path, currentPlaylist[currentIndex].id);
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (['input', 'textarea', 'select'].includes(document.activeElement.tagName.toLowerCase())) return;
+            if (e.code === 'Space') {
+                e.preventDefault();
+                if (player.src) player.paused ? player.play() : player.pause();
+            } else if (e.code === 'ArrowRight') {
+                e.preventDefault();
+                clearTimeout(shadowTimeout);
+                advanceToNext();
+            } else if (e.code === 'ArrowLeft') {
+                e.preventDefault();
+                clearTimeout(shadowTimeout);
+                playPrevious();
+            }
+        });
+
+		async function logout() {
+			try {
+				await fetch('/api/auth/logout', { method: 'POST', credentials: 'include' });
+			} catch (e) {}
+			window.location.href = '/login.html';
+		}
+
+        window.addEventListener('DOMContentLoaded', initUserProfile);
+    </script>
+</body>
+</html>

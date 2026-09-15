@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>AUTH // NEURAL DECK</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800&family=Rajdhani:wght@500;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            background-color: #030407;
+            background-image: radial-gradient(rgba(0, 240, 255, 0.08) 1px, transparent 0);
+            background-size: 24px 24px;
+        }
+
+        .login-card {
+            width: 100%;
+            max-width: 400px;
+            padding: 30px;
+            background: rgba(6, 7, 10, 0.95);
+            border: 1px solid var(--border-glow);
+            border-top: 3px solid var(--neon-cyan);
+            box-shadow: 0 0 30px rgba(0, 240, 255, 0.15);
+            box-sizing: border-box;
+            position: relative;
+        }
+
+        .login-card::after {
+            content: "SECURITY_PROTOCOL // V.4";
+            position: absolute;
+            bottom: 8px;
+            right: 12px;
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.6rem;
+            color: var(--text-dim);
+        }
+
+        .login-header {
+            margin-bottom: 24px;
+            text-align: center;
+        }
+
+        .login-title {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.4rem;
+            color: #fff;
+            letter-spacing: 2px;
+            margin: 0;
+        }
+
+        .login-subtitle {
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.75rem;
+            color: var(--neon-yellow);
+            margin-top: 4px;
+        }
+
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        .form-group label {
+            display: block;
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.75rem;
+            color: var(--neon-cyan);
+            margin-bottom: 6px;
+        }
+
+        .feedback-box {
+            display: none;
+            padding: 8px 12px;
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.8rem;
+            margin-bottom: 16px;
+            border-left: 3px solid var(--neon-pink);
+            background: rgba(255, 0, 85, 0.1);
+            color: var(--neon-pink);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="login-card">
+        <div class="login-header">
+            <h1 class="login-title">NEURAL DECK</h1>
+            <div class="login-subtitle">// ACCESS_AUTHENTICATION_GATEWAY</div>
+        </div>
+
+        <div id="feedback-msg" class="feedback-box"></div>
+
+        <form onsubmit="handleLogin(event)">
+            <div class="form-group">
+                <label for="username">OPERATOR_CALLSIGN (USER):</label>
+                <input type="text" id="username" class="cyber-input" placeholder="ej. user" required autocomplete="username">
+            </div>
+
+            <div class="form-group">
+                <label for="password">ACCESS_CIPHER (PASSWORD):</label>
+                <input type="password" id="password" class="cyber-input" placeholder="••••••••" required autocomplete="current-password">
+            </div>
+
+            <div style="margin-top: 24px;">
+                <button type="submit" id="btn-submit" class="cyber-btn" style="width: 100%; justify-content: center; padding: 12px;">
+                    INITIALIZE_SESSION ->
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        async function handleLogin(e) {
+            e.preventDefault();
+            const user = document.getElementById('username').value.trim();
+            const pass = document.getElementById('password').value.trim();
+            const btn = document.getElementById('btn-submit');
+            const feedback = document.getElementById('feedback-msg');
+
+            btn.innerText = "AUTHENTICATING...";
+            btn.disabled = true;
+            feedback.style.display = "none";
+
+            try {
+                const res = await fetch('/api/auth/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username: user, password: pass })
+                });
+
+                if (!res.ok) {
+                    const err = await res.json().catch(() => ({ detail: "Error de autenticación" }));
+                    throw new Error(err.detail || "Error en el inicio de sesión");
+                }
+
+                // Redirigir a la interfaz principal
+                window.location.href = '/index.html';
+            } catch (err) {
+                feedback.style.display = "block";
+                feedback.innerText = `[ERROR] ${err.message}`;
+                btn.innerText = "INITIALIZE_SESSION ->";
+                btn.disabled = false;
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>EXAM_TRACKER // MISSION CONTROL</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Rajdhani:wght@500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script src="theme.js"></script>
+</head>
+<body class="subpage">
+
+    <div class="tracker-container">
+        <!-- CABECERA -->
+        <header class="tracker-nav">
+            <div>
+                <div style="font-family: 'Share Tech Mono'; font-size: 0.75rem; color: var(--neon-cyan); display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 4px;">
+                    <span>OPERATOR: <strong id="current-user-tag" style="color: var(--neon-yellow);">SYNCING...</strong></span>
+                    <span>//</span>
+                    <label for="model-select" style="color: var(--neon-cyan);">ENGINE:</label>
+                    <select id="model-select" class="cyber-select" onchange="changeActiveModel(this.value)">
+                        <option value="">Cargando modelos...</option>
+                    </select>
+                </div>
+                <h1 style="font-family: 'Orbitron'; font-size: 1.4rem; color: #fff; letter-spacing: 1px;">
+                    EXAM_TRACKER // MISSION CONTROL
+                </h1>
+            </div>
+            <div class="nav-actions">
+                <a href="vobaudi.html" class="nav-back-btn yellow">VOBAUDI</a>
+                <a href="grammar_deck.html" class="nav-back-btn pink">GRAMMAR</a>
+                <a href="speaking.html" class="nav-back-btn">SPEAKING</a>
+                <a href="prompt.html" class="nav-back-btn green">PROMPTS</a>
+                <a href="types_of_text.html" class="nav-back-btn yellow">TEXT_TYPES</a>
+                <button class="nav-back-btn pink" onclick="logout()">LOGOUT</button>
+            </div>
+        </header>
+
+        <!-- PANEL DE ESTADÍSTICAS -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-label">// DAILY_PROTOCOL</div>
+                <div class="stat-value" id="stat-progress">0%</div>
+                <div style="font-size: 0.75rem; color: var(--text-dim); font-family: 'Share Tech Mono';" id="stat-tasks">0 / 4 BLOQUES</div>
+            </div>
+            <div class="stat-card pink">
+                <div class="stat-label">// STREAK_COUNTER</div>
+                <div class="stat-value" id="stat-streak">0 DÍAS</div>
+                <div style="font-size: 0.75rem; color: var(--text-dim); font-family: 'Share Tech Mono';" id="stat-last-date">SIN REGISTRO HOY</div>
+            </div>
+            <div class="stat-card yellow">
+                <div class="stat-label">// COUNTDOWN TO EXAM</div>
+                <div class="stat-value" id="stat-days-left">-- DÍAS</div>
+                <div style="display: flex; align-items: center; gap: 8px; margin-top: 6px;">
+                    <label for="target-date-input" style="font-size: 0.72rem; color: var(--neon-yellow); font-family: 'Share Tech Mono';">OBJETIVO:</label>
+                    <input type="date" id="target-date-input" class="cyber-date-input" onchange="setCustomTargetDate(this.value)">
+                </div>
+            </div>
+        </div>
+
+        <!-- 01 // PROTOCOLO DIARIO -->
+        <section class="protocol-card">
+            <h2>
+                <span>01 // PROTOCOLO DIARIO DE PREPARACIÓN (25 MINUTOS)</span>
+                <button class="cyber-btn" onclick="resetDailyChecklist()" style="font-size: 0.65rem;">REINICIAR HOY</button>
+            </h2>
+            <div style="overflow-x: auto;">
+                <table class="routine-table">
+                    <thead>
+                        <tr>
+                            <th style="width: 50px; text-align: center;">ESTADO</th>
+                            <th style="width: 140px;">BLOQUE</th>
+                            <th style="width: 75px;">TIEMPO</th>
+                            <th>MÓDULO & ACCIÓN</th>
+                            <th>OBJETIVO</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="text-align: center;"><input type="checkbox" id="check-1" class="routine-check" onchange="toggleTask(1)"></td>
+                            <td style="color: var(--neon-cyan); font-weight: bold;">1. Calentamiento</td>
+                            <td>5 min</td>
+                            <td><a href="index.html" style="color: var(--neon-cyan); text-decoration: underline;">index.html</a> - Shadowing a 1.5s (Irregular Verbs)</td>
+                            <td>Articulación inmediata de las tres formas verbales.</td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: center;"><input type="checkbox" id="check-2" class="routine-check" onchange="toggleTask(2)"></td>
+                            <td style="color: var(--neon-cyan); font-weight: bold;">2. Active Recall</td>
+                            <td>7 min</td>
+                            <td><a href="index.html" style="color: var(--neon-cyan); text-decoration: underline;">index.html</a> - RECALL_BLIND & Hard Targets (1.25x)</td>
+                            <td>Comprensión auditiva rápida y retención léxica activa.</td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: center;"><input type="checkbox" id="check-3" class="routine-check" onchange="toggleTask(3)"></td>
+                            <td style="color: var(--neon-pink); font-weight: bold;">3. Use of English</td>
+                            <td>6 min</td>
+                            <td><a href="grammar_deck.html" style="color: var(--neon-pink); text-decoration: underline;">grammar_deck.html</a> - 3 Transformaciones B2 del nodo activo</td>
+                            <td>Dominio de estructuras gramaticales avanzadas (2 a 5 palabras).</td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: center;"><input type="checkbox" id="check-4" class="routine-check" onchange="toggleTask(4)"></td>
+                            <td style="color: var(--neon-green); font-weight: bold;">4. Producción</td>
+                            <td>7 min</td>
+                            <td><a href="speaking.html" style="color: var(--neon-cyan); text-decoration: underline;">speaking.html</a> (PREP) o <a href="prompt.html" style="color: var(--neon-green); text-decoration: underline;">prompt.html</a> (Interrogatorio)</td>
+                            <td>Formular preguntas indirectas o estructurar una respuesta modelo.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- 02 // MÓDULOS DE EXAMEN -->
+        <section class="protocol-card" style="border-color: var(--neon-cyan);">
+            <h2>
+                <span>02 // MÓDULOS ESPECIALIZADOS DE ENTRENAMIENTO</span>
+                <span style="font-size: 0.72rem; color: var(--text-dim); font-family: 'Share Tech Mono';">SUBSYSTEMS ACTIVE</span>
+            </h2>
+            <div class="stats-grid" style="grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); margin-top: 8px;">
+                
+                <div class="stat-card pink" style="display: flex; flex-direction: column; justify-content: space-between;">
+                    <div>
+                        <div style="font-family: 'Orbitron'; color: var(--neon-pink); font-size: 0.95rem; margin-bottom: 6px;">
+                            GRAMMAR_CLINIC (15 NODES)
+                        </div>
+                        <p style="font-size: 0.82rem; color: var(--text-dim); font-family: 'Share Tech Mono'; line-height: 1.4; margin-bottom: 14px;">
+                            15 nodos teóricos con apuntes Markdown generados por IA, generador de Key Word Transformations por tema, ingesta de exámenes en PDF y auditoría de párrafos escritos.
+                        </p>
+                    </div>
+                    <a href="grammar_deck.html" class="cyber-btn pink" style="justify-content: center;">
+                        ABRIR GRAMMAR_CLINIC ->
+                    </a>
+                </div>
+
+                <div class="stat-card" style="display: flex; flex-direction: column; justify-content: space-between;">
+                    <div>
+                        <div style="font-family: 'Orbitron'; color: var(--neon-cyan); font-size: 0.95rem; margin-bottom: 6px;">
+                            SPEAKING_DECK (PART 3 & 4)
+                        </div>
+                        <p style="font-size: 0.82rem; color: var(--text-dim); font-family: 'Share Tech Mono'; line-height: 1.4; margin-bottom: 14px;">
+                            Preguntas de debate interactivo, formulación de respuestas modelo mediante técnica PREP (Point, Reason, Example, Point rephrased), extracción desde PDF y audio dual.
+                        </p>
+                    </div>
+                    <a href="speaking.html" class="cyber-btn" style="justify-content: center;">
+                        ABRIR SPEAKING_DECK ->
+                    </a>
+                </div>
+
+                <div class="stat-card" style="border-left-color: var(--neon-green); display: flex; flex-direction: column; justify-content: space-between;">
+                    <div>
+                        <div style="font-family: 'Orbitron'; color: var(--neon-green); font-size: 0.95rem; margin-bottom: 6px;">
+                            INTERACTIVE_PROMPTS
+                        </div>
+                        <p style="font-size: 0.82rem; color: var(--text-dim); font-family: 'Share Tech Mono'; line-height: 1.4; margin-bottom: 14px;">
+                            Dilemas y propuestas del examinador para entrenar preguntas indirectas, condicionales de hipótesis y negociación. Incluye banco de casos manuales e ingesta PDF.
+                        </p>
+                    </div>
+                    <a href="prompt.html" class="cyber-btn green" style="justify-content: center;">
+                        ABRIR PROMPT_DECK ->
+                    </a>
+                </div>
+
+                <div class="stat-card yellow" style="display: flex; flex-direction: column; justify-content: space-between;">
+                    <div>
+                        <div style="font-family: 'Orbitron'; color: var(--neon-yellow); font-size: 0.95rem; margin-bottom: 6px;">
+                            VOCAB & AUDIO DASHBOARD
+                        </div>
+                        <p style="font-size: 0.82rem; color: var(--text-dim); font-family: 'Share Tech Mono'; line-height: 1.4; margin-bottom: 14px;">
+                            Reproductor con visualizador en tiempo real, modo Active Recall (Blur), pausas de Shadowing ajustables (0s / 1.5s / 3s) y banco de objetivos críticos (Hard Targets).
+                        </p>
+                    </div>
+                    <a href="index.html" class="cyber-btn yellow" style="justify-content: center;">
+                        ABRIR DASHBOARD ->
+                    </a>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- 03 // ENTRENAMIENTO RÁPIDO -->
+        <section class="drill-grid">
+            <div class="protocol-card">
+                <h2 style="color: var(--neon-pink);">03.1 // SPEAKING PART 2 // PRESSURE CLOCK (1 MIN)</h2>
+                <p style="font-size: 0.88rem; color: var(--text-dim); margin-bottom: 12px;">
+                    Compara 2 situaciones imaginarias en voz alta forzándote a mantener el discurso continuo durante exactamente 60 segundos:
+                </p>
+
+                <div class="timer-box">
+                    <div>
+                        <div style="font-family: 'Share Tech Mono'; font-size: 0.7rem; color: var(--text-dim);">PRESSURE_CLOCK</div>
+                        <div class="timer-display" id="timer-val">01:00</div>
+                    </div>
+                    <div style="display: flex; gap: 8px;">
+                        <button class="cyber-btn" onclick="startTimer()">INICIAR</button>
+                        <button class="cyber-btn pink" onclick="resetTimer()">RESET</button>
+                    </div>
+                </div>
+
+                <div class="drill-pill"><span>-</span> In stark contrast to...</div>
+                <div class="drill-pill"><span>-</span> Whereas / Whilst...</div>
+                <div class="drill-pill"><span>-</span> A double-edged sword, given that...</div>
+                <div class="drill-pill"><span>-</span> To strike a delicate balance between...</div>
+            </div>
+
+            <!-- 04 // ESQUELETOS FIJOS -->
+            <div class="protocol-card">
+                <h2 style="color: var(--neon-yellow);">
+                    <span>03.2 // ESQUELETOS FIJOS PARA WRITING</span>
+                    <a href="grammar_deck.html" class="cyber-btn pink" style="font-size: 0.65rem; padding: 4px 10px;">CLINIC -></a>
+                </h2>
+                <p style="font-size: 0.88rem; color: var(--text-dim); margin-bottom: 12px;">
+                    Estructuras de alta puntuación listas para copiar y utilizar en tus ensayos argumentativos:
+                </p>
+
+                <div class="drill-pill" style="margin-bottom: 10px;">
+                    <div style="font-family: 'Orbitron'; font-size: 0.72rem; color: var(--neon-yellow); margin-bottom: 3px;">// BODY 2: CONTRASTE</div>
+                    <div id="tpl-contrast" style="font-family: 'Share Tech Mono'; color: #fff; font-size: 0.82rem;">"Whilst urban dwellers often emphasize the abundance of career opportunities, rural residents place greater value on clean air and tranquility. Nevertheless, living in a metropolitan area remains a double-edged sword."</div>
+                    <button class="copy-btn" onclick="copySnippet('tpl-contrast', this)" style="margin-top: 6px;">COPIAR AL PORTAPAPELES</button>
+                </div>
+
+                <div class="drill-pill">
+                    <div style="font-family: 'Orbitron'; font-size: 0.72rem; color: var(--neon-yellow); margin-bottom: 3px;">// CONCLUSIÓN & BALANCE</div>
+                    <div id="tpl-conclusion" style="font-family: 'Share Tech Mono'; color: #fff; font-size: 0.82rem;">"Taking everything into account, the long-term benefits of technological transformation far outweigh the initial hurdles, provided that society and policymakers strike a delicate balance."</div>
+                    <button class="copy-btn" onclick="copySnippet('tpl-conclusion', this)" style="margin-top: 6px;">COPIAR AL PORTAPAPELES</button>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        const API_BASE = "/api";
+        const todayStr = new Date().toISOString().slice(0, 10);
+
+        let userState = {
+            username: "spacemans8",
+            selected_model: "qwen3.5:latest",
+            target_date: "2026-10-07",
+            hard_targets: [],
+            daily_tracker: {}
+        };
+
+        async function initUserProfile() {
+			// Si no hay operador autenticado, enviar a login
+		const whoRes = await fetch('/api/user/whoami', { credentials: 'include' });
+		if (!whoRes.ok) {
+			window.location.href = '/login.html';
+			return;
+		}
+            try {
+                const res = await fetch(`${API_BASE}/user/state`);
+                if (res.ok) {
+                    userState = await res.json();
+                    if (!userState.daily_tracker) userState.daily_tracker = {};
+                    if (!userState.target_date) userState.target_date = "2026-10-07";
+                }
+            } catch (e) {
+                console.warn("Modo fallback local:", e);
+            }
+
+            document.getElementById('current-user-tag').innerText = userState.username.toUpperCase();
+            if (!userState.daily_tracker[todayStr]) {
+                userState.daily_tracker[todayStr] = { tasks: [false, false, false, false] };
+            }
+
+            await loadAvailableModels();
+            updateStats();
+        }
+
+        async function loadAvailableModels() {
+            const select = document.getElementById('model-select');
+            try {
+                const res = await fetch(`${API_BASE}/models`);
+                if (res.ok) {
+                    const data = await res.json();
+                    select.innerHTML = '';
+                    
+                    data.models.forEach(m => {
+                        const opt = document.createElement('option');
+                        opt.value = m;
+                        opt.innerText = m;
+                        select.appendChild(opt);
+                    });
+
+                    const activeModel = userState.selected_model || "qwen3.5:latest";
+                    if (data.models.includes(activeModel)) {
+                        select.value = activeModel;
+                    } else if (data.models.length > 0) {
+                        select.value = data.models[0];
+                    }
+                    userState.selected_model = select.value;
+                }
+            } catch (e) {
+                console.warn("No se pudieron listar modelos:", e);
+            }
+        }
+
+        function changeActiveModel(modelName) {
+            userState.selected_model = modelName;
+            persistState();
+        }
+
+        async function persistState() {
+            updateStats();
+            try {
+                await fetch(`${API_BASE}/user/state`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(userState)
+                });
+            } catch (err) {
+                console.error("Error persistiendo datos:", err);
+            }
+        }
+
+        function toggleTask(idx) {
+            if (!userState.daily_tracker[todayStr]) {
+                userState.daily_tracker[todayStr] = { tasks: [false, false, false, false] };
+            }
+            userState.daily_tracker[todayStr].tasks[idx - 1] = document.getElementById(`check-${idx}`).checked;
+            persistState();
+        }
+
+        function resetDailyChecklist() {
+            userState.daily_tracker[todayStr] = { tasks: [false, false, false, false] };
+            persistState();
+        }
+
+        function setCustomTargetDate(newDate) {
+            if (!newDate) return;
+            userState.target_date = newDate;
+            persistState();
+        }
+
+        function updateStats() {
+            const todayTasks = (userState.daily_tracker[todayStr] && userState.daily_tracker[todayStr].tasks) 
+                ? userState.daily_tracker[todayStr].tasks 
+                : [false, false, false, false];
+
+            let doneCount = 0;
+            todayTasks.forEach((done, i) => {
+                const el = document.getElementById(`check-${i + 1}`);
+                if (el) el.checked = done;
+                if (done) doneCount++;
+            });
+
+            const pct = Math.round((doneCount / 4) * 100);
+            document.getElementById('stat-progress').innerText = `${pct}%`;
+            document.getElementById('stat-tasks').innerText = `${doneCount} / 4 BLOQUES`;
+
+            let streak = 0;
+            let d = new Date();
+            while (true) {
+                const key = d.toISOString().slice(0, 10);
+                if (userState.daily_tracker[key] && userState.daily_tracker[key].tasks.filter(Boolean).length >= 3) {
+                    streak++;
+                    d.setDate(d.getDate() - 1);
+                } else if (key === todayStr) {
+                    d.setDate(d.getDate() - 1);
+                } else {
+                    break;
+                }
+            }
+            document.getElementById('stat-streak').innerText = `${streak} DÍAS`;
+            document.getElementById('stat-last-date').innerText = doneCount === 4 ? 'OBJETIVO CUMPLIDO' : 'EN CURSO';
+
+            const dateInput = document.getElementById('target-date-input');
+            if (dateInput && dateInput.value !== userState.target_date) {
+                dateInput.value = userState.target_date;
+            }
+
+            const [year, month, day] = userState.target_date.split('-').map(Number);
+            const targetDate = new Date(year, month - 1, day);
+            const now = new Date();
+            const todayMidnight = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+            const diffDays = Math.round((targetDate - todayMidnight) / (1000 * 60 * 60 * 24));
+
+            const displayDays = document.getElementById('stat-days-left');
+            if (diffDays > 0) {
+                displayDays.innerText = `${diffDays} DÍAS`;
+            } else if (diffDays === 0) {
+                displayDays.innerText = "HOY";
+            } else {
+                displayDays.innerText = "EXPIRADO";
+            }
+        }
+
+        let timerSeconds = 60;
+        let timerInterval = null;
+        const timerVal = document.getElementById('timer-val');
+
+        function startTimer() {
+            if (timerInterval) return;
+            timerInterval = setInterval(() => {
+                if (timerSeconds > 0) {
+                    timerSeconds--;
+                    const mins = String(Math.floor(timerSeconds / 60)).padStart(2, '0');
+                    const secs = String(timerSeconds % 60).padStart(2, '0');
+                    timerVal.innerText = `${mins}:${secs}`;
+                    if (timerSeconds <= 10) timerVal.classList.add('flash');
+                } else {
+                    clearInterval(timerInterval);
+                    timerInterval = null;
+                    timerVal.innerText = "TIME OUT";
+                }
+            }, 1000);
+        }
+
+        function resetTimer() {
+            clearInterval(timerInterval);
+            timerInterval = null;
+            timerSeconds = 60;
+            timerVal.innerText = "01:00";
+            timerVal.classList.remove('flash');
+        }
+
+        function copySnippet(elemId, btn) {
+            const text = document.getElementById(elemId).innerText.replace(/^"|"$/g, '');
+            navigator.clipboard.writeText(text).then(() => {
+                const prev = btn.innerText;
+                btn.innerText = "COPIADO";
+                btn.style.borderColor = "var(--neon-green)";
+                btn.style.color = "var(--neon-green)";
+                setTimeout(() => {
+                    btn.innerText = prev;
+                    btn.style.borderColor = "var(--neon-cyan)";
+                    btn.style.color = "var(--neon-cyan)";
+                }, 1800);
+            });
+        }
+
+		async function logout() {
+			try {
+				await fetch('/api/auth/logout', { method: 'POST', credentials: 'include' });
+			} catch (e) {}
+			window.location.href = '/login.html';
+		}
+
+        window.addEventListener('DOMContentLoaded', initUserProfile);
+    </script>
+</body>
+</html>

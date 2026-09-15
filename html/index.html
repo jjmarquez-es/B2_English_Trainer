@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>MISSION_CONTROL // B2 EXAM TRACKER</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Rajdhani:wght@500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script src="theme.js"></script>
+    <style>
+        .protocol-progress-bar {
+            width: 100%;
+            height: 6px;
+            background: rgba(0, 240, 255, 0.1);
+            border: 1px solid var(--border-glow);
+            margin: 12px 0 16px 0;
+            overflow: hidden;
+        }
+
+        .protocol-progress-fill {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, var(--neon-cyan), var(--neon-green));
+            box-shadow: 0 0 10px var(--neon-cyan);
+            transition: width 0.3s ease;
+        }
+
+        .routine-table td a.action-btn {
+            font-family: 'Orbitron', monospace;
+            font-size: 0.65rem;
+            padding: 4px 8px;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            border: 1px solid var(--neon-cyan);
+            color: var(--neon-cyan);
+            background: rgba(0, 240, 255, 0.05);
+            transition: 0.2s;
+            white-space: nowrap;
+        }
+
+        .routine-table td a.action-btn:hover {
+            background: var(--neon-cyan);
+            color: #000;
+            box-shadow: 0 0 10px var(--neon-cyan);
+        }
+
+        .routine-table td a.action-btn.pink {
+            border-color: var(--neon-pink);
+            color: var(--neon-pink);
+            background: rgba(255, 0, 85, 0.05);
+        }
+
+        .routine-table td a.action-btn.pink:hover {
+            background: var(--neon-pink);
+            color: #fff;
+            box-shadow: 0 0 10px var(--neon-pink);
+        }
+
+        .routine-table td a.action-btn.green {
+            border-color: var(--neon-green);
+            color: var(--neon-green);
+            background: rgba(0, 255, 102, 0.05);
+        }
+
+        .routine-table td a.action-btn.green:hover {
+            background: var(--neon-green);
+            color: #000;
+            box-shadow: 0 0 10px var(--neon-green);
+        }
+    </style>
+</head>
+<body class="subpage">
+
+    <div class="tracker-container">
+        <!-- CABECERA PRINCIPAL -->
+        <header class="tracker-nav">
+            <div>
+                <div style="font-family: 'Share Tech Mono'; font-size: 0.75rem; color: var(--neon-cyan); display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 4px;">
+                    <span>OPERATOR: <strong id="current-user-tag" style="color: var(--neon-yellow);">SYNCING...</strong></span>
+                    <span>//</span>
+                    <label for="model-select" style="color: var(--neon-cyan);">ENGINE:</label>
+                    <select id="model-select" class="cyber-select" onchange="changeActiveModel(this.value)">
+                        <option value="">Cargando modelos...</option>
+                    </select>
+                    <span>//</span>
+                    <label for="theme-select" style="color: var(--neon-pink);">THEME:</label>
+                    <select id="theme-select" class="cyber-select" onchange="changeActiveTheme(this.value)">
+                        <option value="cyberpunk">CYBERPUNK</option>
+                        <option value="matrix">MATRIX</option>
+                        <option value="university">UNIVERSITARIO</option>
+                        <option value="synthwave">OCHENTERO</option>
+                    </select>
+                </div>
+                <h1 style="font-family: 'Orbitron'; font-size: 1.4rem; color: #fff; letter-spacing: 1px;">
+                    MISSION_CONTROL // B2 EXAM TRACKER
+                </h1>
+            </div>
+            <div class="nav-actions">
+                <a href="vobaudi.html" class="nav-back-btn yellow">VOBAUDI</a>
+                <a href="grammar_deck.html" class="nav-back-btn pink">GRAMMAR</a>
+                <a href="speaking.html" class="nav-back-btn">SPEAKING</a>
+                <a href="prompt.html" class="nav-back-btn green">PROMPTS</a>
+                <a href="types_of_text.html" class="nav-back-btn yellow">TEXT_TYPES</a>
+                <a href="exams.html" class="nav-back-btn pink">EXAM_CLINIC (ISE II)</a>
+                <button class="nav-back-btn pink" onclick="logout()">LOGOUT</button>
+            </div>
+        </header>
+
+        <!-- PANEL DE ESTADISTICAS -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-label">// DAILY_PROTOCOL</div>
+                <div class="stat-value" id="stat-progress">0%</div>
+                <div style="font-size: 0.75rem; color: var(--text-dim); font-family: 'Share Tech Mono';" id="stat-tasks">0 / 5 BLOQUES</div>
+            </div>
+            <div class="stat-card pink">
+                <div class="stat-label">// STREAK_COUNTER</div>
+                <div class="stat-value" id="stat-streak">0 DIAS</div>
+                <div style="font-size: 0.75rem; color: var(--text-dim); font-family: 'Share Tech Mono';" id="stat-last-date">SIN REGISTRO HOY</div>
+            </div>
+            <div class="stat-card yellow">
+                <div class="stat-label">// COUNTDOWN TO EXAM</div>
+                <div class="stat-value" id="stat-days-left">-- DIAS</div>
+                <div style="display: flex; align-items: center; gap: 8px; margin-top: 6px;">
+                    <label for="target-date-input" style="font-size: 0.72rem; color: var(--neon-yellow); font-family: 'Share Tech Mono';">OBJETIVO:</label>
+                    <input type="date" id="target-date-input" class="cyber-date-input" onchange="setCustomTargetDate(this.value)">
+                </div>
+            </div>
+        </div>
+
+        <!-- 01 // PROTOCOLO DIARIO DE PREPARACION -->
+        <section class="protocol-card">
+            <h2>
+                <span>01 // PROTOCOLO DIARIO DE PREPARACION (26 MINUTOS)</span>
+                <button class="cyber-btn" onclick="resetDailyChecklist()" style="font-size: 0.65rem;">REINICIAR HOY</button>
+            </h2>
+
+            <div class="protocol-progress-bar">
+                <div id="protocol-progress-fill" class="protocol-progress-fill"></div>
+            </div>
+
+            <div style="overflow-x: auto;">
+                <table class="routine-table">
+                    <thead>
+                        <tr>
+                            <th style="width: 45px; text-align: center;">STATUS</th>
+                            <th style="width: 150px;">FASE & TIEMPO</th>
+                            <th style="width: 140px;">MODULO DE ACCESO</th>
+                            <th>PROTOCOLO OPERATIVO</th>
+                            <th>OBJETIVO EXAMEN B2/C1</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="text-align: center;"><input type="checkbox" id="check-1" class="routine-check" onchange="toggleTask(1)"></td>
+                            <td style="color: var(--neon-cyan); font-weight: bold;">01. SHADOWING<br><span style="color: var(--text-dim); font-size: 0.75rem;">5 MINUTOS</span></td>
+                            <td><a href="vobaudi.html" class="action-btn">VOBAUDI -></a></td>
+                            <td>Configurar pausa <strong>SHAD: 1.5s</strong> con velocidad <strong>1.0x</strong>. Repetir en voz alta inmediatamente tras la voz nativa en verbos irregulares o léxico prioritario.</td>
+                            <td>Automatización articulatoria y entonación británica continua sin pausas vacías.</td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: center;"><input type="checkbox" id="check-2" class="routine-check" onchange="toggleTask(2)"></td>
+                            <td style="color: var(--neon-cyan); font-weight: bold;">02. ACTIVE RECALL<br><span style="color: var(--text-dim); font-size: 0.75rem;">5 MINUTOS</span></td>
+                            <td><a href="vobaudi.html" class="action-btn">HARD_TARGETS -></a></td>
+                            <td>Activar modo <strong>BLUR: ON</strong> (RECALL). Escuchar pistas de objetivos críticos marcados e identificar mentalmente el significado antes de desvelar el texto.</td>
+                            <td>Discriminación fonética instantánea y retención activa sin apoyo visual.</td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: center;"><input type="checkbox" id="check-3" class="routine-check" onchange="toggleTask(3)"></td>
+                            <td style="color: var(--neon-pink); font-weight: bold;">03. USE OF ENGLISH<br><span style="color: var(--text-dim); font-size: 0.75rem;">7 MINUTOS</span></td>
+                            <td><a href="grammar_deck.html" class="action-btn pink">CLINIC (UOE) -></a></td>
+                            <td>Resolver 5 ejercicios de <strong>Key Word Transformation</strong> del banco (2 a 5 palabras). Escribir la propuesta, usar el botón <strong>COMPROBAR</strong> y contrastar con el blur.</td>
+                            <td>Dominio de estructuras sintácticas complejas con palabra clave inalterada.</td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: center;"><input type="checkbox" id="check-4" class="routine-check" onchange="toggleTask(4)"></td>
+                            <td style="color: var(--neon-cyan); font-weight: bold;">04. SPEAKING PREP<br><span style="color: var(--text-dim); font-size: 0.75rem;">5 MINUTOS</span></td>
+                            <td><a href="speaking.html" class="action-btn">SPEAKING DECK -></a></td>
+                            <td>Pulsar <strong>PREGUNTA ALEATORIA</strong> en Part 3 & 4. Defender una postura en voz alta durante 60s siguiendo la estructura: Point, Reason, Example, Point rephrased.</td>
+                            <td>Fluidez argumentativa y utilización de conectores formales de alto nivel.</td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: center;"><input type="checkbox" id="check-5" class="routine-check" onchange="toggleTask(5)"></td>
+                            <td style="color: var(--neon-green); font-weight: bold;">05. INQUIRY & DILEMMA<br><span style="color: var(--text-dim); font-size: 0.75rem;">4 MINUTOS</span></td>
+                            <td><a href="prompt.html" class="action-btn green">PROMPT DECK -></a></td>
+                            <td>Cargar un escenario de examinador. Formular en voz alta 4 preguntas estratégicas (indirectas, hipótesis y compromiso) para resolver el dilema expuesto.</td>
+                            <td>Precisión en preguntas indirectas (*Could you tell me...*) y negociación oral.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- 02 // MODULOS DE EXAMEN -->
+        <section class="protocol-card" style="border-color: var(--neon-cyan);">
+            <h2>
+                <span>02 // MODULOS ESPECIALIZADOS DE ENTRENAMIENTO</span>
+                <span style="font-size: 0.72rem; color: var(--text-dim); font-family: 'Share Tech Mono';">SUBSYSTEMS ACTIVE</span>
+            </h2>
+            <div class="stats-grid" style="grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); margin-top: 8px;">
+                <div class="stat-card yellow" style="display: flex; flex-direction: column; justify-content: space-between;">
+                    <div>
+                        <div style="font-family: 'Orbitron'; color: var(--neon-yellow); font-size: 0.95rem; margin-bottom: 6px;">
+                            VOBAUDI // VOCAB & AUDIO DECK
+                        </div>
+                        <p style="font-size: 0.82rem; color: var(--text-dim); font-family: 'Share Tech Mono'; line-height: 1.4; margin-bottom: 14px;">
+                            Reproductor con visualizador espectral, pausas de shadowing configurables, sintetizador de audios neuronales y generación de notas Markdown por IA.
+                        </p>
+                    </div>
+                    <a href="vobaudi.html" class="cyber-btn yellow" style="justify-content: center;">
+                        ABRIR VOBAUDI ->
+                    </a>
+                </div>
+
+                <div class="stat-card pink" style="display: flex; flex-direction: column; justify-content: space-between;">
+                    <div>
+                        <div style="font-family: 'Orbitron'; color: var(--neon-pink); font-size: 0.95rem; margin-bottom: 6px;">
+                            GRAMMAR_CLINIC (15 NODES)
+                        </div>
+                        <p style="font-size: 0.82rem; color: var(--text-dim); font-family: 'Share Tech Mono'; line-height: 1.4; margin-bottom: 14px;">
+                            3.000 transformaciones indexadas con botón comprobar y blur, teoría Markdown ocultable y auditoría de redacción por IA.
+                        </p>
+                    </div>
+                    <a href="grammar_deck.html" class="cyber-btn pink" style="justify-content: center;">
+                        ABRIR GRAMMAR_CLINIC ->
+                    </a>
+                </div>
+
+                <div class="stat-card" style="display: flex; flex-direction: column; justify-content: space-between;">
+                    <div>
+                        <div style="font-family: 'Orbitron'; color: var(--neon-cyan); font-size: 0.95rem; margin-bottom: 6px;">
+                            SPEAKING_DECK (PART 3 & 4)
+                        </div>
+                        <p style="font-size: 0.82rem; color: var(--text-dim); font-family: 'Share Tech Mono'; line-height: 1.4; margin-bottom: 14px;">
+                            200 debates categorizados con respuestas modelo PREP, ingesta de exámenes en PDF y síntesis de audio dual británico (Ryan / Sonia).
+                        </p>
+                    </div>
+                    <a href="speaking.html" class="cyber-btn" style="justify-content: center;">
+                        ABRIR SPEAKING_DECK ->
+                    </a>
+                </div>
+
+                <div class="stat-card" style="border-left-color: var(--neon-green); display: flex; flex-direction: column; justify-content: space-between;">
+                    <div>
+                        <div style="font-family: 'Orbitron'; color: var(--neon-green); font-size: 0.95rem; margin-bottom: 6px;">
+                            INTERACTIVE_PROMPTS
+                        </div>
+                        <p style="font-size: 0.82rem; color: var(--text-dim); font-family: 'Share Tech Mono'; line-height: 1.4; margin-bottom: 14px;">
+                            200 dilemas y propuestas de negociación del examinador para entrenar preguntas indirectas, resolución de conflictos y léxico idiomático.
+                        </p>
+                    </div>
+                    <a href="prompt.html" class="cyber-btn green" style="justify-content: center;">
+                        ABRIR PROMPT_DECK ->
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- 03 // ENTRENAMIENTO RAPIDO -->
+        <section class="drill-grid">
+            <div class="protocol-card">
+                <h2 style="color: var(--neon-pink);">03.1 // SPEAKING PART 2 // PRESSURE CLOCK (1 MIN)</h2>
+                <p style="font-size: 0.88rem; color: var(--text-dim); margin-bottom: 12px;">
+                    Compara 2 situaciones imaginarias en voz alta forzándote a mantener el discurso continuo durante exactamente 60 segundos:
+                </p>
+
+                <div class="timer-box">
+                    <div>
+                        <div style="font-family: 'Share Tech Mono'; font-size: 0.7rem; color: var(--text-dim);">PRESSURE_CLOCK</div>
+                        <div class="timer-display" id="timer-val">01:00</div>
+                    </div>
+                    <div style="display: flex; gap: 8px;">
+                        <button class="cyber-btn" onclick="startTimer()">INICIAR</button>
+                        <button class="cyber-btn pink" onclick="resetTimer()">RESET</button>
+                    </div>
+                </div>
+
+                <div class="drill-pill"><span>-</span> In stark contrast to...</div>
+                <div class="drill-pill"><span>-</span> Whereas / Whilst...</div>
+                <div class="drill-pill"><span>-</span> A double-edged sword, given that...</div>
+                <div class="drill-pill"><span>-</span> To strike a delicate balance between...</div>
+            </div>
+
+            <div class="protocol-card">
+                <h2 style="color: var(--neon-yellow);">
+                    <span>03.2 // ESQUELETOS FIJOS PARA WRITING</span>
+                    <a href="grammar_deck.html" class="cyber-btn pink" style="font-size: 0.65rem; padding: 4px 10px;">CLINIC -></a>
+                </h2>
+                <p style="font-size: 0.88rem; color: var(--text-dim); margin-bottom: 12px;">
+                    Estructuras de alta puntuación listas para copiar y utilizar en tus ensayos argumentativos:
+                </p>
+
+                <div class="drill-pill" style="margin-bottom: 10px;">
+                    <div style="font-family: 'Orbitron'; font-size: 0.72rem; color: var(--neon-yellow); margin-bottom: 3px;">// BODY 2: CONTRASTE</div>
+                    <div id="tpl-contrast" style="font-family: 'Share Tech Mono'; color: #fff; font-size: 0.82rem;">"Whilst urban dwellers often emphasize the abundance of career opportunities, rural residents place greater value on clean air and tranquility. Nevertheless, living in a metropolitan area remains a double-edged sword."</div>
+                    <button class="copy-btn" onclick="copySnippet('tpl-contrast', this)" style="margin-top: 6px;">COPIAR AL PORTAPAPELES</button>
+                </div>
+
+                <div class="drill-pill">
+                    <div style="font-family: 'Orbitron'; font-size: 0.72rem; color: var(--neon-yellow); margin-bottom: 3px;">// CONCLUSION & BALANCE</div>
+                    <div id="tpl-conclusion" style="font-family: 'Share Tech Mono'; color: #fff; font-size: 0.82rem;">"Taking everything into account, the long-term benefits of technological transformation far outweigh the initial hurdles, provided that society and policymakers strike a delicate balance."</div>
+                    <button class="copy-btn" onclick="copySnippet('tpl-conclusion', this)" style="margin-top: 6px;">COPIAR AL PORTAPAPELES</button>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        const API_BASE = "/api";
+        const TOTAL_BLOCKS = 5;
+        const todayStr = new Date().toISOString().slice(0, 10);
+
+        let userState = {
+            username: "candidate_operator",
+            selected_model: "qwen3.5:latest",
+            target_date: "2026-10-07",
+            theme: "cyberpunk",
+            hard_targets: [],
+            daily_tracker: {}
+        };
+
+async function initUserProfile() {
+		// Si no hay operador autenticado, enviar a login
+	const whoRes = await fetch('/api/user/whoami', { credentials: 'include' });
+	if (!whoRes.ok) {
+		window.location.href = '/login.html';
+		return;
+	}
+    try {
+        // Consultar quién es el usuario autenticado
+        const whoRes = await fetch(`${API_BASE}/user/whoami`, { credentials: 'same-origin' });
+        if (whoRes.ok) {
+            const whoData = await whoRes.json();
+            if (whoData.username) {
+                userState.username = whoData.username;
+            }
+        }
+
+        // Consultar el estado y progreso del usuario
+        const res = await fetch(`${API_BASE}/user/state`, { credentials: 'same-origin' });
+        if (res.ok) {
+            const data = await res.json();
+            userState = Object.assign(userState, data);
+            if (!userState.daily_tracker) userState.daily_tracker = {};
+            if (!userState.target_date) userState.target_date = "2026-10-07";
+        }
+    } catch (e) {
+        console.warn("Modo fallback local:", e);
+    }
+
+    // Actualizar visualmente el tag del operador
+    const userTag = document.getElementById('current-user-tag');
+    if (userTag) {
+        userTag.innerText = (userState.username || "SPACEMAN8").toUpperCase();
+    }
+    
+    if (userState.theme && typeof applyTheme === 'function') {
+        applyTheme(userState.theme);
+    }
+
+    if (!userState.daily_tracker[todayStr]) {
+        userState.daily_tracker[todayStr] = { tasks: new Array(TOTAL_BLOCKS).fill(false) };
+    } else {
+        while (userState.daily_tracker[todayStr].tasks.length < TOTAL_BLOCKS) {
+            userState.daily_tracker[todayStr].tasks.push(false);
+        }
+    }
+
+    await loadAvailableModels();
+    updateStats();
+}
+
+async function persistState() {
+    updateStats();
+    try {
+        await fetch(`${API_BASE}/user/state`, {
+            method: 'POST',
+            credentials: 'same-origin',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(userState)
+        });
+    } catch (err) {
+        console.error("Error persistiendo datos:", err);
+    }
+}
+
+        async function loadAvailableModels() {
+            const select = document.getElementById('model-select');
+            try {
+                const res = await fetch(`${API_BASE}/models`);
+                if (res.ok) {
+                    const data = await res.json();
+                    select.innerHTML = '';
+                    
+                    data.models.forEach(m => {
+                        const opt = document.createElement('option');
+                        opt.value = m;
+                        opt.innerText = m;
+                        select.appendChild(opt);
+                    });
+
+                    const activeModel = userState.selected_model || data.models[0];
+                    if (data.models.includes(activeModel)) {
+                        select.value = activeModel;
+                    } else if (data.models.length > 0) {
+                        select.value = data.models[0];
+                    }
+                    userState.selected_model = select.value;
+                }
+            } catch (e) {
+                console.warn("No se pudieron listar modelos:", e);
+            }
+        }
+
+        function changeActiveModel(modelName) {
+            userState.selected_model = modelName;
+	    persistState();
+        }
+
+        function toggleTask(idx) {
+            if (!userState.daily_tracker[todayStr]) {
+                userState.daily_tracker[todayStr] = { tasks: new Array(TOTAL_BLOCKS).fill(false) };
+            }
+            userState.daily_tracker[todayStr].tasks[idx - 1] = document.getElementById(`check-${idx}`).checked;
+            persistState();
+        }
+
+        function resetDailyChecklist() {
+            userState.daily_tracker[todayStr] = { tasks: new Array(TOTAL_BLOCKS).fill(false) };
+            persistState();
+        }
+
+        function setCustomTargetDate(newDate) {
+            if (!newDate) return;
+            userState.target_date = newDate;
+            persistState();
+        }
+
+        function updateStats() {
+            const todayTasks = (userState.daily_tracker[todayStr] && userState.daily_tracker[todayStr].tasks) 
+                ? userState.daily_tracker[todayStr].tasks 
+                : new Array(TOTAL_BLOCKS).fill(false);
+
+            let doneCount = 0;
+            todayTasks.forEach((done, i) => {
+                const el = document.getElementById(`check-${i + 1}`);
+                if (el) el.checked = done;
+                if (done) doneCount++;
+            });
+
+            const pct = Math.round((doneCount / TOTAL_BLOCKS) * 100);
+            document.getElementById('stat-progress').innerText = `${pct}%`;
+            document.getElementById('stat-tasks').innerText = `${doneCount} / ${TOTAL_BLOCKS} BLOQUES`;
+            
+            const fillBar = document.getElementById('protocol-progress-fill');
+            if (fillBar) fillBar.style.width = `${pct}%`;
+
+            let streak = 0;
+            let d = new Date();
+            while (true) {
+                const key = d.toISOString().slice(0, 10);
+                if (userState.daily_tracker[key] && userState.daily_tracker[key].tasks.filter(Boolean).length >= 3) {
+                    streak++;
+                    d.setDate(d.getDate() - 1);
+                } else if (key === todayStr) {
+                    d.setDate(d.getDate() - 1);
+                } else {
+                    break;
+                }
+            }
+            document.getElementById('stat-streak').innerText = `${streak} DIAS`;
+            document.getElementById('stat-last-date').innerText = doneCount === TOTAL_BLOCKS ? 'OBJETIVO CUMPLIDO' : (doneCount > 0 ? 'EN CURSO' : 'SIN REGISTRO HOY');
+
+            const dateInput = document.getElementById('target-date-input');
+            if (dateInput && dateInput.value !== userState.target_date) {
+                dateInput.value = userState.target_date;
+            }
+
+            const [year, month, day] = userState.target_date.split('-').map(Number);
+            const targetDate = new Date(year, month - 1, day);
+            const now = new Date();
+            const todayMidnight = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+            const diffDays = Math.round((targetDate - todayMidnight) / (1000 * 60 * 60 * 24));
+
+            const displayDays = document.getElementById('stat-days-left');
+            if (diffDays > 0) {
+                displayDays.innerText = `${diffDays} DIAS`;
+            } else if (diffDays === 0) {
+                displayDays.innerText = "HOY";
+            } else {
+                displayDays.innerText = "EXPIRADO";
+            }
+        }
+
+        let timerSeconds = 60;
+        let timerInterval = null;
+        const timerVal = document.getElementById('timer-val');
+
+        function startTimer() {
+            if (timerInterval) return;
+            timerInterval = setInterval(() => {
+                if (timerSeconds > 0) {
+                    timerSeconds--;
+                    const mins = String(Math.floor(timerSeconds / 60)).padStart(2, '0');
+                    const secs = String(timerSeconds % 60).padStart(2, '0');
+                    timerVal.innerText = `${mins}:${secs}`;
+                    if (timerSeconds <= 10) timerVal.classList.add('flash');
+                } else {
+                    clearInterval(timerInterval);
+                    timerInterval = null;
+                    timerVal.innerText = "TIME OUT";
+                }
+            }, 1000);
+        }
+
+        function resetTimer() {
+            clearInterval(timerInterval);
+            timerInterval = null;
+            timerSeconds = 60;
+            timerVal.innerText = "01:00";
+            timerVal.classList.remove('flash');
+        }
+
+        function copySnippet(elemId, btn) {
+            const text = document.getElementById(elemId).innerText.replace(/^"|"$/g, '');
+            navigator.clipboard.writeText(text).then(() => {
+                const prev = btn.innerText;
+                btn.innerText = "COPIADO";
+                btn.style.borderColor = "var(--neon-green)";
+                btn.style.color = "var(--neon-green)";
+                setTimeout(() => {
+                    btn.innerText = prev;
+                    btn.style.borderColor = "var(--neon-cyan)";
+                    btn.style.color = "var(--neon-cyan)";
+                }, 1800);
+            });
+        }
+
+		async function logout() {
+			try {
+				await fetch('/api/auth/logout', { method: 'POST', credentials: 'include' });
+			} catch (e) {}
+			window.location.href = '/login.html';
+		}
+
+        window.addEventListener('DOMContentLoaded', initUserProfile);
+		const userTag = document.getElementById('current-user-tag');
+		if (userTag) {
+			const isAdmin = userState.role === 'admin';
+			const badgeColor = isAdmin ? 'var(--neon-pink)' : 'var(--neon-cyan)';
+			const badgeText = isAdmin ? '[ADMIN]' : '[STUDENT]';
+			userTag.innerHTML = `${(userState.username || "SPACEMANS8").toUpperCase()} <span style="font-size:0.65rem; color:${badgeColor}; font-weight:bold;">${badgeText}</span>`;
+		}
+    </script>
+</body>
+</html>

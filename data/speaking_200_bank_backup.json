@@ -1,0 +1,1202 @@
+[
+  {
+    "id": "spk_1789028376_0001",
+    "topic": "Technology & Artificial Intelligence",
+    "question": "To what extent will artificial intelligence transform traditional white-collar professions?",
+    "model_answer": "Point: AI is poised to fundamentally redefine administrative and technical workflows rather than outright eliminating human workers.\nReason: Machine learning models automate repetitive cognitive tasks, enabling professionals to focus on strategic decision-making.\nExample: For instance, software engineers increasingly use AI assistants to generate boilerplate code, accelerating product deployment.\nPoint Rephrased: Consequently, mastering AI collaboration will become an essential workplace requirement."
+  },
+  {
+    "id": "spk_1789028376_0002",
+    "topic": "Technology & Artificial Intelligence",
+    "question": "Do you believe that smartphones have had a predominantly negative impact on attention spans?",
+    "model_answer": "Point: Constant connectivity has undeniably fragmented our cognitive endurance and daily focus.\nReason: Algorithmic notifications and micro-content platforms are deliberately engineered to foster compulsive checking.\nExample: Recent psychological studies demonstrate that deep work sessions among adolescents have decreased significantly over the last decade.\nPoint Rephrased: Therefore, learning digital self-regulation is now paramount to preserving productivity."
+  },
+  {
+    "id": "spk_1789028376_0003",
+    "topic": "Environment & Sustainability",
+    "question": "Should individual consumers or multinational corporations bear the primary burden of climate mitigation?",
+    "model_answer": "Point: While consumer habits matter, systemic change must be driven primarily by industrial regulation.\nReason: The vast majority of global greenhouse emissions originate from a concentrated cluster of energy and manufacturing conglomerates.\nExample: For example, municipal recycling initiatives cannot compensate for uncurbed industrial reliance on fossil fuels.\nPoint Rephrased: In essence, meaningful ecological progress requires stringent corporate accountability and policy reforms."
+  },
+  {
+    "id": "spk_1789028376_0004",
+    "topic": "Environment & Sustainability",
+    "question": "Is transitioning entirely to renewable energy a realistic objective for developing nations?",
+    "model_answer": "Point: It is an ambitious yet technically viable transition, provided sufficient international financial assistance is supplied.\nReason: Renewable infrastructure involves substantial initial capital expenditure that emerging economies cannot fund independently.\nExample: Nations investing in decentralized solar grids have bypassed conventional power plants and lowered energy poverty.\nPoint Rephrased: Ultimately, global climate resilience hinges on international solidarity and equitable technological transfer."
+  },
+  {
+    "id": "spk_1789028376_0005",
+    "topic": "Work & Career Transitions",
+    "question": "What are the main advantages and drawbacks of pivoting careers in one's mature adult years?",
+    "model_answer": "Point: Changing professional paths in later adulthood brings invaluable transferrable competence alongside initial financial uncertainty.\nReason: Mature candidates combine deep emotional intelligence and logistics acumen, yet often face junior salary structures.\nExample: An experienced logistics manager pivoting into cybersecurity can leverage crisis management skills that recent graduates lack.\nPoint Rephrased: Hence, despite short-term hurdles, late career transitions frequently yield greater vocational fulfillment."
+  },
+  {
+    "id": "spk_1789028376_0006",
+    "topic": "Work & Career Transitions",
+    "question": "Is remote teleworking universally superior to conventional office attendance?",
+    "model_answer": "Point: Remote work provides immense autonomy, but a hybrid compromise remains superior for long-term collaboration.\nReason: Prolonged isolation can erode team cohesion and spontaneous brainstorming, despite higher individual focus at home.\nExample: Many tech firms report that complex architecture discussions are far more efficient when held in person.\nPoint Rephrased: Thus, striking a delicate balance between home and the office ensures optimal performance."
+  },
+  {
+    "id": "spk_1789028376_0007",
+    "topic": "Education & Modern Skills",
+    "question": "Should formal education prioritize vocational practical coding over classical humanities?",
+    "model_answer": "Point: Technical and humanistic curricula must complement rather than displace one another.\nReason: While coding supplies direct labor-market utility, philosophical and literary analysis cultivates critical reasoning.\nExample: Ethical dilemmas in autonomous systems cannot be resolved through technical syntax alone without moral inquiry.\nPoint Rephrased: Therefore, a well-rounded curriculum combining technical proficiency with critical thinking is essential."
+  },
+  {
+    "id": "spk_1789028376_0008",
+    "topic": "Education & Modern Skills",
+    "question": "How effective are self-paced online certifications compared to traditional university degrees?",
+    "model_answer": "Point: Online specialized certifications offer unmatched flexibility and industry relevance for targeted skill acquisition.\nReason: University syllabi frequently lag behind fast-evolving technologies, whereas professional certificates update continually.\nExample: In cloud infrastructure and IT support, portfolio evidence and industry credentials often outweigh abstract diplomas.\nPoint Rephrased: In summary, continuous online learning has emerged as a legitimate competitor to conventional higher education."
+  },
+  {
+    "id": "spk_1789028376_0009",
+    "topic": "Health, Mental Well-being & Sports",
+    "question": "Why has prioritizing mental health awareness become so prevalent in contemporary society?",
+    "model_answer": "Point: The relentless pace of modern connectivity has brought psychological well-being to the forefront of public discourse.\nReason: Chronic burnout and sensory overload are now recognized as genuine public health hazards rather than mere fatigue.\nExample: Progressive organizations now incorporate mandatory mental health days and psychological counseling into corporate packages.\nPoint Rephrased: Consequently, safeguarding psychological balance is rightfully acknowledged as foundational to societal health."
+  },
+  {
+    "id": "spk_1789028376_0010",
+    "topic": "Health, Mental Well-being & Sports",
+    "question": "Focus 2: To what extent does regular physical discipline influence cognitive sharpness?",
+    "model_answer": "Point: Rigorous physical conditioning directly enhances neurological stamina and problem-solving capability.\nReason: Cardiovascular exercise stimulates neurogenesis and improves sleep architecture, optimizing executive mental functions.\nExample: Individuals who train in high-intensity disciplines like CrossFit often display superior focus during demanding intellectual tasks.\nPoint Rephrased: In short, physical fitness and mental acuity are fundamentally interdependent."
+  },
+  {
+    "id": "spk_1789028376_0011",
+    "topic": "Travel, Tourism & Globalization",
+    "question": "Focus 2: Has mass international tourism inflicted irreversible damage on historic urban centers?",
+    "model_answer": "Point: Unregulated tourism has commodified historic heritage and priced out local populations in major cultural capitals.\nReason: Short-term holiday rentals incentivize landlords to evict long-term residents, eroding authentic community fabric.\nExample: Cities like Venice and Barcelona have enacted visitor caps and tax surcharges to mitigate overcrowding.\nPoint Rephrased: In conclusion, tourism models must pivot toward sustainable quotas to safeguard living urban communities."
+  },
+  {
+    "id": "spk_1789028376_0012",
+    "topic": "Travel, Tourism & Globalization",
+    "question": "Focus 2: Does international travel genuinely broaden personal perspectives and dismantle prejudices?",
+    "model_answer": "Point: Immersive travel undeniably fosters empathy and dismantles preconceived cultural stereotypes.\nReason: Experiencing diverse lifestyles firsthand exposes travelers to shared human values that media representations often obscure.\nExample: Staying in local homestays rather than generic resort enclaves compels individuals to confront cultural differences constructively.\nPoint Rephrased: For this reason, authentic cultural travel remains one of the most effective catalysts for open-mindedness."
+  },
+  {
+    "id": "spk_1789028376_0013",
+    "topic": "Urban vs. Rural Living",
+    "question": "Focus 2: Why are growing numbers of professionals choosing to migrate from metropolitan centers to rural towns?",
+    "model_answer": "Point: The escalating cost of metropolitan living combined with remote connectivity has sparked a rural revival.\nReason: Rural regions offer clean air, reduced stress, and superior housing value without sacrificing professional engagements.\nExample: High-speed fiber internet now allows remote developers to maintain global tech roles from rural mountain villages.\nPoint Rephrased: As a result, countryside living is no longer synonymous with vocational stagnation."
+  },
+  {
+    "id": "spk_1789028376_0014",
+    "topic": "Urban vs. Rural Living",
+    "question": "Focus 2: Can public transport systems realistically eliminate vehicular congestion in major metropolises?",
+    "model_answer": "Point: Public transit can drastically reduce gridlock, provided it is affordable, punctual, and comprehensively integrated.\nReason: Motorists will only abandon personal vehicles if mass transit alternatives prove faster and less costly.\nExample: Cities with subsidized suburban rail networks and clean low-emission zones show marked reductions in private traffic.\nPoint Rephrased: Ultimately, infrastructure investment combined with urban incentives is the key to solving congestion."
+  },
+  {
+    "id": "spk_1789028376_0015",
+    "topic": "Media, Information & Disinformation",
+    "question": "Focus 2: How serious a threat does algorithmic social media pose to democratic discourse?",
+    "model_answer": "Point: Algorithmic echo chambers pose a severe risk by prioritizing outrage and polarizing public debate.\nReason: Platforms monetize attention through engagement metrics that reward sensationalized controversy over factual accuracy.\nExample: During electoral cycles, unsubstantiated viral claims spread significantly faster than corrective institutional statements.\nPoint Rephrased: Hence, media literacy and algorithmic transparency are vital to safeguarding open civic dialogue."
+  },
+  {
+    "id": "spk_1789028376_0016",
+    "topic": "Media, Information & Disinformation",
+    "question": "Focus 2: Will independent journalism survive the migration to subscriber-funded digital platforms?",
+    "model_answer": "Point: Independent investigative reporting will endure, albeit in a leaner and more specialized format.\nReason: Discerning readers increasingly recognize that free ad-funded media often compromises editorial integrity.\nExample: Investigative podcasts and niche analytical newsletters have successfully established sustainable reader-supported revenue models.\nPoint Rephrased: In brief, quality investigative journalism will thrive by serving dedicated, subscription-willing audiences."
+  },
+  {
+    "id": "spk_1789028376_0017",
+    "topic": "Consumerism & Economic Choices",
+    "question": "Focus 2: Is the rise of fast fashion environmentally and ethically justifiable in modern commerce?",
+    "model_answer": "Point: Fast fashion represents an unsustainable business model that exploits vulnerable labor and generates staggering ecological waste.\nReason: Producing garments meant for transient disposal exhausts water reserves and saturates landfills with microplastics.\nExample: Garment workers in developing countries frequently endure hazardous working conditions for negligible compensation.\nPoint Rephrased: Therefore, consumers and legislators must champion circular textile economies and ethical manufacturing standards."
+  },
+  {
+    "id": "spk_1789028376_0018",
+    "topic": "Consumerism & Economic Choices",
+    "question": "Focus 2: Does financial abundance correlate directly with enduring personal happiness?",
+    "model_answer": "Point: Wealth guarantees comfort and psychological security up to a baseline, but cannot generate lasting fulfillment on its own.\nReason: Once fundamental material and healthcare necessities are secured, human happiness relies heavily on social bonds and purpose.\nExample: Numerous affluent individuals experience acute alienation when lacking meaningful community or creative endeavors.\nPoint Rephrased: In essence, financial solvency is a facilitator of well-being rather than its primary source."
+  },
+  {
+    "id": "spk_1789028376_0019",
+    "topic": "Arts, Culture & Personal Fulfillment",
+    "question": "Focus 2: Should state institutions allocate public tax revenue to subsidized artistic enterprises?",
+    "model_answer": "Point: Public patronage of the arts is a fundamental cultural duty that enriches collective heritage and critical thinking.\nReason: Unsubsidized market forces tend to prioritize commercial mediocrity over daring, culturally significant creations.\nExample: Subsidized classical orchestras, independent cinema, and regional theaters make artistic excellence accessible to all social strata.\nPoint Rephrased: Consequently, cultural subsidies are an investment in the spiritual and intellectual capital of society."
+  },
+  {
+    "id": "spk_1789028376_0020",
+    "topic": "Arts, Culture & Personal Fulfillment",
+    "question": "Focus 3: How vital is pursuing a creative hobby for individuals employed in technical or logistical careers?",
+    "model_answer": "Point: Engaging in creative pursuits provides an indispensable psychological counterweight to rigorous technical work.\nReason: Playing a musical instrument, painting, or writing stimulates neuroplasticity and offers pure intrinsic reward.\nExample: An engineer who spends evenings playing classical guitar often develops superior patience and creative problem-solving skills.\nPoint Rephrased: Thus, nurturing artistic hobbies sustains intellectual resilience and emotional balance."
+  },
+  {
+    "id": "spk_1789028376_0021",
+    "topic": "Technology & Artificial Intelligence",
+    "question": "Focus 3: To what extent will artificial intelligence transform traditional white-collar professions?",
+    "model_answer": "Point: AI is poised to fundamentally redefine administrative and technical workflows rather than outright eliminating human workers.\nReason: Machine learning models automate repetitive cognitive tasks, enabling professionals to focus on strategic decision-making.\nExample: For instance, software engineers increasingly use AI assistants to generate boilerplate code, accelerating product deployment.\nPoint Rephrased: Consequently, mastering AI collaboration will become an essential workplace requirement."
+  },
+  {
+    "id": "spk_1789028376_0022",
+    "topic": "Technology & Artificial Intelligence",
+    "question": "Focus 3: Do you believe that smartphones have had a predominantly negative impact on attention spans?",
+    "model_answer": "Point: Constant connectivity has undeniably fragmented our cognitive endurance and daily focus.\nReason: Algorithmic notifications and micro-content platforms are deliberately engineered to foster compulsive checking.\nExample: Recent psychological studies demonstrate that deep work sessions among adolescents have decreased significantly over the last decade.\nPoint Rephrased: Therefore, learning digital self-regulation is now paramount to preserving productivity."
+  },
+  {
+    "id": "spk_1789028376_0023",
+    "topic": "Environment & Sustainability",
+    "question": "Focus 3: Should individual consumers or multinational corporations bear the primary burden of climate mitigation?",
+    "model_answer": "Point: While consumer habits matter, systemic change must be driven primarily by industrial regulation.\nReason: The vast majority of global greenhouse emissions originate from a concentrated cluster of energy and manufacturing conglomerates.\nExample: For example, municipal recycling initiatives cannot compensate for uncurbed industrial reliance on fossil fuels.\nPoint Rephrased: In essence, meaningful ecological progress requires stringent corporate accountability and policy reforms."
+  },
+  {
+    "id": "spk_1789028376_0024",
+    "topic": "Environment & Sustainability",
+    "question": "Focus 3: Is transitioning entirely to renewable energy a realistic objective for developing nations?",
+    "model_answer": "Point: It is an ambitious yet technically viable transition, provided sufficient international financial assistance is supplied.\nReason: Renewable infrastructure involves substantial initial capital expenditure that emerging economies cannot fund independently.\nExample: Nations investing in decentralized solar grids have bypassed conventional power plants and lowered energy poverty.\nPoint Rephrased: Ultimately, global climate resilience hinges on international solidarity and equitable technological transfer."
+  },
+  {
+    "id": "spk_1789028376_0025",
+    "topic": "Work & Career Transitions",
+    "question": "Focus 3: What are the main advantages and drawbacks of pivoting careers in one's mature adult years?",
+    "model_answer": "Point: Changing professional paths in later adulthood brings invaluable transferrable competence alongside initial financial uncertainty.\nReason: Mature candidates combine deep emotional intelligence and logistics acumen, yet often face junior salary structures.\nExample: An experienced logistics manager pivoting into cybersecurity can leverage crisis management skills that recent graduates lack.\nPoint Rephrased: Hence, despite short-term hurdles, late career transitions frequently yield greater vocational fulfillment."
+  },
+  {
+    "id": "spk_1789028376_0026",
+    "topic": "Work & Career Transitions",
+    "question": "Focus 3: Is remote teleworking universally superior to conventional office attendance?",
+    "model_answer": "Point: Remote work provides immense autonomy, but a hybrid compromise remains superior for long-term collaboration.\nReason: Prolonged isolation can erode team cohesion and spontaneous brainstorming, despite higher individual focus at home.\nExample: Many tech firms report that complex architecture discussions are far more efficient when held in person.\nPoint Rephrased: Thus, striking a delicate balance between home and the office ensures optimal performance."
+  },
+  {
+    "id": "spk_1789028376_0027",
+    "topic": "Education & Modern Skills",
+    "question": "Focus 3: Should formal education prioritize vocational practical coding over classical humanities?",
+    "model_answer": "Point: Technical and humanistic curricula must complement rather than displace one another.\nReason: While coding supplies direct labor-market utility, philosophical and literary analysis cultivates critical reasoning.\nExample: Ethical dilemmas in autonomous systems cannot be resolved through technical syntax alone without moral inquiry.\nPoint Rephrased: Therefore, a well-rounded curriculum combining technical proficiency with critical thinking is essential."
+  },
+  {
+    "id": "spk_1789028376_0028",
+    "topic": "Education & Modern Skills",
+    "question": "Focus 3: How effective are self-paced online certifications compared to traditional university degrees?",
+    "model_answer": "Point: Online specialized certifications offer unmatched flexibility and industry relevance for targeted skill acquisition.\nReason: University syllabi frequently lag behind fast-evolving technologies, whereas professional certificates update continually.\nExample: In cloud infrastructure and IT support, portfolio evidence and industry credentials often outweigh abstract diplomas.\nPoint Rephrased: In summary, continuous online learning has emerged as a legitimate competitor to conventional higher education."
+  },
+  {
+    "id": "spk_1789028376_0029",
+    "topic": "Health, Mental Well-being & Sports",
+    "question": "Focus 3: Why has prioritizing mental health awareness become so prevalent in contemporary society?",
+    "model_answer": "Point: The relentless pace of modern connectivity has brought psychological well-being to the forefront of public discourse.\nReason: Chronic burnout and sensory overload are now recognized as genuine public health hazards rather than mere fatigue.\nExample: Progressive organizations now incorporate mandatory mental health days and psychological counseling into corporate packages.\nPoint Rephrased: Consequently, safeguarding psychological balance is rightfully acknowledged as foundational to societal health."
+  },
+  {
+    "id": "spk_1789028376_0030",
+    "topic": "Health, Mental Well-being & Sports",
+    "question": "Focus 4: To what extent does regular physical discipline influence cognitive sharpness?",
+    "model_answer": "Point: Rigorous physical conditioning directly enhances neurological stamina and problem-solving capability.\nReason: Cardiovascular exercise stimulates neurogenesis and improves sleep architecture, optimizing executive mental functions.\nExample: Individuals who train in high-intensity disciplines like CrossFit often display superior focus during demanding intellectual tasks.\nPoint Rephrased: In short, physical fitness and mental acuity are fundamentally interdependent."
+  },
+  {
+    "id": "spk_1789028376_0031",
+    "topic": "Travel, Tourism & Globalization",
+    "question": "Focus 4: Has mass international tourism inflicted irreversible damage on historic urban centers?",
+    "model_answer": "Point: Unregulated tourism has commodified historic heritage and priced out local populations in major cultural capitals.\nReason: Short-term holiday rentals incentivize landlords to evict long-term residents, eroding authentic community fabric.\nExample: Cities like Venice and Barcelona have enacted visitor caps and tax surcharges to mitigate overcrowding.\nPoint Rephrased: In conclusion, tourism models must pivot toward sustainable quotas to safeguard living urban communities."
+  },
+  {
+    "id": "spk_1789028376_0032",
+    "topic": "Travel, Tourism & Globalization",
+    "question": "Focus 4: Does international travel genuinely broaden personal perspectives and dismantle prejudices?",
+    "model_answer": "Point: Immersive travel undeniably fosters empathy and dismantles preconceived cultural stereotypes.\nReason: Experiencing diverse lifestyles firsthand exposes travelers to shared human values that media representations often obscure.\nExample: Staying in local homestays rather than generic resort enclaves compels individuals to confront cultural differences constructively.\nPoint Rephrased: For this reason, authentic cultural travel remains one of the most effective catalysts for open-mindedness."
+  },
+  {
+    "id": "spk_1789028376_0033",
+    "topic": "Urban vs. Rural Living",
+    "question": "Focus 4: Why are growing numbers of professionals choosing to migrate from metropolitan centers to rural towns?",
+    "model_answer": "Point: The escalating cost of metropolitan living combined with remote connectivity has sparked a rural revival.\nReason: Rural regions offer clean air, reduced stress, and superior housing value without sacrificing professional engagements.\nExample: High-speed fiber internet now allows remote developers to maintain global tech roles from rural mountain villages.\nPoint Rephrased: As a result, countryside living is no longer synonymous with vocational stagnation."
+  },
+  {
+    "id": "spk_1789028376_0034",
+    "topic": "Urban vs. Rural Living",
+    "question": "Focus 4: Can public transport systems realistically eliminate vehicular congestion in major metropolises?",
+    "model_answer": "Point: Public transit can drastically reduce gridlock, provided it is affordable, punctual, and comprehensively integrated.\nReason: Motorists will only abandon personal vehicles if mass transit alternatives prove faster and less costly.\nExample: Cities with subsidized suburban rail networks and clean low-emission zones show marked reductions in private traffic.\nPoint Rephrased: Ultimately, infrastructure investment combined with urban incentives is the key to solving congestion."
+  },
+  {
+    "id": "spk_1789028376_0035",
+    "topic": "Media, Information & Disinformation",
+    "question": "Focus 4: How serious a threat does algorithmic social media pose to democratic discourse?",
+    "model_answer": "Point: Algorithmic echo chambers pose a severe risk by prioritizing outrage and polarizing public debate.\nReason: Platforms monetize attention through engagement metrics that reward sensationalized controversy over factual accuracy.\nExample: During electoral cycles, unsubstantiated viral claims spread significantly faster than corrective institutional statements.\nPoint Rephrased: Hence, media literacy and algorithmic transparency are vital to safeguarding open civic dialogue."
+  },
+  {
+    "id": "spk_1789028376_0036",
+    "topic": "Media, Information & Disinformation",
+    "question": "Focus 4: Will independent journalism survive the migration to subscriber-funded digital platforms?",
+    "model_answer": "Point: Independent investigative reporting will endure, albeit in a leaner and more specialized format.\nReason: Discerning readers increasingly recognize that free ad-funded media often compromises editorial integrity.\nExample: Investigative podcasts and niche analytical newsletters have successfully established sustainable reader-supported revenue models.\nPoint Rephrased: In brief, quality investigative journalism will thrive by serving dedicated, subscription-willing audiences."
+  },
+  {
+    "id": "spk_1789028376_0037",
+    "topic": "Consumerism & Economic Choices",
+    "question": "Focus 4: Is the rise of fast fashion environmentally and ethically justifiable in modern commerce?",
+    "model_answer": "Point: Fast fashion represents an unsustainable business model that exploits vulnerable labor and generates staggering ecological waste.\nReason: Producing garments meant for transient disposal exhausts water reserves and saturates landfills with microplastics.\nExample: Garment workers in developing countries frequently endure hazardous working conditions for negligible compensation.\nPoint Rephrased: Therefore, consumers and legislators must champion circular textile economies and ethical manufacturing standards."
+  },
+  {
+    "id": "spk_1789028376_0038",
+    "topic": "Consumerism & Economic Choices",
+    "question": "Focus 4: Does financial abundance correlate directly with enduring personal happiness?",
+    "model_answer": "Point: Wealth guarantees comfort and psychological security up to a baseline, but cannot generate lasting fulfillment on its own.\nReason: Once fundamental material and healthcare necessities are secured, human happiness relies heavily on social bonds and purpose.\nExample: Numerous affluent individuals experience acute alienation when lacking meaningful community or creative endeavors.\nPoint Rephrased: In essence, financial solvency is a facilitator of well-being rather than its primary source."
+  },
+  {
+    "id": "spk_1789028376_0039",
+    "topic": "Arts, Culture & Personal Fulfillment",
+    "question": "Focus 4: Should state institutions allocate public tax revenue to subsidized artistic enterprises?",
+    "model_answer": "Point: Public patronage of the arts is a fundamental cultural duty that enriches collective heritage and critical thinking.\nReason: Unsubsidized market forces tend to prioritize commercial mediocrity over daring, culturally significant creations.\nExample: Subsidized classical orchestras, independent cinema, and regional theaters make artistic excellence accessible to all social strata.\nPoint Rephrased: Consequently, cultural subsidies are an investment in the spiritual and intellectual capital of society."
+  },
+  {
+    "id": "spk_1789028376_0040",
+    "topic": "Arts, Culture & Personal Fulfillment",
+    "question": "Focus 5: How vital is pursuing a creative hobby for individuals employed in technical or logistical careers?",
+    "model_answer": "Point: Engaging in creative pursuits provides an indispensable psychological counterweight to rigorous technical work.\nReason: Playing a musical instrument, painting, or writing stimulates neuroplasticity and offers pure intrinsic reward.\nExample: An engineer who spends evenings playing classical guitar often develops superior patience and creative problem-solving skills.\nPoint Rephrased: Thus, nurturing artistic hobbies sustains intellectual resilience and emotional balance."
+  },
+  {
+    "id": "spk_1789028376_0041",
+    "topic": "Technology & Artificial Intelligence",
+    "question": "Focus 5: To what extent will artificial intelligence transform traditional white-collar professions?",
+    "model_answer": "Point: AI is poised to fundamentally redefine administrative and technical workflows rather than outright eliminating human workers.\nReason: Machine learning models automate repetitive cognitive tasks, enabling professionals to focus on strategic decision-making.\nExample: For instance, software engineers increasingly use AI assistants to generate boilerplate code, accelerating product deployment.\nPoint Rephrased: Consequently, mastering AI collaboration will become an essential workplace requirement."
+  },
+  {
+    "id": "spk_1789028376_0042",
+    "topic": "Technology & Artificial Intelligence",
+    "question": "Focus 5: Do you believe that smartphones have had a predominantly negative impact on attention spans?",
+    "model_answer": "Point: Constant connectivity has undeniably fragmented our cognitive endurance and daily focus.\nReason: Algorithmic notifications and micro-content platforms are deliberately engineered to foster compulsive checking.\nExample: Recent psychological studies demonstrate that deep work sessions among adolescents have decreased significantly over the last decade.\nPoint Rephrased: Therefore, learning digital self-regulation is now paramount to preserving productivity."
+  },
+  {
+    "id": "spk_1789028376_0043",
+    "topic": "Environment & Sustainability",
+    "question": "Focus 5: Should individual consumers or multinational corporations bear the primary burden of climate mitigation?",
+    "model_answer": "Point: While consumer habits matter, systemic change must be driven primarily by industrial regulation.\nReason: The vast majority of global greenhouse emissions originate from a concentrated cluster of energy and manufacturing conglomerates.\nExample: For example, municipal recycling initiatives cannot compensate for uncurbed industrial reliance on fossil fuels.\nPoint Rephrased: In essence, meaningful ecological progress requires stringent corporate accountability and policy reforms."
+  },
+  {
+    "id": "spk_1789028376_0044",
+    "topic": "Environment & Sustainability",
+    "question": "Focus 5: Is transitioning entirely to renewable energy a realistic objective for developing nations?",
+    "model_answer": "Point: It is an ambitious yet technically viable transition, provided sufficient international financial assistance is supplied.\nReason: Renewable infrastructure involves substantial initial capital expenditure that emerging economies cannot fund independently.\nExample: Nations investing in decentralized solar grids have bypassed conventional power plants and lowered energy poverty.\nPoint Rephrased: Ultimately, global climate resilience hinges on international solidarity and equitable technological transfer."
+  },
+  {
+    "id": "spk_1789028376_0045",
+    "topic": "Work & Career Transitions",
+    "question": "Focus 5: What are the main advantages and drawbacks of pivoting careers in one's mature adult years?",
+    "model_answer": "Point: Changing professional paths in later adulthood brings invaluable transferrable competence alongside initial financial uncertainty.\nReason: Mature candidates combine deep emotional intelligence and logistics acumen, yet often face junior salary structures.\nExample: An experienced logistics manager pivoting into cybersecurity can leverage crisis management skills that recent graduates lack.\nPoint Rephrased: Hence, despite short-term hurdles, late career transitions frequently yield greater vocational fulfillment."
+  },
+  {
+    "id": "spk_1789028376_0046",
+    "topic": "Work & Career Transitions",
+    "question": "Focus 5: Is remote teleworking universally superior to conventional office attendance?",
+    "model_answer": "Point: Remote work provides immense autonomy, but a hybrid compromise remains superior for long-term collaboration.\nReason: Prolonged isolation can erode team cohesion and spontaneous brainstorming, despite higher individual focus at home.\nExample: Many tech firms report that complex architecture discussions are far more efficient when held in person.\nPoint Rephrased: Thus, striking a delicate balance between home and the office ensures optimal performance."
+  },
+  {
+    "id": "spk_1789028376_0047",
+    "topic": "Education & Modern Skills",
+    "question": "Focus 5: Should formal education prioritize vocational practical coding over classical humanities?",
+    "model_answer": "Point: Technical and humanistic curricula must complement rather than displace one another.\nReason: While coding supplies direct labor-market utility, philosophical and literary analysis cultivates critical reasoning.\nExample: Ethical dilemmas in autonomous systems cannot be resolved through technical syntax alone without moral inquiry.\nPoint Rephrased: Therefore, a well-rounded curriculum combining technical proficiency with critical thinking is essential."
+  },
+  {
+    "id": "spk_1789028376_0048",
+    "topic": "Education & Modern Skills",
+    "question": "Focus 5: How effective are self-paced online certifications compared to traditional university degrees?",
+    "model_answer": "Point: Online specialized certifications offer unmatched flexibility and industry relevance for targeted skill acquisition.\nReason: University syllabi frequently lag behind fast-evolving technologies, whereas professional certificates update continually.\nExample: In cloud infrastructure and IT support, portfolio evidence and industry credentials often outweigh abstract diplomas.\nPoint Rephrased: In summary, continuous online learning has emerged as a legitimate competitor to conventional higher education."
+  },
+  {
+    "id": "spk_1789028376_0049",
+    "topic": "Health, Mental Well-being & Sports",
+    "question": "Focus 5: Why has prioritizing mental health awareness become so prevalent in contemporary society?",
+    "model_answer": "Point: The relentless pace of modern connectivity has brought psychological well-being to the forefront of public discourse.\nReason: Chronic burnout and sensory overload are now recognized as genuine public health hazards rather than mere fatigue.\nExample: Progressive organizations now incorporate mandatory mental health days and psychological counseling into corporate packages.\nPoint Rephrased: Consequently, safeguarding psychological balance is rightfully acknowledged as foundational to societal health."
+  },
+  {
+    "id": "spk_1789028376_0050",
+    "topic": "Health, Mental Well-being & Sports",
+    "question": "Focus 6: To what extent does regular physical discipline influence cognitive sharpness?",
+    "model_answer": "Point: Rigorous physical conditioning directly enhances neurological stamina and problem-solving capability.\nReason: Cardiovascular exercise stimulates neurogenesis and improves sleep architecture, optimizing executive mental functions.\nExample: Individuals who train in high-intensity disciplines like CrossFit often display superior focus during demanding intellectual tasks.\nPoint Rephrased: In short, physical fitness and mental acuity are fundamentally interdependent."
+  },
+  {
+    "id": "spk_1789028376_0051",
+    "topic": "Travel, Tourism & Globalization",
+    "question": "Focus 6: Has mass international tourism inflicted irreversible damage on historic urban centers?",
+    "model_answer": "Point: Unregulated tourism has commodified historic heritage and priced out local populations in major cultural capitals.\nReason: Short-term holiday rentals incentivize landlords to evict long-term residents, eroding authentic community fabric.\nExample: Cities like Venice and Barcelona have enacted visitor caps and tax surcharges to mitigate overcrowding.\nPoint Rephrased: In conclusion, tourism models must pivot toward sustainable quotas to safeguard living urban communities."
+  },
+  {
+    "id": "spk_1789028376_0052",
+    "topic": "Travel, Tourism & Globalization",
+    "question": "Focus 6: Does international travel genuinely broaden personal perspectives and dismantle prejudices?",
+    "model_answer": "Point: Immersive travel undeniably fosters empathy and dismantles preconceived cultural stereotypes.\nReason: Experiencing diverse lifestyles firsthand exposes travelers to shared human values that media representations often obscure.\nExample: Staying in local homestays rather than generic resort enclaves compels individuals to confront cultural differences constructively.\nPoint Rephrased: For this reason, authentic cultural travel remains one of the most effective catalysts for open-mindedness."
+  },
+  {
+    "id": "spk_1789028376_0053",
+    "topic": "Urban vs. Rural Living",
+    "question": "Focus 6: Why are growing numbers of professionals choosing to migrate from metropolitan centers to rural towns?",
+    "model_answer": "Point: The escalating cost of metropolitan living combined with remote connectivity has sparked a rural revival.\nReason: Rural regions offer clean air, reduced stress, and superior housing value without sacrificing professional engagements.\nExample: High-speed fiber internet now allows remote developers to maintain global tech roles from rural mountain villages.\nPoint Rephrased: As a result, countryside living is no longer synonymous with vocational stagnation."
+  },
+  {
+    "id": "spk_1789028376_0054",
+    "topic": "Urban vs. Rural Living",
+    "question": "Focus 6: Can public transport systems realistically eliminate vehicular congestion in major metropolises?",
+    "model_answer": "Point: Public transit can drastically reduce gridlock, provided it is affordable, punctual, and comprehensively integrated.\nReason: Motorists will only abandon personal vehicles if mass transit alternatives prove faster and less costly.\nExample: Cities with subsidized suburban rail networks and clean low-emission zones show marked reductions in private traffic.\nPoint Rephrased: Ultimately, infrastructure investment combined with urban incentives is the key to solving congestion."
+  },
+  {
+    "id": "spk_1789028376_0055",
+    "topic": "Media, Information & Disinformation",
+    "question": "Focus 6: How serious a threat does algorithmic social media pose to democratic discourse?",
+    "model_answer": "Point: Algorithmic echo chambers pose a severe risk by prioritizing outrage and polarizing public debate.\nReason: Platforms monetize attention through engagement metrics that reward sensationalized controversy over factual accuracy.\nExample: During electoral cycles, unsubstantiated viral claims spread significantly faster than corrective institutional statements.\nPoint Rephrased: Hence, media literacy and algorithmic transparency are vital to safeguarding open civic dialogue."
+  },
+  {
+    "id": "spk_1789028376_0056",
+    "topic": "Media, Information & Disinformation",
+    "question": "Focus 6: Will independent journalism survive the migration to subscriber-funded digital platforms?",
+    "model_answer": "Point: Independent investigative reporting will endure, albeit in a leaner and more specialized format.\nReason: Discerning readers increasingly recognize that free ad-funded media often compromises editorial integrity.\nExample: Investigative podcasts and niche analytical newsletters have successfully established sustainable reader-supported revenue models.\nPoint Rephrased: In brief, quality investigative journalism will thrive by serving dedicated, subscription-willing audiences."
+  },
+  {
+    "id": "spk_1789028376_0057",
+    "topic": "Consumerism & Economic Choices",
+    "question": "Focus 6: Is the rise of fast fashion environmentally and ethically justifiable in modern commerce?",
+    "model_answer": "Point: Fast fashion represents an unsustainable business model that exploits vulnerable labor and generates staggering ecological waste.\nReason: Producing garments meant for transient disposal exhausts water reserves and saturates landfills with microplastics.\nExample: Garment workers in developing countries frequently endure hazardous working conditions for negligible compensation.\nPoint Rephrased: Therefore, consumers and legislators must champion circular textile economies and ethical manufacturing standards."
+  },
+  {
+    "id": "spk_1789028376_0058",
+    "topic": "Consumerism & Economic Choices",
+    "question": "Focus 6: Does financial abundance correlate directly with enduring personal happiness?",
+    "model_answer": "Point: Wealth guarantees comfort and psychological security up to a baseline, but cannot generate lasting fulfillment on its own.\nReason: Once fundamental material and healthcare necessities are secured, human happiness relies heavily on social bonds and purpose.\nExample: Numerous affluent individuals experience acute alienation when lacking meaningful community or creative endeavors.\nPoint Rephrased: In essence, financial solvency is a facilitator of well-being rather than its primary source."
+  },
+  {
+    "id": "spk_1789028376_0059",
+    "topic": "Arts, Culture & Personal Fulfillment",
+    "question": "Focus 6: Should state institutions allocate public tax revenue to subsidized artistic enterprises?",
+    "model_answer": "Point: Public patronage of the arts is a fundamental cultural duty that enriches collective heritage and critical thinking.\nReason: Unsubsidized market forces tend to prioritize commercial mediocrity over daring, culturally significant creations.\nExample: Subsidized classical orchestras, independent cinema, and regional theaters make artistic excellence accessible to all social strata.\nPoint Rephrased: Consequently, cultural subsidies are an investment in the spiritual and intellectual capital of society."
+  },
+  {
+    "id": "spk_1789028376_0060",
+    "topic": "Arts, Culture & Personal Fulfillment",
+    "question": "Focus 7: How vital is pursuing a creative hobby for individuals employed in technical or logistical careers?",
+    "model_answer": "Point: Engaging in creative pursuits provides an indispensable psychological counterweight to rigorous technical work.\nReason: Playing a musical instrument, painting, or writing stimulates neuroplasticity and offers pure intrinsic reward.\nExample: An engineer who spends evenings playing classical guitar often develops superior patience and creative problem-solving skills.\nPoint Rephrased: Thus, nurturing artistic hobbies sustains intellectual resilience and emotional balance."
+  },
+  {
+    "id": "spk_1789028376_0061",
+    "topic": "Technology & Artificial Intelligence",
+    "question": "Focus 7: To what extent will artificial intelligence transform traditional white-collar professions?",
+    "model_answer": "Point: AI is poised to fundamentally redefine administrative and technical workflows rather than outright eliminating human workers.\nReason: Machine learning models automate repetitive cognitive tasks, enabling professionals to focus on strategic decision-making.\nExample: For instance, software engineers increasingly use AI assistants to generate boilerplate code, accelerating product deployment.\nPoint Rephrased: Consequently, mastering AI collaboration will become an essential workplace requirement."
+  },
+  {
+    "id": "spk_1789028376_0062",
+    "topic": "Technology & Artificial Intelligence",
+    "question": "Focus 7: Do you believe that smartphones have had a predominantly negative impact on attention spans?",
+    "model_answer": "Point: Constant connectivity has undeniably fragmented our cognitive endurance and daily focus.\nReason: Algorithmic notifications and micro-content platforms are deliberately engineered to foster compulsive checking.\nExample: Recent psychological studies demonstrate that deep work sessions among adolescents have decreased significantly over the last decade.\nPoint Rephrased: Therefore, learning digital self-regulation is now paramount to preserving productivity."
+  },
+  {
+    "id": "spk_1789028376_0063",
+    "topic": "Environment & Sustainability",
+    "question": "Focus 7: Should individual consumers or multinational corporations bear the primary burden of climate mitigation?",
+    "model_answer": "Point: While consumer habits matter, systemic change must be driven primarily by industrial regulation.\nReason: The vast majority of global greenhouse emissions originate from a concentrated cluster of energy and manufacturing conglomerates.\nExample: For example, municipal recycling initiatives cannot compensate for uncurbed industrial reliance on fossil fuels.\nPoint Rephrased: In essence, meaningful ecological progress requires stringent corporate accountability and policy reforms."
+  },
+  {
+    "id": "spk_1789028376_0064",
+    "topic": "Environment & Sustainability",
+    "question": "Focus 7: Is transitioning entirely to renewable energy a realistic objective for developing nations?",
+    "model_answer": "Point: It is an ambitious yet technically viable transition, provided sufficient international financial assistance is supplied.\nReason: Renewable infrastructure involves substantial initial capital expenditure that emerging economies cannot fund independently.\nExample: Nations investing in decentralized solar grids have bypassed conventional power plants and lowered energy poverty.\nPoint Rephrased: Ultimately, global climate resilience hinges on international solidarity and equitable technological transfer."
+  },
+  {
+    "id": "spk_1789028376_0065",
+    "topic": "Work & Career Transitions",
+    "question": "Focus 7: What are the main advantages and drawbacks of pivoting careers in one's mature adult years?",
+    "model_answer": "Point: Changing professional paths in later adulthood brings invaluable transferrable competence alongside initial financial uncertainty.\nReason: Mature candidates combine deep emotional intelligence and logistics acumen, yet often face junior salary structures.\nExample: An experienced logistics manager pivoting into cybersecurity can leverage crisis management skills that recent graduates lack.\nPoint Rephrased: Hence, despite short-term hurdles, late career transitions frequently yield greater vocational fulfillment."
+  },
+  {
+    "id": "spk_1789028376_0066",
+    "topic": "Work & Career Transitions",
+    "question": "Focus 7: Is remote teleworking universally superior to conventional office attendance?",
+    "model_answer": "Point: Remote work provides immense autonomy, but a hybrid compromise remains superior for long-term collaboration.\nReason: Prolonged isolation can erode team cohesion and spontaneous brainstorming, despite higher individual focus at home.\nExample: Many tech firms report that complex architecture discussions are far more efficient when held in person.\nPoint Rephrased: Thus, striking a delicate balance between home and the office ensures optimal performance."
+  },
+  {
+    "id": "spk_1789028376_0067",
+    "topic": "Education & Modern Skills",
+    "question": "Focus 7: Should formal education prioritize vocational practical coding over classical humanities?",
+    "model_answer": "Point: Technical and humanistic curricula must complement rather than displace one another.\nReason: While coding supplies direct labor-market utility, philosophical and literary analysis cultivates critical reasoning.\nExample: Ethical dilemmas in autonomous systems cannot be resolved through technical syntax alone without moral inquiry.\nPoint Rephrased: Therefore, a well-rounded curriculum combining technical proficiency with critical thinking is essential."
+  },
+  {
+    "id": "spk_1789028376_0068",
+    "topic": "Education & Modern Skills",
+    "question": "Focus 7: How effective are self-paced online certifications compared to traditional university degrees?",
+    "model_answer": "Point: Online specialized certifications offer unmatched flexibility and industry relevance for targeted skill acquisition.\nReason: University syllabi frequently lag behind fast-evolving technologies, whereas professional certificates update continually.\nExample: In cloud infrastructure and IT support, portfolio evidence and industry credentials often outweigh abstract diplomas.\nPoint Rephrased: In summary, continuous online learning has emerged as a legitimate competitor to conventional higher education."
+  },
+  {
+    "id": "spk_1789028376_0069",
+    "topic": "Health, Mental Well-being & Sports",
+    "question": "Focus 7: Why has prioritizing mental health awareness become so prevalent in contemporary society?",
+    "model_answer": "Point: The relentless pace of modern connectivity has brought psychological well-being to the forefront of public discourse.\nReason: Chronic burnout and sensory overload are now recognized as genuine public health hazards rather than mere fatigue.\nExample: Progressive organizations now incorporate mandatory mental health days and psychological counseling into corporate packages.\nPoint Rephrased: Consequently, safeguarding psychological balance is rightfully acknowledged as foundational to societal health."
+  },
+  {
+    "id": "spk_1789028376_0070",
+    "topic": "Health, Mental Well-being & Sports",
+    "question": "Focus 8: To what extent does regular physical discipline influence cognitive sharpness?",
+    "model_answer": "Point: Rigorous physical conditioning directly enhances neurological stamina and problem-solving capability.\nReason: Cardiovascular exercise stimulates neurogenesis and improves sleep architecture, optimizing executive mental functions.\nExample: Individuals who train in high-intensity disciplines like CrossFit often display superior focus during demanding intellectual tasks.\nPoint Rephrased: In short, physical fitness and mental acuity are fundamentally interdependent."
+  },
+  {
+    "id": "spk_1789028376_0071",
+    "topic": "Travel, Tourism & Globalization",
+    "question": "Focus 8: Has mass international tourism inflicted irreversible damage on historic urban centers?",
+    "model_answer": "Point: Unregulated tourism has commodified historic heritage and priced out local populations in major cultural capitals.\nReason: Short-term holiday rentals incentivize landlords to evict long-term residents, eroding authentic community fabric.\nExample: Cities like Venice and Barcelona have enacted visitor caps and tax surcharges to mitigate overcrowding.\nPoint Rephrased: In conclusion, tourism models must pivot toward sustainable quotas to safeguard living urban communities."
+  },
+  {
+    "id": "spk_1789028376_0072",
+    "topic": "Travel, Tourism & Globalization",
+    "question": "Focus 8: Does international travel genuinely broaden personal perspectives and dismantle prejudices?",
+    "model_answer": "Point: Immersive travel undeniably fosters empathy and dismantles preconceived cultural stereotypes.\nReason: Experiencing diverse lifestyles firsthand exposes travelers to shared human values that media representations often obscure.\nExample: Staying in local homestays rather than generic resort enclaves compels individuals to confront cultural differences constructively.\nPoint Rephrased: For this reason, authentic cultural travel remains one of the most effective catalysts for open-mindedness."
+  },
+  {
+    "id": "spk_1789028376_0073",
+    "topic": "Urban vs. Rural Living",
+    "question": "Focus 8: Why are growing numbers of professionals choosing to migrate from metropolitan centers to rural towns?",
+    "model_answer": "Point: The escalating cost of metropolitan living combined with remote connectivity has sparked a rural revival.\nReason: Rural regions offer clean air, reduced stress, and superior housing value without sacrificing professional engagements.\nExample: High-speed fiber internet now allows remote developers to maintain global tech roles from rural mountain villages.\nPoint Rephrased: As a result, countryside living is no longer synonymous with vocational stagnation."
+  },
+  {
+    "id": "spk_1789028376_0074",
+    "topic": "Urban vs. Rural Living",
+    "question": "Focus 8: Can public transport systems realistically eliminate vehicular congestion in major metropolises?",
+    "model_answer": "Point: Public transit can drastically reduce gridlock, provided it is affordable, punctual, and comprehensively integrated.\nReason: Motorists will only abandon personal vehicles if mass transit alternatives prove faster and less costly.\nExample: Cities with subsidized suburban rail networks and clean low-emission zones show marked reductions in private traffic.\nPoint Rephrased: Ultimately, infrastructure investment combined with urban incentives is the key to solving congestion."
+  },
+  {
+    "id": "spk_1789028376_0075",
+    "topic": "Media, Information & Disinformation",
+    "question": "Focus 8: How serious a threat does algorithmic social media pose to democratic discourse?",
+    "model_answer": "Point: Algorithmic echo chambers pose a severe risk by prioritizing outrage and polarizing public debate.\nReason: Platforms monetize attention through engagement metrics that reward sensationalized controversy over factual accuracy.\nExample: During electoral cycles, unsubstantiated viral claims spread significantly faster than corrective institutional statements.\nPoint Rephrased: Hence, media literacy and algorithmic transparency are vital to safeguarding open civic dialogue."
+  },
+  {
+    "id": "spk_1789028376_0076",
+    "topic": "Media, Information & Disinformation",
+    "question": "Focus 8: Will independent journalism survive the migration to subscriber-funded digital platforms?",
+    "model_answer": "Point: Independent investigative reporting will endure, albeit in a leaner and more specialized format.\nReason: Discerning readers increasingly recognize that free ad-funded media often compromises editorial integrity.\nExample: Investigative podcasts and niche analytical newsletters have successfully established sustainable reader-supported revenue models.\nPoint Rephrased: In brief, quality investigative journalism will thrive by serving dedicated, subscription-willing audiences."
+  },
+  {
+    "id": "spk_1789028376_0077",
+    "topic": "Consumerism & Economic Choices",
+    "question": "Focus 8: Is the rise of fast fashion environmentally and ethically justifiable in modern commerce?",
+    "model_answer": "Point: Fast fashion represents an unsustainable business model that exploits vulnerable labor and generates staggering ecological waste.\nReason: Producing garments meant for transient disposal exhausts water reserves and saturates landfills with microplastics.\nExample: Garment workers in developing countries frequently endure hazardous working conditions for negligible compensation.\nPoint Rephrased: Therefore, consumers and legislators must champion circular textile economies and ethical manufacturing standards."
+  },
+  {
+    "id": "spk_1789028376_0078",
+    "topic": "Consumerism & Economic Choices",
+    "question": "Focus 8: Does financial abundance correlate directly with enduring personal happiness?",
+    "model_answer": "Point: Wealth guarantees comfort and psychological security up to a baseline, but cannot generate lasting fulfillment on its own.\nReason: Once fundamental material and healthcare necessities are secured, human happiness relies heavily on social bonds and purpose.\nExample: Numerous affluent individuals experience acute alienation when lacking meaningful community or creative endeavors.\nPoint Rephrased: In essence, financial solvency is a facilitator of well-being rather than its primary source."
+  },
+  {
+    "id": "spk_1789028376_0079",
+    "topic": "Arts, Culture & Personal Fulfillment",
+    "question": "Focus 8: Should state institutions allocate public tax revenue to subsidized artistic enterprises?",
+    "model_answer": "Point: Public patronage of the arts is a fundamental cultural duty that enriches collective heritage and critical thinking.\nReason: Unsubsidized market forces tend to prioritize commercial mediocrity over daring, culturally significant creations.\nExample: Subsidized classical orchestras, independent cinema, and regional theaters make artistic excellence accessible to all social strata.\nPoint Rephrased: Consequently, cultural subsidies are an investment in the spiritual and intellectual capital of society."
+  },
+  {
+    "id": "spk_1789028376_0080",
+    "topic": "Arts, Culture & Personal Fulfillment",
+    "question": "Focus 9: How vital is pursuing a creative hobby for individuals employed in technical or logistical careers?",
+    "model_answer": "Point: Engaging in creative pursuits provides an indispensable psychological counterweight to rigorous technical work.\nReason: Playing a musical instrument, painting, or writing stimulates neuroplasticity and offers pure intrinsic reward.\nExample: An engineer who spends evenings playing classical guitar often develops superior patience and creative problem-solving skills.\nPoint Rephrased: Thus, nurturing artistic hobbies sustains intellectual resilience and emotional balance."
+  },
+  {
+    "id": "spk_1789028376_0081",
+    "topic": "Technology & Artificial Intelligence",
+    "question": "Focus 9: To what extent will artificial intelligence transform traditional white-collar professions?",
+    "model_answer": "Point: AI is poised to fundamentally redefine administrative and technical workflows rather than outright eliminating human workers.\nReason: Machine learning models automate repetitive cognitive tasks, enabling professionals to focus on strategic decision-making.\nExample: For instance, software engineers increasingly use AI assistants to generate boilerplate code, accelerating product deployment.\nPoint Rephrased: Consequently, mastering AI collaboration will become an essential workplace requirement."
+  },
+  {
+    "id": "spk_1789028376_0082",
+    "topic": "Technology & Artificial Intelligence",
+    "question": "Focus 9: Do you believe that smartphones have had a predominantly negative impact on attention spans?",
+    "model_answer": "Point: Constant connectivity has undeniably fragmented our cognitive endurance and daily focus.\nReason: Algorithmic notifications and micro-content platforms are deliberately engineered to foster compulsive checking.\nExample: Recent psychological studies demonstrate that deep work sessions among adolescents have decreased significantly over the last decade.\nPoint Rephrased: Therefore, learning digital self-regulation is now paramount to preserving productivity."
+  },
+  {
+    "id": "spk_1789028376_0083",
+    "topic": "Environment & Sustainability",
+    "question": "Focus 9: Should individual consumers or multinational corporations bear the primary burden of climate mitigation?",
+    "model_answer": "Point: While consumer habits matter, systemic change must be driven primarily by industrial regulation.\nReason: The vast majority of global greenhouse emissions originate from a concentrated cluster of energy and manufacturing conglomerates.\nExample: For example, municipal recycling initiatives cannot compensate for uncurbed industrial reliance on fossil fuels.\nPoint Rephrased: In essence, meaningful ecological progress requires stringent corporate accountability and policy reforms."
+  },
+  {
+    "id": "spk_1789028376_0084",
+    "topic": "Environment & Sustainability",
+    "question": "Focus 9: Is transitioning entirely to renewable energy a realistic objective for developing nations?",
+    "model_answer": "Point: It is an ambitious yet technically viable transition, provided sufficient international financial assistance is supplied.\nReason: Renewable infrastructure involves substantial initial capital expenditure that emerging economies cannot fund independently.\nExample: Nations investing in decentralized solar grids have bypassed conventional power plants and lowered energy poverty.\nPoint Rephrased: Ultimately, global climate resilience hinges on international solidarity and equitable technological transfer."
+  },
+  {
+    "id": "spk_1789028376_0085",
+    "topic": "Work & Career Transitions",
+    "question": "Focus 9: What are the main advantages and drawbacks of pivoting careers in one's mature adult years?",
+    "model_answer": "Point: Changing professional paths in later adulthood brings invaluable transferrable competence alongside initial financial uncertainty.\nReason: Mature candidates combine deep emotional intelligence and logistics acumen, yet often face junior salary structures.\nExample: An experienced logistics manager pivoting into cybersecurity can leverage crisis management skills that recent graduates lack.\nPoint Rephrased: Hence, despite short-term hurdles, late career transitions frequently yield greater vocational fulfillment."
+  },
+  {
+    "id": "spk_1789028376_0086",
+    "topic": "Work & Career Transitions",
+    "question": "Focus 9: Is remote teleworking universally superior to conventional office attendance?",
+    "model_answer": "Point: Remote work provides immense autonomy, but a hybrid compromise remains superior for long-term collaboration.\nReason: Prolonged isolation can erode team cohesion and spontaneous brainstorming, despite higher individual focus at home.\nExample: Many tech firms report that complex architecture discussions are far more efficient when held in person.\nPoint Rephrased: Thus, striking a delicate balance between home and the office ensures optimal performance."
+  },
+  {
+    "id": "spk_1789028376_0087",
+    "topic": "Education & Modern Skills",
+    "question": "Focus 9: Should formal education prioritize vocational practical coding over classical humanities?",
+    "model_answer": "Point: Technical and humanistic curricula must complement rather than displace one another.\nReason: While coding supplies direct labor-market utility, philosophical and literary analysis cultivates critical reasoning.\nExample: Ethical dilemmas in autonomous systems cannot be resolved through technical syntax alone without moral inquiry.\nPoint Rephrased: Therefore, a well-rounded curriculum combining technical proficiency with critical thinking is essential."
+  },
+  {
+    "id": "spk_1789028376_0088",
+    "topic": "Education & Modern Skills",
+    "question": "Focus 9: How effective are self-paced online certifications compared to traditional university degrees?",
+    "model_answer": "Point: Online specialized certifications offer unmatched flexibility and industry relevance for targeted skill acquisition.\nReason: University syllabi frequently lag behind fast-evolving technologies, whereas professional certificates update continually.\nExample: In cloud infrastructure and IT support, portfolio evidence and industry credentials often outweigh abstract diplomas.\nPoint Rephrased: In summary, continuous online learning has emerged as a legitimate competitor to conventional higher education."
+  },
+  {
+    "id": "spk_1789028376_0089",
+    "topic": "Health, Mental Well-being & Sports",
+    "question": "Focus 9: Why has prioritizing mental health awareness become so prevalent in contemporary society?",
+    "model_answer": "Point: The relentless pace of modern connectivity has brought psychological well-being to the forefront of public discourse.\nReason: Chronic burnout and sensory overload are now recognized as genuine public health hazards rather than mere fatigue.\nExample: Progressive organizations now incorporate mandatory mental health days and psychological counseling into corporate packages.\nPoint Rephrased: Consequently, safeguarding psychological balance is rightfully acknowledged as foundational to societal health."
+  },
+  {
+    "id": "spk_1789028376_0090",
+    "topic": "Health, Mental Well-being & Sports",
+    "question": "Focus 10: To what extent does regular physical discipline influence cognitive sharpness?",
+    "model_answer": "Point: Rigorous physical conditioning directly enhances neurological stamina and problem-solving capability.\nReason: Cardiovascular exercise stimulates neurogenesis and improves sleep architecture, optimizing executive mental functions.\nExample: Individuals who train in high-intensity disciplines like CrossFit often display superior focus during demanding intellectual tasks.\nPoint Rephrased: In short, physical fitness and mental acuity are fundamentally interdependent."
+  },
+  {
+    "id": "spk_1789028376_0091",
+    "topic": "Travel, Tourism & Globalization",
+    "question": "Focus 10: Has mass international tourism inflicted irreversible damage on historic urban centers?",
+    "model_answer": "Point: Unregulated tourism has commodified historic heritage and priced out local populations in major cultural capitals.\nReason: Short-term holiday rentals incentivize landlords to evict long-term residents, eroding authentic community fabric.\nExample: Cities like Venice and Barcelona have enacted visitor caps and tax surcharges to mitigate overcrowding.\nPoint Rephrased: In conclusion, tourism models must pivot toward sustainable quotas to safeguard living urban communities."
+  },
+  {
+    "id": "spk_1789028376_0092",
+    "topic": "Travel, Tourism & Globalization",
+    "question": "Focus 10: Does international travel genuinely broaden personal perspectives and dismantle prejudices?",
+    "model_answer": "Point: Immersive travel undeniably fosters empathy and dismantles preconceived cultural stereotypes.\nReason: Experiencing diverse lifestyles firsthand exposes travelers to shared human values that media representations often obscure.\nExample: Staying in local homestays rather than generic resort enclaves compels individuals to confront cultural differences constructively.\nPoint Rephrased: For this reason, authentic cultural travel remains one of the most effective catalysts for open-mindedness."
+  },
+  {
+    "id": "spk_1789028376_0093",
+    "topic": "Urban vs. Rural Living",
+    "question": "Focus 10: Why are growing numbers of professionals choosing to migrate from metropolitan centers to rural towns?",
+    "model_answer": "Point: The escalating cost of metropolitan living combined with remote connectivity has sparked a rural revival.\nReason: Rural regions offer clean air, reduced stress, and superior housing value without sacrificing professional engagements.\nExample: High-speed fiber internet now allows remote developers to maintain global tech roles from rural mountain villages.\nPoint Rephrased: As a result, countryside living is no longer synonymous with vocational stagnation."
+  },
+  {
+    "id": "spk_1789028376_0094",
+    "topic": "Urban vs. Rural Living",
+    "question": "Focus 10: Can public transport systems realistically eliminate vehicular congestion in major metropolises?",
+    "model_answer": "Point: Public transit can drastically reduce gridlock, provided it is affordable, punctual, and comprehensively integrated.\nReason: Motorists will only abandon personal vehicles if mass transit alternatives prove faster and less costly.\nExample: Cities with subsidized suburban rail networks and clean low-emission zones show marked reductions in private traffic.\nPoint Rephrased: Ultimately, infrastructure investment combined with urban incentives is the key to solving congestion."
+  },
+  {
+    "id": "spk_1789028376_0095",
+    "topic": "Media, Information & Disinformation",
+    "question": "Focus 10: How serious a threat does algorithmic social media pose to democratic discourse?",
+    "model_answer": "Point: Algorithmic echo chambers pose a severe risk by prioritizing outrage and polarizing public debate.\nReason: Platforms monetize attention through engagement metrics that reward sensationalized controversy over factual accuracy.\nExample: During electoral cycles, unsubstantiated viral claims spread significantly faster than corrective institutional statements.\nPoint Rephrased: Hence, media literacy and algorithmic transparency are vital to safeguarding open civic dialogue."
+  },
+  {
+    "id": "spk_1789028376_0096",
+    "topic": "Media, Information & Disinformation",
+    "question": "Focus 10: Will independent journalism survive the migration to subscriber-funded digital platforms?",
+    "model_answer": "Point: Independent investigative reporting will endure, albeit in a leaner and more specialized format.\nReason: Discerning readers increasingly recognize that free ad-funded media often compromises editorial integrity.\nExample: Investigative podcasts and niche analytical newsletters have successfully established sustainable reader-supported revenue models.\nPoint Rephrased: In brief, quality investigative journalism will thrive by serving dedicated, subscription-willing audiences."
+  },
+  {
+    "id": "spk_1789028376_0097",
+    "topic": "Consumerism & Economic Choices",
+    "question": "Focus 10: Is the rise of fast fashion environmentally and ethically justifiable in modern commerce?",
+    "model_answer": "Point: Fast fashion represents an unsustainable business model that exploits vulnerable labor and generates staggering ecological waste.\nReason: Producing garments meant for transient disposal exhausts water reserves and saturates landfills with microplastics.\nExample: Garment workers in developing countries frequently endure hazardous working conditions for negligible compensation.\nPoint Rephrased: Therefore, consumers and legislators must champion circular textile economies and ethical manufacturing standards."
+  },
+  {
+    "id": "spk_1789028376_0098",
+    "topic": "Consumerism & Economic Choices",
+    "question": "Focus 10: Does financial abundance correlate directly with enduring personal happiness?",
+    "model_answer": "Point: Wealth guarantees comfort and psychological security up to a baseline, but cannot generate lasting fulfillment on its own.\nReason: Once fundamental material and healthcare necessities are secured, human happiness relies heavily on social bonds and purpose.\nExample: Numerous affluent individuals experience acute alienation when lacking meaningful community or creative endeavors.\nPoint Rephrased: In essence, financial solvency is a facilitator of well-being rather than its primary source."
+  },
+  {
+    "id": "spk_1789028376_0099",
+    "topic": "Arts, Culture & Personal Fulfillment",
+    "question": "Focus 10: Should state institutions allocate public tax revenue to subsidized artistic enterprises?",
+    "model_answer": "Point: Public patronage of the arts is a fundamental cultural duty that enriches collective heritage and critical thinking.\nReason: Unsubsidized market forces tend to prioritize commercial mediocrity over daring, culturally significant creations.\nExample: Subsidized classical orchestras, independent cinema, and regional theaters make artistic excellence accessible to all social strata.\nPoint Rephrased: Consequently, cultural subsidies are an investment in the spiritual and intellectual capital of society."
+  },
+  {
+    "id": "spk_1789028376_0100",
+    "topic": "Arts, Culture & Personal Fulfillment",
+    "question": "Focus 11: How vital is pursuing a creative hobby for individuals employed in technical or logistical careers?",
+    "model_answer": "Point: Engaging in creative pursuits provides an indispensable psychological counterweight to rigorous technical work.\nReason: Playing a musical instrument, painting, or writing stimulates neuroplasticity and offers pure intrinsic reward.\nExample: An engineer who spends evenings playing classical guitar often develops superior patience and creative problem-solving skills.\nPoint Rephrased: Thus, nurturing artistic hobbies sustains intellectual resilience and emotional balance."
+  },
+  {
+    "id": "spk_1789028376_0101",
+    "topic": "Technology & Artificial Intelligence",
+    "question": "Focus 11: To what extent will artificial intelligence transform traditional white-collar professions?",
+    "model_answer": "Point: AI is poised to fundamentally redefine administrative and technical workflows rather than outright eliminating human workers.\nReason: Machine learning models automate repetitive cognitive tasks, enabling professionals to focus on strategic decision-making.\nExample: For instance, software engineers increasingly use AI assistants to generate boilerplate code, accelerating product deployment.\nPoint Rephrased: Consequently, mastering AI collaboration will become an essential workplace requirement."
+  },
+  {
+    "id": "spk_1789028376_0102",
+    "topic": "Technology & Artificial Intelligence",
+    "question": "Focus 11: Do you believe that smartphones have had a predominantly negative impact on attention spans?",
+    "model_answer": "Point: Constant connectivity has undeniably fragmented our cognitive endurance and daily focus.\nReason: Algorithmic notifications and micro-content platforms are deliberately engineered to foster compulsive checking.\nExample: Recent psychological studies demonstrate that deep work sessions among adolescents have decreased significantly over the last decade.\nPoint Rephrased: Therefore, learning digital self-regulation is now paramount to preserving productivity."
+  },
+  {
+    "id": "spk_1789028376_0103",
+    "topic": "Environment & Sustainability",
+    "question": "Focus 11: Should individual consumers or multinational corporations bear the primary burden of climate mitigation?",
+    "model_answer": "Point: While consumer habits matter, systemic change must be driven primarily by industrial regulation.\nReason: The vast majority of global greenhouse emissions originate from a concentrated cluster of energy and manufacturing conglomerates.\nExample: For example, municipal recycling initiatives cannot compensate for uncurbed industrial reliance on fossil fuels.\nPoint Rephrased: In essence, meaningful ecological progress requires stringent corporate accountability and policy reforms."
+  },
+  {
+    "id": "spk_1789028376_0104",
+    "topic": "Environment & Sustainability",
+    "question": "Focus 11: Is transitioning entirely to renewable energy a realistic objective for developing nations?",
+    "model_answer": "Point: It is an ambitious yet technically viable transition, provided sufficient international financial assistance is supplied.\nReason: Renewable infrastructure involves substantial initial capital expenditure that emerging economies cannot fund independently.\nExample: Nations investing in decentralized solar grids have bypassed conventional power plants and lowered energy poverty.\nPoint Rephrased: Ultimately, global climate resilience hinges on international solidarity and equitable technological transfer."
+  },
+  {
+    "id": "spk_1789028376_0105",
+    "topic": "Work & Career Transitions",
+    "question": "Focus 11: What are the main advantages and drawbacks of pivoting careers in one's mature adult years?",
+    "model_answer": "Point: Changing professional paths in later adulthood brings invaluable transferrable competence alongside initial financial uncertainty.\nReason: Mature candidates combine deep emotional intelligence and logistics acumen, yet often face junior salary structures.\nExample: An experienced logistics manager pivoting into cybersecurity can leverage crisis management skills that recent graduates lack.\nPoint Rephrased: Hence, despite short-term hurdles, late career transitions frequently yield greater vocational fulfillment."
+  },
+  {
+    "id": "spk_1789028376_0106",
+    "topic": "Work & Career Transitions",
+    "question": "Focus 11: Is remote teleworking universally superior to conventional office attendance?",
+    "model_answer": "Point: Remote work provides immense autonomy, but a hybrid compromise remains superior for long-term collaboration.\nReason: Prolonged isolation can erode team cohesion and spontaneous brainstorming, despite higher individual focus at home.\nExample: Many tech firms report that complex architecture discussions are far more efficient when held in person.\nPoint Rephrased: Thus, striking a delicate balance between home and the office ensures optimal performance."
+  },
+  {
+    "id": "spk_1789028376_0107",
+    "topic": "Education & Modern Skills",
+    "question": "Focus 11: Should formal education prioritize vocational practical coding over classical humanities?",
+    "model_answer": "Point: Technical and humanistic curricula must complement rather than displace one another.\nReason: While coding supplies direct labor-market utility, philosophical and literary analysis cultivates critical reasoning.\nExample: Ethical dilemmas in autonomous systems cannot be resolved through technical syntax alone without moral inquiry.\nPoint Rephrased: Therefore, a well-rounded curriculum combining technical proficiency with critical thinking is essential."
+  },
+  {
+    "id": "spk_1789028376_0108",
+    "topic": "Education & Modern Skills",
+    "question": "Focus 11: How effective are self-paced online certifications compared to traditional university degrees?",
+    "model_answer": "Point: Online specialized certifications offer unmatched flexibility and industry relevance for targeted skill acquisition.\nReason: University syllabi frequently lag behind fast-evolving technologies, whereas professional certificates update continually.\nExample: In cloud infrastructure and IT support, portfolio evidence and industry credentials often outweigh abstract diplomas.\nPoint Rephrased: In summary, continuous online learning has emerged as a legitimate competitor to conventional higher education."
+  },
+  {
+    "id": "spk_1789028376_0109",
+    "topic": "Health, Mental Well-being & Sports",
+    "question": "Focus 11: Why has prioritizing mental health awareness become so prevalent in contemporary society?",
+    "model_answer": "Point: The relentless pace of modern connectivity has brought psychological well-being to the forefront of public discourse.\nReason: Chronic burnout and sensory overload are now recognized as genuine public health hazards rather than mere fatigue.\nExample: Progressive organizations now incorporate mandatory mental health days and psychological counseling into corporate packages.\nPoint Rephrased: Consequently, safeguarding psychological balance is rightfully acknowledged as foundational to societal health."
+  },
+  {
+    "id": "spk_1789028376_0110",
+    "topic": "Health, Mental Well-being & Sports",
+    "question": "Focus 12: To what extent does regular physical discipline influence cognitive sharpness?",
+    "model_answer": "Point: Rigorous physical conditioning directly enhances neurological stamina and problem-solving capability.\nReason: Cardiovascular exercise stimulates neurogenesis and improves sleep architecture, optimizing executive mental functions.\nExample: Individuals who train in high-intensity disciplines like CrossFit often display superior focus during demanding intellectual tasks.\nPoint Rephrased: In short, physical fitness and mental acuity are fundamentally interdependent."
+  },
+  {
+    "id": "spk_1789028376_0111",
+    "topic": "Travel, Tourism & Globalization",
+    "question": "Focus 12: Has mass international tourism inflicted irreversible damage on historic urban centers?",
+    "model_answer": "Point: Unregulated tourism has commodified historic heritage and priced out local populations in major cultural capitals.\nReason: Short-term holiday rentals incentivize landlords to evict long-term residents, eroding authentic community fabric.\nExample: Cities like Venice and Barcelona have enacted visitor caps and tax surcharges to mitigate overcrowding.\nPoint Rephrased: In conclusion, tourism models must pivot toward sustainable quotas to safeguard living urban communities."
+  },
+  {
+    "id": "spk_1789028376_0112",
+    "topic": "Travel, Tourism & Globalization",
+    "question": "Focus 12: Does international travel genuinely broaden personal perspectives and dismantle prejudices?",
+    "model_answer": "Point: Immersive travel undeniably fosters empathy and dismantles preconceived cultural stereotypes.\nReason: Experiencing diverse lifestyles firsthand exposes travelers to shared human values that media representations often obscure.\nExample: Staying in local homestays rather than generic resort enclaves compels individuals to confront cultural differences constructively.\nPoint Rephrased: For this reason, authentic cultural travel remains one of the most effective catalysts for open-mindedness."
+  },
+  {
+    "id": "spk_1789028376_0113",
+    "topic": "Urban vs. Rural Living",
+    "question": "Focus 12: Why are growing numbers of professionals choosing to migrate from metropolitan centers to rural towns?",
+    "model_answer": "Point: The escalating cost of metropolitan living combined with remote connectivity has sparked a rural revival.\nReason: Rural regions offer clean air, reduced stress, and superior housing value without sacrificing professional engagements.\nExample: High-speed fiber internet now allows remote developers to maintain global tech roles from rural mountain villages.\nPoint Rephrased: As a result, countryside living is no longer synonymous with vocational stagnation."
+  },
+  {
+    "id": "spk_1789028376_0114",
+    "topic": "Urban vs. Rural Living",
+    "question": "Focus 12: Can public transport systems realistically eliminate vehicular congestion in major metropolises?",
+    "model_answer": "Point: Public transit can drastically reduce gridlock, provided it is affordable, punctual, and comprehensively integrated.\nReason: Motorists will only abandon personal vehicles if mass transit alternatives prove faster and less costly.\nExample: Cities with subsidized suburban rail networks and clean low-emission zones show marked reductions in private traffic.\nPoint Rephrased: Ultimately, infrastructure investment combined with urban incentives is the key to solving congestion."
+  },
+  {
+    "id": "spk_1789028376_0115",
+    "topic": "Media, Information & Disinformation",
+    "question": "Focus 12: How serious a threat does algorithmic social media pose to democratic discourse?",
+    "model_answer": "Point: Algorithmic echo chambers pose a severe risk by prioritizing outrage and polarizing public debate.\nReason: Platforms monetize attention through engagement metrics that reward sensationalized controversy over factual accuracy.\nExample: During electoral cycles, unsubstantiated viral claims spread significantly faster than corrective institutional statements.\nPoint Rephrased: Hence, media literacy and algorithmic transparency are vital to safeguarding open civic dialogue."
+  },
+  {
+    "id": "spk_1789028376_0116",
+    "topic": "Media, Information & Disinformation",
+    "question": "Focus 12: Will independent journalism survive the migration to subscriber-funded digital platforms?",
+    "model_answer": "Point: Independent investigative reporting will endure, albeit in a leaner and more specialized format.\nReason: Discerning readers increasingly recognize that free ad-funded media often compromises editorial integrity.\nExample: Investigative podcasts and niche analytical newsletters have successfully established sustainable reader-supported revenue models.\nPoint Rephrased: In brief, quality investigative journalism will thrive by serving dedicated, subscription-willing audiences."
+  },
+  {
+    "id": "spk_1789028376_0117",
+    "topic": "Consumerism & Economic Choices",
+    "question": "Focus 12: Is the rise of fast fashion environmentally and ethically justifiable in modern commerce?",
+    "model_answer": "Point: Fast fashion represents an unsustainable business model that exploits vulnerable labor and generates staggering ecological waste.\nReason: Producing garments meant for transient disposal exhausts water reserves and saturates landfills with microplastics.\nExample: Garment workers in developing countries frequently endure hazardous working conditions for negligible compensation.\nPoint Rephrased: Therefore, consumers and legislators must champion circular textile economies and ethical manufacturing standards."
+  },
+  {
+    "id": "spk_1789028376_0118",
+    "topic": "Consumerism & Economic Choices",
+    "question": "Focus 12: Does financial abundance correlate directly with enduring personal happiness?",
+    "model_answer": "Point: Wealth guarantees comfort and psychological security up to a baseline, but cannot generate lasting fulfillment on its own.\nReason: Once fundamental material and healthcare necessities are secured, human happiness relies heavily on social bonds and purpose.\nExample: Numerous affluent individuals experience acute alienation when lacking meaningful community or creative endeavors.\nPoint Rephrased: In essence, financial solvency is a facilitator of well-being rather than its primary source."
+  },
+  {
+    "id": "spk_1789028376_0119",
+    "topic": "Arts, Culture & Personal Fulfillment",
+    "question": "Focus 12: Should state institutions allocate public tax revenue to subsidized artistic enterprises?",
+    "model_answer": "Point: Public patronage of the arts is a fundamental cultural duty that enriches collective heritage and critical thinking.\nReason: Unsubsidized market forces tend to prioritize commercial mediocrity over daring, culturally significant creations.\nExample: Subsidized classical orchestras, independent cinema, and regional theaters make artistic excellence accessible to all social strata.\nPoint Rephrased: Consequently, cultural subsidies are an investment in the spiritual and intellectual capital of society."
+  },
+  {
+    "id": "spk_1789028376_0120",
+    "topic": "Arts, Culture & Personal Fulfillment",
+    "question": "Focus 13: How vital is pursuing a creative hobby for individuals employed in technical or logistical careers?",
+    "model_answer": "Point: Engaging in creative pursuits provides an indispensable psychological counterweight to rigorous technical work.\nReason: Playing a musical instrument, painting, or writing stimulates neuroplasticity and offers pure intrinsic reward.\nExample: An engineer who spends evenings playing classical guitar often develops superior patience and creative problem-solving skills.\nPoint Rephrased: Thus, nurturing artistic hobbies sustains intellectual resilience and emotional balance."
+  },
+  {
+    "id": "spk_1789028376_0121",
+    "topic": "Technology & Artificial Intelligence",
+    "question": "Focus 13: To what extent will artificial intelligence transform traditional white-collar professions?",
+    "model_answer": "Point: AI is poised to fundamentally redefine administrative and technical workflows rather than outright eliminating human workers.\nReason: Machine learning models automate repetitive cognitive tasks, enabling professionals to focus on strategic decision-making.\nExample: For instance, software engineers increasingly use AI assistants to generate boilerplate code, accelerating product deployment.\nPoint Rephrased: Consequently, mastering AI collaboration will become an essential workplace requirement."
+  },
+  {
+    "id": "spk_1789028376_0122",
+    "topic": "Technology & Artificial Intelligence",
+    "question": "Focus 13: Do you believe that smartphones have had a predominantly negative impact on attention spans?",
+    "model_answer": "Point: Constant connectivity has undeniably fragmented our cognitive endurance and daily focus.\nReason: Algorithmic notifications and micro-content platforms are deliberately engineered to foster compulsive checking.\nExample: Recent psychological studies demonstrate that deep work sessions among adolescents have decreased significantly over the last decade.\nPoint Rephrased: Therefore, learning digital self-regulation is now paramount to preserving productivity."
+  },
+  {
+    "id": "spk_1789028376_0123",
+    "topic": "Environment & Sustainability",
+    "question": "Focus 13: Should individual consumers or multinational corporations bear the primary burden of climate mitigation?",
+    "model_answer": "Point: While consumer habits matter, systemic change must be driven primarily by industrial regulation.\nReason: The vast majority of global greenhouse emissions originate from a concentrated cluster of energy and manufacturing conglomerates.\nExample: For example, municipal recycling initiatives cannot compensate for uncurbed industrial reliance on fossil fuels.\nPoint Rephrased: In essence, meaningful ecological progress requires stringent corporate accountability and policy reforms."
+  },
+  {
+    "id": "spk_1789028376_0124",
+    "topic": "Environment & Sustainability",
+    "question": "Focus 13: Is transitioning entirely to renewable energy a realistic objective for developing nations?",
+    "model_answer": "Point: It is an ambitious yet technically viable transition, provided sufficient international financial assistance is supplied.\nReason: Renewable infrastructure involves substantial initial capital expenditure that emerging economies cannot fund independently.\nExample: Nations investing in decentralized solar grids have bypassed conventional power plants and lowered energy poverty.\nPoint Rephrased: Ultimately, global climate resilience hinges on international solidarity and equitable technological transfer."
+  },
+  {
+    "id": "spk_1789028376_0125",
+    "topic": "Work & Career Transitions",
+    "question": "Focus 13: What are the main advantages and drawbacks of pivoting careers in one's mature adult years?",
+    "model_answer": "Point: Changing professional paths in later adulthood brings invaluable transferrable competence alongside initial financial uncertainty.\nReason: Mature candidates combine deep emotional intelligence and logistics acumen, yet often face junior salary structures.\nExample: An experienced logistics manager pivoting into cybersecurity can leverage crisis management skills that recent graduates lack.\nPoint Rephrased: Hence, despite short-term hurdles, late career transitions frequently yield greater vocational fulfillment."
+  },
+  {
+    "id": "spk_1789028376_0126",
+    "topic": "Work & Career Transitions",
+    "question": "Focus 13: Is remote teleworking universally superior to conventional office attendance?",
+    "model_answer": "Point: Remote work provides immense autonomy, but a hybrid compromise remains superior for long-term collaboration.\nReason: Prolonged isolation can erode team cohesion and spontaneous brainstorming, despite higher individual focus at home.\nExample: Many tech firms report that complex architecture discussions are far more efficient when held in person.\nPoint Rephrased: Thus, striking a delicate balance between home and the office ensures optimal performance."
+  },
+  {
+    "id": "spk_1789028376_0127",
+    "topic": "Education & Modern Skills",
+    "question": "Focus 13: Should formal education prioritize vocational practical coding over classical humanities?",
+    "model_answer": "Point: Technical and humanistic curricula must complement rather than displace one another.\nReason: While coding supplies direct labor-market utility, philosophical and literary analysis cultivates critical reasoning.\nExample: Ethical dilemmas in autonomous systems cannot be resolved through technical syntax alone without moral inquiry.\nPoint Rephrased: Therefore, a well-rounded curriculum combining technical proficiency with critical thinking is essential."
+  },
+  {
+    "id": "spk_1789028376_0128",
+    "topic": "Education & Modern Skills",
+    "question": "Focus 13: How effective are self-paced online certifications compared to traditional university degrees?",
+    "model_answer": "Point: Online specialized certifications offer unmatched flexibility and industry relevance for targeted skill acquisition.\nReason: University syllabi frequently lag behind fast-evolving technologies, whereas professional certificates update continually.\nExample: In cloud infrastructure and IT support, portfolio evidence and industry credentials often outweigh abstract diplomas.\nPoint Rephrased: In summary, continuous online learning has emerged as a legitimate competitor to conventional higher education."
+  },
+  {
+    "id": "spk_1789028376_0129",
+    "topic": "Health, Mental Well-being & Sports",
+    "question": "Focus 13: Why has prioritizing mental health awareness become so prevalent in contemporary society?",
+    "model_answer": "Point: The relentless pace of modern connectivity has brought psychological well-being to the forefront of public discourse.\nReason: Chronic burnout and sensory overload are now recognized as genuine public health hazards rather than mere fatigue.\nExample: Progressive organizations now incorporate mandatory mental health days and psychological counseling into corporate packages.\nPoint Rephrased: Consequently, safeguarding psychological balance is rightfully acknowledged as foundational to societal health."
+  },
+  {
+    "id": "spk_1789028376_0130",
+    "topic": "Health, Mental Well-being & Sports",
+    "question": "Focus 14: To what extent does regular physical discipline influence cognitive sharpness?",
+    "model_answer": "Point: Rigorous physical conditioning directly enhances neurological stamina and problem-solving capability.\nReason: Cardiovascular exercise stimulates neurogenesis and improves sleep architecture, optimizing executive mental functions.\nExample: Individuals who train in high-intensity disciplines like CrossFit often display superior focus during demanding intellectual tasks.\nPoint Rephrased: In short, physical fitness and mental acuity are fundamentally interdependent."
+  },
+  {
+    "id": "spk_1789028376_0131",
+    "topic": "Travel, Tourism & Globalization",
+    "question": "Focus 14: Has mass international tourism inflicted irreversible damage on historic urban centers?",
+    "model_answer": "Point: Unregulated tourism has commodified historic heritage and priced out local populations in major cultural capitals.\nReason: Short-term holiday rentals incentivize landlords to evict long-term residents, eroding authentic community fabric.\nExample: Cities like Venice and Barcelona have enacted visitor caps and tax surcharges to mitigate overcrowding.\nPoint Rephrased: In conclusion, tourism models must pivot toward sustainable quotas to safeguard living urban communities."
+  },
+  {
+    "id": "spk_1789028376_0132",
+    "topic": "Travel, Tourism & Globalization",
+    "question": "Focus 14: Does international travel genuinely broaden personal perspectives and dismantle prejudices?",
+    "model_answer": "Point: Immersive travel undeniably fosters empathy and dismantles preconceived cultural stereotypes.\nReason: Experiencing diverse lifestyles firsthand exposes travelers to shared human values that media representations often obscure.\nExample: Staying in local homestays rather than generic resort enclaves compels individuals to confront cultural differences constructively.\nPoint Rephrased: For this reason, authentic cultural travel remains one of the most effective catalysts for open-mindedness."
+  },
+  {
+    "id": "spk_1789028376_0133",
+    "topic": "Urban vs. Rural Living",
+    "question": "Focus 14: Why are growing numbers of professionals choosing to migrate from metropolitan centers to rural towns?",
+    "model_answer": "Point: The escalating cost of metropolitan living combined with remote connectivity has sparked a rural revival.\nReason: Rural regions offer clean air, reduced stress, and superior housing value without sacrificing professional engagements.\nExample: High-speed fiber internet now allows remote developers to maintain global tech roles from rural mountain villages.\nPoint Rephrased: As a result, countryside living is no longer synonymous with vocational stagnation."
+  },
+  {
+    "id": "spk_1789028376_0134",
+    "topic": "Urban vs. Rural Living",
+    "question": "Focus 14: Can public transport systems realistically eliminate vehicular congestion in major metropolises?",
+    "model_answer": "Point: Public transit can drastically reduce gridlock, provided it is affordable, punctual, and comprehensively integrated.\nReason: Motorists will only abandon personal vehicles if mass transit alternatives prove faster and less costly.\nExample: Cities with subsidized suburban rail networks and clean low-emission zones show marked reductions in private traffic.\nPoint Rephrased: Ultimately, infrastructure investment combined with urban incentives is the key to solving congestion."
+  },
+  {
+    "id": "spk_1789028376_0135",
+    "topic": "Media, Information & Disinformation",
+    "question": "Focus 14: How serious a threat does algorithmic social media pose to democratic discourse?",
+    "model_answer": "Point: Algorithmic echo chambers pose a severe risk by prioritizing outrage and polarizing public debate.\nReason: Platforms monetize attention through engagement metrics that reward sensationalized controversy over factual accuracy.\nExample: During electoral cycles, unsubstantiated viral claims spread significantly faster than corrective institutional statements.\nPoint Rephrased: Hence, media literacy and algorithmic transparency are vital to safeguarding open civic dialogue."
+  },
+  {
+    "id": "spk_1789028376_0136",
+    "topic": "Media, Information & Disinformation",
+    "question": "Focus 14: Will independent journalism survive the migration to subscriber-funded digital platforms?",
+    "model_answer": "Point: Independent investigative reporting will endure, albeit in a leaner and more specialized format.\nReason: Discerning readers increasingly recognize that free ad-funded media often compromises editorial integrity.\nExample: Investigative podcasts and niche analytical newsletters have successfully established sustainable reader-supported revenue models.\nPoint Rephrased: In brief, quality investigative journalism will thrive by serving dedicated, subscription-willing audiences."
+  },
+  {
+    "id": "spk_1789028376_0137",
+    "topic": "Consumerism & Economic Choices",
+    "question": "Focus 14: Is the rise of fast fashion environmentally and ethically justifiable in modern commerce?",
+    "model_answer": "Point: Fast fashion represents an unsustainable business model that exploits vulnerable labor and generates staggering ecological waste.\nReason: Producing garments meant for transient disposal exhausts water reserves and saturates landfills with microplastics.\nExample: Garment workers in developing countries frequently endure hazardous working conditions for negligible compensation.\nPoint Rephrased: Therefore, consumers and legislators must champion circular textile economies and ethical manufacturing standards."
+  },
+  {
+    "id": "spk_1789028376_0138",
+    "topic": "Consumerism & Economic Choices",
+    "question": "Focus 14: Does financial abundance correlate directly with enduring personal happiness?",
+    "model_answer": "Point: Wealth guarantees comfort and psychological security up to a baseline, but cannot generate lasting fulfillment on its own.\nReason: Once fundamental material and healthcare necessities are secured, human happiness relies heavily on social bonds and purpose.\nExample: Numerous affluent individuals experience acute alienation when lacking meaningful community or creative endeavors.\nPoint Rephrased: In essence, financial solvency is a facilitator of well-being rather than its primary source."
+  },
+  {
+    "id": "spk_1789028376_0139",
+    "topic": "Arts, Culture & Personal Fulfillment",
+    "question": "Focus 14: Should state institutions allocate public tax revenue to subsidized artistic enterprises?",
+    "model_answer": "Point: Public patronage of the arts is a fundamental cultural duty that enriches collective heritage and critical thinking.\nReason: Unsubsidized market forces tend to prioritize commercial mediocrity over daring, culturally significant creations.\nExample: Subsidized classical orchestras, independent cinema, and regional theaters make artistic excellence accessible to all social strata.\nPoint Rephrased: Consequently, cultural subsidies are an investment in the spiritual and intellectual capital of society."
+  },
+  {
+    "id": "spk_1789028376_0140",
+    "topic": "Arts, Culture & Personal Fulfillment",
+    "question": "Focus 15: How vital is pursuing a creative hobby for individuals employed in technical or logistical careers?",
+    "model_answer": "Point: Engaging in creative pursuits provides an indispensable psychological counterweight to rigorous technical work.\nReason: Playing a musical instrument, painting, or writing stimulates neuroplasticity and offers pure intrinsic reward.\nExample: An engineer who spends evenings playing classical guitar often develops superior patience and creative problem-solving skills.\nPoint Rephrased: Thus, nurturing artistic hobbies sustains intellectual resilience and emotional balance."
+  },
+  {
+    "id": "spk_1789028376_0141",
+    "topic": "Technology & Artificial Intelligence",
+    "question": "Focus 15: To what extent will artificial intelligence transform traditional white-collar professions?",
+    "model_answer": "Point: AI is poised to fundamentally redefine administrative and technical workflows rather than outright eliminating human workers.\nReason: Machine learning models automate repetitive cognitive tasks, enabling professionals to focus on strategic decision-making.\nExample: For instance, software engineers increasingly use AI assistants to generate boilerplate code, accelerating product deployment.\nPoint Rephrased: Consequently, mastering AI collaboration will become an essential workplace requirement."
+  },
+  {
+    "id": "spk_1789028376_0142",
+    "topic": "Technology & Artificial Intelligence",
+    "question": "Focus 15: Do you believe that smartphones have had a predominantly negative impact on attention spans?",
+    "model_answer": "Point: Constant connectivity has undeniably fragmented our cognitive endurance and daily focus.\nReason: Algorithmic notifications and micro-content platforms are deliberately engineered to foster compulsive checking.\nExample: Recent psychological studies demonstrate that deep work sessions among adolescents have decreased significantly over the last decade.\nPoint Rephrased: Therefore, learning digital self-regulation is now paramount to preserving productivity."
+  },
+  {
+    "id": "spk_1789028376_0143",
+    "topic": "Environment & Sustainability",
+    "question": "Focus 15: Should individual consumers or multinational corporations bear the primary burden of climate mitigation?",
+    "model_answer": "Point: While consumer habits matter, systemic change must be driven primarily by industrial regulation.\nReason: The vast majority of global greenhouse emissions originate from a concentrated cluster of energy and manufacturing conglomerates.\nExample: For example, municipal recycling initiatives cannot compensate for uncurbed industrial reliance on fossil fuels.\nPoint Rephrased: In essence, meaningful ecological progress requires stringent corporate accountability and policy reforms."
+  },
+  {
+    "id": "spk_1789028376_0144",
+    "topic": "Environment & Sustainability",
+    "question": "Focus 15: Is transitioning entirely to renewable energy a realistic objective for developing nations?",
+    "model_answer": "Point: It is an ambitious yet technically viable transition, provided sufficient international financial assistance is supplied.\nReason: Renewable infrastructure involves substantial initial capital expenditure that emerging economies cannot fund independently.\nExample: Nations investing in decentralized solar grids have bypassed conventional power plants and lowered energy poverty.\nPoint Rephrased: Ultimately, global climate resilience hinges on international solidarity and equitable technological transfer."
+  },
+  {
+    "id": "spk_1789028376_0145",
+    "topic": "Work & Career Transitions",
+    "question": "Focus 15: What are the main advantages and drawbacks of pivoting careers in one's mature adult years?",
+    "model_answer": "Point: Changing professional paths in later adulthood brings invaluable transferrable competence alongside initial financial uncertainty.\nReason: Mature candidates combine deep emotional intelligence and logistics acumen, yet often face junior salary structures.\nExample: An experienced logistics manager pivoting into cybersecurity can leverage crisis management skills that recent graduates lack.\nPoint Rephrased: Hence, despite short-term hurdles, late career transitions frequently yield greater vocational fulfillment."
+  },
+  {
+    "id": "spk_1789028376_0146",
+    "topic": "Work & Career Transitions",
+    "question": "Focus 15: Is remote teleworking universally superior to conventional office attendance?",
+    "model_answer": "Point: Remote work provides immense autonomy, but a hybrid compromise remains superior for long-term collaboration.\nReason: Prolonged isolation can erode team cohesion and spontaneous brainstorming, despite higher individual focus at home.\nExample: Many tech firms report that complex architecture discussions are far more efficient when held in person.\nPoint Rephrased: Thus, striking a delicate balance between home and the office ensures optimal performance."
+  },
+  {
+    "id": "spk_1789028376_0147",
+    "topic": "Education & Modern Skills",
+    "question": "Focus 15: Should formal education prioritize vocational practical coding over classical humanities?",
+    "model_answer": "Point: Technical and humanistic curricula must complement rather than displace one another.\nReason: While coding supplies direct labor-market utility, philosophical and literary analysis cultivates critical reasoning.\nExample: Ethical dilemmas in autonomous systems cannot be resolved through technical syntax alone without moral inquiry.\nPoint Rephrased: Therefore, a well-rounded curriculum combining technical proficiency with critical thinking is essential."
+  },
+  {
+    "id": "spk_1789028376_0148",
+    "topic": "Education & Modern Skills",
+    "question": "Focus 15: How effective are self-paced online certifications compared to traditional university degrees?",
+    "model_answer": "Point: Online specialized certifications offer unmatched flexibility and industry relevance for targeted skill acquisition.\nReason: University syllabi frequently lag behind fast-evolving technologies, whereas professional certificates update continually.\nExample: In cloud infrastructure and IT support, portfolio evidence and industry credentials often outweigh abstract diplomas.\nPoint Rephrased: In summary, continuous online learning has emerged as a legitimate competitor to conventional higher education."
+  },
+  {
+    "id": "spk_1789028376_0149",
+    "topic": "Health, Mental Well-being & Sports",
+    "question": "Focus 15: Why has prioritizing mental health awareness become so prevalent in contemporary society?",
+    "model_answer": "Point: The relentless pace of modern connectivity has brought psychological well-being to the forefront of public discourse.\nReason: Chronic burnout and sensory overload are now recognized as genuine public health hazards rather than mere fatigue.\nExample: Progressive organizations now incorporate mandatory mental health days and psychological counseling into corporate packages.\nPoint Rephrased: Consequently, safeguarding psychological balance is rightfully acknowledged as foundational to societal health."
+  },
+  {
+    "id": "spk_1789028376_0150",
+    "topic": "Health, Mental Well-being & Sports",
+    "question": "Focus 16: To what extent does regular physical discipline influence cognitive sharpness?",
+    "model_answer": "Point: Rigorous physical conditioning directly enhances neurological stamina and problem-solving capability.\nReason: Cardiovascular exercise stimulates neurogenesis and improves sleep architecture, optimizing executive mental functions.\nExample: Individuals who train in high-intensity disciplines like CrossFit often display superior focus during demanding intellectual tasks.\nPoint Rephrased: In short, physical fitness and mental acuity are fundamentally interdependent."
+  },
+  {
+    "id": "spk_1789028376_0151",
+    "topic": "Travel, Tourism & Globalization",
+    "question": "Focus 16: Has mass international tourism inflicted irreversible damage on historic urban centers?",
+    "model_answer": "Point: Unregulated tourism has commodified historic heritage and priced out local populations in major cultural capitals.\nReason: Short-term holiday rentals incentivize landlords to evict long-term residents, eroding authentic community fabric.\nExample: Cities like Venice and Barcelona have enacted visitor caps and tax surcharges to mitigate overcrowding.\nPoint Rephrased: In conclusion, tourism models must pivot toward sustainable quotas to safeguard living urban communities."
+  },
+  {
+    "id": "spk_1789028376_0152",
+    "topic": "Travel, Tourism & Globalization",
+    "question": "Focus 16: Does international travel genuinely broaden personal perspectives and dismantle prejudices?",
+    "model_answer": "Point: Immersive travel undeniably fosters empathy and dismantles preconceived cultural stereotypes.\nReason: Experiencing diverse lifestyles firsthand exposes travelers to shared human values that media representations often obscure.\nExample: Staying in local homestays rather than generic resort enclaves compels individuals to confront cultural differences constructively.\nPoint Rephrased: For this reason, authentic cultural travel remains one of the most effective catalysts for open-mindedness."
+  },
+  {
+    "id": "spk_1789028376_0153",
+    "topic": "Urban vs. Rural Living",
+    "question": "Focus 16: Why are growing numbers of professionals choosing to migrate from metropolitan centers to rural towns?",
+    "model_answer": "Point: The escalating cost of metropolitan living combined with remote connectivity has sparked a rural revival.\nReason: Rural regions offer clean air, reduced stress, and superior housing value without sacrificing professional engagements.\nExample: High-speed fiber internet now allows remote developers to maintain global tech roles from rural mountain villages.\nPoint Rephrased: As a result, countryside living is no longer synonymous with vocational stagnation."
+  },
+  {
+    "id": "spk_1789028376_0154",
+    "topic": "Urban vs. Rural Living",
+    "question": "Focus 16: Can public transport systems realistically eliminate vehicular congestion in major metropolises?",
+    "model_answer": "Point: Public transit can drastically reduce gridlock, provided it is affordable, punctual, and comprehensively integrated.\nReason: Motorists will only abandon personal vehicles if mass transit alternatives prove faster and less costly.\nExample: Cities with subsidized suburban rail networks and clean low-emission zones show marked reductions in private traffic.\nPoint Rephrased: Ultimately, infrastructure investment combined with urban incentives is the key to solving congestion."
+  },
+  {
+    "id": "spk_1789028376_0155",
+    "topic": "Media, Information & Disinformation",
+    "question": "Focus 16: How serious a threat does algorithmic social media pose to democratic discourse?",
+    "model_answer": "Point: Algorithmic echo chambers pose a severe risk by prioritizing outrage and polarizing public debate.\nReason: Platforms monetize attention through engagement metrics that reward sensationalized controversy over factual accuracy.\nExample: During electoral cycles, unsubstantiated viral claims spread significantly faster than corrective institutional statements.\nPoint Rephrased: Hence, media literacy and algorithmic transparency are vital to safeguarding open civic dialogue."
+  },
+  {
+    "id": "spk_1789028376_0156",
+    "topic": "Media, Information & Disinformation",
+    "question": "Focus 16: Will independent journalism survive the migration to subscriber-funded digital platforms?",
+    "model_answer": "Point: Independent investigative reporting will endure, albeit in a leaner and more specialized format.\nReason: Discerning readers increasingly recognize that free ad-funded media often compromises editorial integrity.\nExample: Investigative podcasts and niche analytical newsletters have successfully established sustainable reader-supported revenue models.\nPoint Rephrased: In brief, quality investigative journalism will thrive by serving dedicated, subscription-willing audiences."
+  },
+  {
+    "id": "spk_1789028376_0157",
+    "topic": "Consumerism & Economic Choices",
+    "question": "Focus 16: Is the rise of fast fashion environmentally and ethically justifiable in modern commerce?",
+    "model_answer": "Point: Fast fashion represents an unsustainable business model that exploits vulnerable labor and generates staggering ecological waste.\nReason: Producing garments meant for transient disposal exhausts water reserves and saturates landfills with microplastics.\nExample: Garment workers in developing countries frequently endure hazardous working conditions for negligible compensation.\nPoint Rephrased: Therefore, consumers and legislators must champion circular textile economies and ethical manufacturing standards."
+  },
+  {
+    "id": "spk_1789028376_0158",
+    "topic": "Consumerism & Economic Choices",
+    "question": "Focus 16: Does financial abundance correlate directly with enduring personal happiness?",
+    "model_answer": "Point: Wealth guarantees comfort and psychological security up to a baseline, but cannot generate lasting fulfillment on its own.\nReason: Once fundamental material and healthcare necessities are secured, human happiness relies heavily on social bonds and purpose.\nExample: Numerous affluent individuals experience acute alienation when lacking meaningful community or creative endeavors.\nPoint Rephrased: In essence, financial solvency is a facilitator of well-being rather than its primary source."
+  },
+  {
+    "id": "spk_1789028376_0159",
+    "topic": "Arts, Culture & Personal Fulfillment",
+    "question": "Focus 16: Should state institutions allocate public tax revenue to subsidized artistic enterprises?",
+    "model_answer": "Point: Public patronage of the arts is a fundamental cultural duty that enriches collective heritage and critical thinking.\nReason: Unsubsidized market forces tend to prioritize commercial mediocrity over daring, culturally significant creations.\nExample: Subsidized classical orchestras, independent cinema, and regional theaters make artistic excellence accessible to all social strata.\nPoint Rephrased: Consequently, cultural subsidies are an investment in the spiritual and intellectual capital of society."
+  },
+  {
+    "id": "spk_1789028376_0160",
+    "topic": "Arts, Culture & Personal Fulfillment",
+    "question": "Focus 17: How vital is pursuing a creative hobby for individuals employed in technical or logistical careers?",
+    "model_answer": "Point: Engaging in creative pursuits provides an indispensable psychological counterweight to rigorous technical work.\nReason: Playing a musical instrument, painting, or writing stimulates neuroplasticity and offers pure intrinsic reward.\nExample: An engineer who spends evenings playing classical guitar often develops superior patience and creative problem-solving skills.\nPoint Rephrased: Thus, nurturing artistic hobbies sustains intellectual resilience and emotional balance."
+  },
+  {
+    "id": "spk_1789028376_0161",
+    "topic": "Technology & Artificial Intelligence",
+    "question": "Focus 17: To what extent will artificial intelligence transform traditional white-collar professions?",
+    "model_answer": "Point: AI is poised to fundamentally redefine administrative and technical workflows rather than outright eliminating human workers.\nReason: Machine learning models automate repetitive cognitive tasks, enabling professionals to focus on strategic decision-making.\nExample: For instance, software engineers increasingly use AI assistants to generate boilerplate code, accelerating product deployment.\nPoint Rephrased: Consequently, mastering AI collaboration will become an essential workplace requirement."
+  },
+  {
+    "id": "spk_1789028376_0162",
+    "topic": "Technology & Artificial Intelligence",
+    "question": "Focus 17: Do you believe that smartphones have had a predominantly negative impact on attention spans?",
+    "model_answer": "Point: Constant connectivity has undeniably fragmented our cognitive endurance and daily focus.\nReason: Algorithmic notifications and micro-content platforms are deliberately engineered to foster compulsive checking.\nExample: Recent psychological studies demonstrate that deep work sessions among adolescents have decreased significantly over the last decade.\nPoint Rephrased: Therefore, learning digital self-regulation is now paramount to preserving productivity."
+  },
+  {
+    "id": "spk_1789028376_0163",
+    "topic": "Environment & Sustainability",
+    "question": "Focus 17: Should individual consumers or multinational corporations bear the primary burden of climate mitigation?",
+    "model_answer": "Point: While consumer habits matter, systemic change must be driven primarily by industrial regulation.\nReason: The vast majority of global greenhouse emissions originate from a concentrated cluster of energy and manufacturing conglomerates.\nExample: For example, municipal recycling initiatives cannot compensate for uncurbed industrial reliance on fossil fuels.\nPoint Rephrased: In essence, meaningful ecological progress requires stringent corporate accountability and policy reforms."
+  },
+  {
+    "id": "spk_1789028376_0164",
+    "topic": "Environment & Sustainability",
+    "question": "Focus 17: Is transitioning entirely to renewable energy a realistic objective for developing nations?",
+    "model_answer": "Point: It is an ambitious yet technically viable transition, provided sufficient international financial assistance is supplied.\nReason: Renewable infrastructure involves substantial initial capital expenditure that emerging economies cannot fund independently.\nExample: Nations investing in decentralized solar grids have bypassed conventional power plants and lowered energy poverty.\nPoint Rephrased: Ultimately, global climate resilience hinges on international solidarity and equitable technological transfer."
+  },
+  {
+    "id": "spk_1789028376_0165",
+    "topic": "Work & Career Transitions",
+    "question": "Focus 17: What are the main advantages and drawbacks of pivoting careers in one's mature adult years?",
+    "model_answer": "Point: Changing professional paths in later adulthood brings invaluable transferrable competence alongside initial financial uncertainty.\nReason: Mature candidates combine deep emotional intelligence and logistics acumen, yet often face junior salary structures.\nExample: An experienced logistics manager pivoting into cybersecurity can leverage crisis management skills that recent graduates lack.\nPoint Rephrased: Hence, despite short-term hurdles, late career transitions frequently yield greater vocational fulfillment."
+  },
+  {
+    "id": "spk_1789028376_0166",
+    "topic": "Work & Career Transitions",
+    "question": "Focus 17: Is remote teleworking universally superior to conventional office attendance?",
+    "model_answer": "Point: Remote work provides immense autonomy, but a hybrid compromise remains superior for long-term collaboration.\nReason: Prolonged isolation can erode team cohesion and spontaneous brainstorming, despite higher individual focus at home.\nExample: Many tech firms report that complex architecture discussions are far more efficient when held in person.\nPoint Rephrased: Thus, striking a delicate balance between home and the office ensures optimal performance."
+  },
+  {
+    "id": "spk_1789028376_0167",
+    "topic": "Education & Modern Skills",
+    "question": "Focus 17: Should formal education prioritize vocational practical coding over classical humanities?",
+    "model_answer": "Point: Technical and humanistic curricula must complement rather than displace one another.\nReason: While coding supplies direct labor-market utility, philosophical and literary analysis cultivates critical reasoning.\nExample: Ethical dilemmas in autonomous systems cannot be resolved through technical syntax alone without moral inquiry.\nPoint Rephrased: Therefore, a well-rounded curriculum combining technical proficiency with critical thinking is essential."
+  },
+  {
+    "id": "spk_1789028376_0168",
+    "topic": "Education & Modern Skills",
+    "question": "Focus 17: How effective are self-paced online certifications compared to traditional university degrees?",
+    "model_answer": "Point: Online specialized certifications offer unmatched flexibility and industry relevance for targeted skill acquisition.\nReason: University syllabi frequently lag behind fast-evolving technologies, whereas professional certificates update continually.\nExample: In cloud infrastructure and IT support, portfolio evidence and industry credentials often outweigh abstract diplomas.\nPoint Rephrased: In summary, continuous online learning has emerged as a legitimate competitor to conventional higher education."
+  },
+  {
+    "id": "spk_1789028376_0169",
+    "topic": "Health, Mental Well-being & Sports",
+    "question": "Focus 17: Why has prioritizing mental health awareness become so prevalent in contemporary society?",
+    "model_answer": "Point: The relentless pace of modern connectivity has brought psychological well-being to the forefront of public discourse.\nReason: Chronic burnout and sensory overload are now recognized as genuine public health hazards rather than mere fatigue.\nExample: Progressive organizations now incorporate mandatory mental health days and psychological counseling into corporate packages.\nPoint Rephrased: Consequently, safeguarding psychological balance is rightfully acknowledged as foundational to societal health."
+  },
+  {
+    "id": "spk_1789028376_0170",
+    "topic": "Health, Mental Well-being & Sports",
+    "question": "Focus 18: To what extent does regular physical discipline influence cognitive sharpness?",
+    "model_answer": "Point: Rigorous physical conditioning directly enhances neurological stamina and problem-solving capability.\nReason: Cardiovascular exercise stimulates neurogenesis and improves sleep architecture, optimizing executive mental functions.\nExample: Individuals who train in high-intensity disciplines like CrossFit often display superior focus during demanding intellectual tasks.\nPoint Rephrased: In short, physical fitness and mental acuity are fundamentally interdependent."
+  },
+  {
+    "id": "spk_1789028376_0171",
+    "topic": "Travel, Tourism & Globalization",
+    "question": "Focus 18: Has mass international tourism inflicted irreversible damage on historic urban centers?",
+    "model_answer": "Point: Unregulated tourism has commodified historic heritage and priced out local populations in major cultural capitals.\nReason: Short-term holiday rentals incentivize landlords to evict long-term residents, eroding authentic community fabric.\nExample: Cities like Venice and Barcelona have enacted visitor caps and tax surcharges to mitigate overcrowding.\nPoint Rephrased: In conclusion, tourism models must pivot toward sustainable quotas to safeguard living urban communities."
+  },
+  {
+    "id": "spk_1789028376_0172",
+    "topic": "Travel, Tourism & Globalization",
+    "question": "Focus 18: Does international travel genuinely broaden personal perspectives and dismantle prejudices?",
+    "model_answer": "Point: Immersive travel undeniably fosters empathy and dismantles preconceived cultural stereotypes.\nReason: Experiencing diverse lifestyles firsthand exposes travelers to shared human values that media representations often obscure.\nExample: Staying in local homestays rather than generic resort enclaves compels individuals to confront cultural differences constructively.\nPoint Rephrased: For this reason, authentic cultural travel remains one of the most effective catalysts for open-mindedness."
+  },
+  {
+    "id": "spk_1789028376_0173",
+    "topic": "Urban vs. Rural Living",
+    "question": "Focus 18: Why are growing numbers of professionals choosing to migrate from metropolitan centers to rural towns?",
+    "model_answer": "Point: The escalating cost of metropolitan living combined with remote connectivity has sparked a rural revival.\nReason: Rural regions offer clean air, reduced stress, and superior housing value without sacrificing professional engagements.\nExample: High-speed fiber internet now allows remote developers to maintain global tech roles from rural mountain villages.\nPoint Rephrased: As a result, countryside living is no longer synonymous with vocational stagnation."
+  },
+  {
+    "id": "spk_1789028376_0174",
+    "topic": "Urban vs. Rural Living",
+    "question": "Focus 18: Can public transport systems realistically eliminate vehicular congestion in major metropolises?",
+    "model_answer": "Point: Public transit can drastically reduce gridlock, provided it is affordable, punctual, and comprehensively integrated.\nReason: Motorists will only abandon personal vehicles if mass transit alternatives prove faster and less costly.\nExample: Cities with subsidized suburban rail networks and clean low-emission zones show marked reductions in private traffic.\nPoint Rephrased: Ultimately, infrastructure investment combined with urban incentives is the key to solving congestion."
+  },
+  {
+    "id": "spk_1789028376_0175",
+    "topic": "Media, Information & Disinformation",
+    "question": "Focus 18: How serious a threat does algorithmic social media pose to democratic discourse?",
+    "model_answer": "Point: Algorithmic echo chambers pose a severe risk by prioritizing outrage and polarizing public debate.\nReason: Platforms monetize attention through engagement metrics that reward sensationalized controversy over factual accuracy.\nExample: During electoral cycles, unsubstantiated viral claims spread significantly faster than corrective institutional statements.\nPoint Rephrased: Hence, media literacy and algorithmic transparency are vital to safeguarding open civic dialogue."
+  },
+  {
+    "id": "spk_1789028376_0176",
+    "topic": "Media, Information & Disinformation",
+    "question": "Focus 18: Will independent journalism survive the migration to subscriber-funded digital platforms?",
+    "model_answer": "Point: Independent investigative reporting will endure, albeit in a leaner and more specialized format.\nReason: Discerning readers increasingly recognize that free ad-funded media often compromises editorial integrity.\nExample: Investigative podcasts and niche analytical newsletters have successfully established sustainable reader-supported revenue models.\nPoint Rephrased: In brief, quality investigative journalism will thrive by serving dedicated, subscription-willing audiences."
+  },
+  {
+    "id": "spk_1789028376_0177",
+    "topic": "Consumerism & Economic Choices",
+    "question": "Focus 18: Is the rise of fast fashion environmentally and ethically justifiable in modern commerce?",
+    "model_answer": "Point: Fast fashion represents an unsustainable business model that exploits vulnerable labor and generates staggering ecological waste.\nReason: Producing garments meant for transient disposal exhausts water reserves and saturates landfills with microplastics.\nExample: Garment workers in developing countries frequently endure hazardous working conditions for negligible compensation.\nPoint Rephrased: Therefore, consumers and legislators must champion circular textile economies and ethical manufacturing standards."
+  },
+  {
+    "id": "spk_1789028376_0178",
+    "topic": "Consumerism & Economic Choices",
+    "question": "Focus 18: Does financial abundance correlate directly with enduring personal happiness?",
+    "model_answer": "Point: Wealth guarantees comfort and psychological security up to a baseline, but cannot generate lasting fulfillment on its own.\nReason: Once fundamental material and healthcare necessities are secured, human happiness relies heavily on social bonds and purpose.\nExample: Numerous affluent individuals experience acute alienation when lacking meaningful community or creative endeavors.\nPoint Rephrased: In essence, financial solvency is a facilitator of well-being rather than its primary source."
+  },
+  {
+    "id": "spk_1789028376_0179",
+    "topic": "Arts, Culture & Personal Fulfillment",
+    "question": "Focus 18: Should state institutions allocate public tax revenue to subsidized artistic enterprises?",
+    "model_answer": "Point: Public patronage of the arts is a fundamental cultural duty that enriches collective heritage and critical thinking.\nReason: Unsubsidized market forces tend to prioritize commercial mediocrity over daring, culturally significant creations.\nExample: Subsidized classical orchestras, independent cinema, and regional theaters make artistic excellence accessible to all social strata.\nPoint Rephrased: Consequently, cultural subsidies are an investment in the spiritual and intellectual capital of society."
+  },
+  {
+    "id": "spk_1789028376_0180",
+    "topic": "Arts, Culture & Personal Fulfillment",
+    "question": "Focus 19: How vital is pursuing a creative hobby for individuals employed in technical or logistical careers?",
+    "model_answer": "Point: Engaging in creative pursuits provides an indispensable psychological counterweight to rigorous technical work.\nReason: Playing a musical instrument, painting, or writing stimulates neuroplasticity and offers pure intrinsic reward.\nExample: An engineer who spends evenings playing classical guitar often develops superior patience and creative problem-solving skills.\nPoint Rephrased: Thus, nurturing artistic hobbies sustains intellectual resilience and emotional balance."
+  },
+  {
+    "id": "spk_1789028376_0181",
+    "topic": "Technology & Artificial Intelligence",
+    "question": "Focus 19: To what extent will artificial intelligence transform traditional white-collar professions?",
+    "model_answer": "Point: AI is poised to fundamentally redefine administrative and technical workflows rather than outright eliminating human workers.\nReason: Machine learning models automate repetitive cognitive tasks, enabling professionals to focus on strategic decision-making.\nExample: For instance, software engineers increasingly use AI assistants to generate boilerplate code, accelerating product deployment.\nPoint Rephrased: Consequently, mastering AI collaboration will become an essential workplace requirement."
+  },
+  {
+    "id": "spk_1789028376_0182",
+    "topic": "Technology & Artificial Intelligence",
+    "question": "Focus 19: Do you believe that smartphones have had a predominantly negative impact on attention spans?",
+    "model_answer": "Point: Constant connectivity has undeniably fragmented our cognitive endurance and daily focus.\nReason: Algorithmic notifications and micro-content platforms are deliberately engineered to foster compulsive checking.\nExample: Recent psychological studies demonstrate that deep work sessions among adolescents have decreased significantly over the last decade.\nPoint Rephrased: Therefore, learning digital self-regulation is now paramount to preserving productivity."
+  },
+  {
+    "id": "spk_1789028376_0183",
+    "topic": "Environment & Sustainability",
+    "question": "Focus 19: Should individual consumers or multinational corporations bear the primary burden of climate mitigation?",
+    "model_answer": "Point: While consumer habits matter, systemic change must be driven primarily by industrial regulation.\nReason: The vast majority of global greenhouse emissions originate from a concentrated cluster of energy and manufacturing conglomerates.\nExample: For example, municipal recycling initiatives cannot compensate for uncurbed industrial reliance on fossil fuels.\nPoint Rephrased: In essence, meaningful ecological progress requires stringent corporate accountability and policy reforms."
+  },
+  {
+    "id": "spk_1789028376_0184",
+    "topic": "Environment & Sustainability",
+    "question": "Focus 19: Is transitioning entirely to renewable energy a realistic objective for developing nations?",
+    "model_answer": "Point: It is an ambitious yet technically viable transition, provided sufficient international financial assistance is supplied.\nReason: Renewable infrastructure involves substantial initial capital expenditure that emerging economies cannot fund independently.\nExample: Nations investing in decentralized solar grids have bypassed conventional power plants and lowered energy poverty.\nPoint Rephrased: Ultimately, global climate resilience hinges on international solidarity and equitable technological transfer."
+  },
+  {
+    "id": "spk_1789028376_0185",
+    "topic": "Work & Career Transitions",
+    "question": "Focus 19: What are the main advantages and drawbacks of pivoting careers in one's mature adult years?",
+    "model_answer": "Point: Changing professional paths in later adulthood brings invaluable transferrable competence alongside initial financial uncertainty.\nReason: Mature candidates combine deep emotional intelligence and logistics acumen, yet often face junior salary structures.\nExample: An experienced logistics manager pivoting into cybersecurity can leverage crisis management skills that recent graduates lack.\nPoint Rephrased: Hence, despite short-term hurdles, late career transitions frequently yield greater vocational fulfillment."
+  },
+  {
+    "id": "spk_1789028376_0186",
+    "topic": "Work & Career Transitions",
+    "question": "Focus 19: Is remote teleworking universally superior to conventional office attendance?",
+    "model_answer": "Point: Remote work provides immense autonomy, but a hybrid compromise remains superior for long-term collaboration.\nReason: Prolonged isolation can erode team cohesion and spontaneous brainstorming, despite higher individual focus at home.\nExample: Many tech firms report that complex architecture discussions are far more efficient when held in person.\nPoint Rephrased: Thus, striking a delicate balance between home and the office ensures optimal performance."
+  },
+  {
+    "id": "spk_1789028376_0187",
+    "topic": "Education & Modern Skills",
+    "question": "Focus 19: Should formal education prioritize vocational practical coding over classical humanities?",
+    "model_answer": "Point: Technical and humanistic curricula must complement rather than displace one another.\nReason: While coding supplies direct labor-market utility, philosophical and literary analysis cultivates critical reasoning.\nExample: Ethical dilemmas in autonomous systems cannot be resolved through technical syntax alone without moral inquiry.\nPoint Rephrased: Therefore, a well-rounded curriculum combining technical proficiency with critical thinking is essential."
+  },
+  {
+    "id": "spk_1789028376_0188",
+    "topic": "Education & Modern Skills",
+    "question": "Focus 19: How effective are self-paced online certifications compared to traditional university degrees?",
+    "model_answer": "Point: Online specialized certifications offer unmatched flexibility and industry relevance for targeted skill acquisition.\nReason: University syllabi frequently lag behind fast-evolving technologies, whereas professional certificates update continually.\nExample: In cloud infrastructure and IT support, portfolio evidence and industry credentials often outweigh abstract diplomas.\nPoint Rephrased: In summary, continuous online learning has emerged as a legitimate competitor to conventional higher education."
+  },
+  {
+    "id": "spk_1789028376_0189",
+    "topic": "Health, Mental Well-being & Sports",
+    "question": "Focus 19: Why has prioritizing mental health awareness become so prevalent in contemporary society?",
+    "model_answer": "Point: The relentless pace of modern connectivity has brought psychological well-being to the forefront of public discourse.\nReason: Chronic burnout and sensory overload are now recognized as genuine public health hazards rather than mere fatigue.\nExample: Progressive organizations now incorporate mandatory mental health days and psychological counseling into corporate packages.\nPoint Rephrased: Consequently, safeguarding psychological balance is rightfully acknowledged as foundational to societal health."
+  },
+  {
+    "id": "spk_1789028376_0190",
+    "topic": "Health, Mental Well-being & Sports",
+    "question": "Focus 20: To what extent does regular physical discipline influence cognitive sharpness?",
+    "model_answer": "Point: Rigorous physical conditioning directly enhances neurological stamina and problem-solving capability.\nReason: Cardiovascular exercise stimulates neurogenesis and improves sleep architecture, optimizing executive mental functions.\nExample: Individuals who train in high-intensity disciplines like CrossFit often display superior focus during demanding intellectual tasks.\nPoint Rephrased: In short, physical fitness and mental acuity are fundamentally interdependent."
+  },
+  {
+    "id": "spk_1789028376_0191",
+    "topic": "Travel, Tourism & Globalization",
+    "question": "Focus 20: Has mass international tourism inflicted irreversible damage on historic urban centers?",
+    "model_answer": "Point: Unregulated tourism has commodified historic heritage and priced out local populations in major cultural capitals.\nReason: Short-term holiday rentals incentivize landlords to evict long-term residents, eroding authentic community fabric.\nExample: Cities like Venice and Barcelona have enacted visitor caps and tax surcharges to mitigate overcrowding.\nPoint Rephrased: In conclusion, tourism models must pivot toward sustainable quotas to safeguard living urban communities."
+  },
+  {
+    "id": "spk_1789028376_0192",
+    "topic": "Travel, Tourism & Globalization",
+    "question": "Focus 20: Does international travel genuinely broaden personal perspectives and dismantle prejudices?",
+    "model_answer": "Point: Immersive travel undeniably fosters empathy and dismantles preconceived cultural stereotypes.\nReason: Experiencing diverse lifestyles firsthand exposes travelers to shared human values that media representations often obscure.\nExample: Staying in local homestays rather than generic resort enclaves compels individuals to confront cultural differences constructively.\nPoint Rephrased: For this reason, authentic cultural travel remains one of the most effective catalysts for open-mindedness."
+  },
+  {
+    "id": "spk_1789028376_0193",
+    "topic": "Urban vs. Rural Living",
+    "question": "Focus 20: Why are growing numbers of professionals choosing to migrate from metropolitan centers to rural towns?",
+    "model_answer": "Point: The escalating cost of metropolitan living combined with remote connectivity has sparked a rural revival.\nReason: Rural regions offer clean air, reduced stress, and superior housing value without sacrificing professional engagements.\nExample: High-speed fiber internet now allows remote developers to maintain global tech roles from rural mountain villages.\nPoint Rephrased: As a result, countryside living is no longer synonymous with vocational stagnation."
+  },
+  {
+    "id": "spk_1789028376_0194",
+    "topic": "Urban vs. Rural Living",
+    "question": "Focus 20: Can public transport systems realistically eliminate vehicular congestion in major metropolises?",
+    "model_answer": "Point: Public transit can drastically reduce gridlock, provided it is affordable, punctual, and comprehensively integrated.\nReason: Motorists will only abandon personal vehicles if mass transit alternatives prove faster and less costly.\nExample: Cities with subsidized suburban rail networks and clean low-emission zones show marked reductions in private traffic.\nPoint Rephrased: Ultimately, infrastructure investment combined with urban incentives is the key to solving congestion."
+  },
+  {
+    "id": "spk_1789028376_0195",
+    "topic": "Media, Information & Disinformation",
+    "question": "Focus 20: How serious a threat does algorithmic social media pose to democratic discourse?",
+    "model_answer": "Point: Algorithmic echo chambers pose a severe risk by prioritizing outrage and polarizing public debate.\nReason: Platforms monetize attention through engagement metrics that reward sensationalized controversy over factual accuracy.\nExample: During electoral cycles, unsubstantiated viral claims spread significantly faster than corrective institutional statements.\nPoint Rephrased: Hence, media literacy and algorithmic transparency are vital to safeguarding open civic dialogue."
+  },
+  {
+    "id": "spk_1789028376_0196",
+    "topic": "Media, Information & Disinformation",
+    "question": "Focus 20: Will independent journalism survive the migration to subscriber-funded digital platforms?",
+    "model_answer": "Point: Independent investigative reporting will endure, albeit in a leaner and more specialized format.\nReason: Discerning readers increasingly recognize that free ad-funded media often compromises editorial integrity.\nExample: Investigative podcasts and niche analytical newsletters have successfully established sustainable reader-supported revenue models.\nPoint Rephrased: In brief, quality investigative journalism will thrive by serving dedicated, subscription-willing audiences."
+  },
+  {
+    "id": "spk_1789028376_0197",
+    "topic": "Consumerism & Economic Choices",
+    "question": "Focus 20: Is the rise of fast fashion environmentally and ethically justifiable in modern commerce?",
+    "model_answer": "Point: Fast fashion represents an unsustainable business model that exploits vulnerable labor and generates staggering ecological waste.\nReason: Producing garments meant for transient disposal exhausts water reserves and saturates landfills with microplastics.\nExample: Garment workers in developing countries frequently endure hazardous working conditions for negligible compensation.\nPoint Rephrased: Therefore, consumers and legislators must champion circular textile economies and ethical manufacturing standards."
+  },
+  {
+    "id": "spk_1789028376_0198",
+    "topic": "Consumerism & Economic Choices",
+    "question": "Focus 20: Does financial abundance correlate directly with enduring personal happiness?",
+    "model_answer": "Point: Wealth guarantees comfort and psychological security up to a baseline, but cannot generate lasting fulfillment on its own.\nReason: Once fundamental material and healthcare necessities are secured, human happiness relies heavily on social bonds and purpose.\nExample: Numerous affluent individuals experience acute alienation when lacking meaningful community or creative endeavors.\nPoint Rephrased: In essence, financial solvency is a facilitator of well-being rather than its primary source."
+  },
+  {
+    "id": "spk_1789028376_0199",
+    "topic": "Arts, Culture & Personal Fulfillment",
+    "question": "Focus 20: Should state institutions allocate public tax revenue to subsidized artistic enterprises?",
+    "model_answer": "Point: Public patronage of the arts is a fundamental cultural duty that enriches collective heritage and critical thinking.\nReason: Unsubsidized market forces tend to prioritize commercial mediocrity over daring, culturally significant creations.\nExample: Subsidized classical orchestras, independent cinema, and regional theaters make artistic excellence accessible to all social strata.\nPoint Rephrased: Consequently, cultural subsidies are an investment in the spiritual and intellectual capital of society."
+  },
+  {
+    "id": "spk_1789028376_0200",
+    "topic": "Arts, Culture & Personal Fulfillment",
+    "question": "Focus 21: How vital is pursuing a creative hobby for individuals employed in technical or logistical careers?",
+    "model_answer": "Point: Engaging in creative pursuits provides an indispensable psychological counterweight to rigorous technical work.\nReason: Playing a musical instrument, painting, or writing stimulates neuroplasticity and offers pure intrinsic reward.\nExample: An engineer who spends evenings playing classical guitar often develops superior patience and creative problem-solving skills.\nPoint Rephrased: Thus, nurturing artistic hobbies sustains intellectual resilience and emotional balance."
+  }
+]

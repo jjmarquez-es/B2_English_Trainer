@@ -1,0 +1,378 @@
+[
+  {
+    "exam_id": "ai_gen_1789146769",
+    "title": "[IA] B2 Exam: Digital Transformation and Society",
+    "tasks": {
+      "task_1_long_reading": {
+        "title": "Task 1 - Long Reading: The Impact of Technology on Work",
+        "reading_text": "### Paragraph 1\nIn recent years, the rapid advancement of digital technology has fundamentally altered the landscape of modern employment. Companies across various sectors are increasingly adopting cloud-based solutions and collaborative software to streamline operations. This shift towards digitalization is not merely a trend but a necessity for maintaining competitiveness in a global market where efficiency is paramount.\n\n### Paragraph 2\nHowever, this transition brings significant challenges, particularly regarding work-life balance. The blurring of boundaries between professional and personal time has led to a phenomenon known as 'always-on' culture. Employees often find themselves responding to emails late at night or on weekends, which can lead to burnout and decreased overall well-being.\n\n### Paragraph 3\nTo mitigate these issues, organizations are implementing policies that encourage digital detoxes and designated offline periods. Some forward-thinking companies have introduced 'right to disconnect' laws, ensuring employees are not penalized for ignoring work communications after hours. These measures aim to restore a healthy equilibrium between professional duties and personal life.\n\n### Paragraph 4\nFurthermore, the rise of remote work has impacted team dynamics significantly. While virtual meetings facilitate communication, they lack the spontaneity of face-to-face interactions. This can hinder creativity and problem-solving processes that often emerge naturally during informal office conversations or quick brainstorming sessions.\n\n### Paragraph 5\nLooking ahead, the future of work will likely depend on how well organizations adapt to these technological changes. Success will not just be measured by output but also by employee satisfaction and mental health metrics. Companies that prioritize human-centric approaches in their digital strategies are expected to thrive in the coming decade.",
+        "title_options": [
+          "A. The Necessity of Digitalization",
+          "B. Challenges of the Always-On Culture",
+          "C. Strategies for Work-Life Balance",
+          "D. The Impact on Team Dynamics",
+          "E. Future Trends in Corporate Strategy",
+          "F. Global Market Competitiveness"
+        ],
+        "true_false_statements": [
+          "A. Cloud-based solutions are becoming optional for most companies.",
+          "B. Digitalization is considered a necessity for global competitiveness.",
+          "C. The 'always-on' culture improves overall employee well-being.",
+          "D. Ignoring work communications after hours can lead to penalties.",
+          "E. Informal office conversations are less important than virtual meetings.",
+          "F. Companies that prioritize digital tools ignore employee satisfaction.",
+          "G. Success will be measured solely by financial output in the future.",
+          "H. Human-centric approaches are expected to help companies thrive."
+        ],
+        "questions": [
+          {
+            "id": 1,
+            "text": "Paragraph 1",
+            "answer": "A"
+          },
+          {
+            "id": 2,
+            "text": "Paragraph 2",
+            "answer": "B"
+          },
+          {
+            "id": 3,
+            "text": "Paragraph 3",
+            "answer": "C"
+          },
+          {
+            "id": 4,
+            "text": "Paragraph 4",
+            "answer": "D"
+          },
+          {
+            "id": 5,
+            "text": "Paragraph 5",
+            "answer": "E"
+          },
+          {
+            "id": 6,
+            "text": "True Statement 1",
+            "answer": "B"
+          },
+          {
+            "id": 7,
+            "text": "True Statement 2",
+            "answer": "D"
+          },
+          {
+            "id": 8,
+            "text": "True Statement 3",
+            "answer": "C"
+          },
+          {
+            "id": 9,
+            "text": "True Statement 4",
+            "answer": "A"
+          },
+          {
+            "id": 10,
+            "text": "True Statement 5",
+            "answer": "H"
+          },
+          {
+            "id": 11,
+            "text": "Sentence 11 [GAP]",
+            "answer": "efficiency"
+          },
+          {
+            "id": 12,
+            "text": "Sentence 12 [GAP]",
+            "answer": "burnout"
+          },
+          {
+            "id": 13,
+            "text": "Sentence 13 [GAP]",
+            "answer": "equilibrium"
+          },
+          {
+            "id": 14,
+            "text": "Sentence 14 [GAP]",
+            "answer": "spontaneity"
+          },
+          {
+            "id": 15,
+            "text": "Sentence 15 [GAP]",
+            "answer": "metrics"
+          }
+        ]
+      },
+      "task_2_multi_text": {
+        "title": "Task 2 - Multi-Text Reading: Urban Planning and Environment",
+        "reading_text": "### Text A\nThe Mayor of Green City has announced a new initiative to reduce carbon emissions by 30% over the next five years. The plan involves expanding public transport networks and incentivizing electric vehicle usage. Local residents have expressed strong support for these measures, citing improved air quality as a primary motivation.\n\n### Text B\nA recent study conducted by the Institute of Urban Studies highlights the correlation between green spaces and mental health. Areas with more parks and trees show lower stress levels among inhabitants. The report suggests that city planners should prioritize biodiversity alongside infrastructure development.\n\n### Text C\nCritics argue that rapid urbanization often leads to habitat destruction. Environmental groups are calling for stricter regulations on construction projects in sensitive zones. They believe that economic growth should not come at the expense of preserving natural ecosystems.\n\n### Text D\nIn response to these concerns, a coalition of architects and ecologists has proposed 'green corridors' connecting residential areas with nature reserves. This approach aims to integrate sustainability into the fabric of daily life without compromising urban functionality or accessibility.",
+        "questions": [
+          {
+            "id": 16,
+            "text": "Question 16",
+            "answer": "A"
+          },
+          {
+            "id": 17,
+            "text": "Question 17",
+            "answer": "B"
+          },
+          {
+            "id": 18,
+            "text": "Question 18",
+            "answer": "C"
+          },
+          {
+            "id": 19,
+            "text": "Question 19",
+            "answer": "D"
+          },
+          {
+            "id": 20,
+            "text": "Question 20",
+            "answer": "A"
+          },
+          {
+            "id": 21,
+            "text": "True Statement 1",
+            "answer": "B"
+          },
+          {
+            "id": 22,
+            "text": "True Statement 2",
+            "answer": "C"
+          },
+          {
+            "id": 23,
+            "text": "True Statement 3",
+            "answer": "D"
+          },
+          {
+            "id": 24,
+            "text": "True Statement 4",
+            "answer": "A"
+          },
+          {
+            "id": 25,
+            "text": "True Statement 5",
+            "answer": "D"
+          },
+          {
+            "id": 26,
+            "text": "Summary 26 [GAP]",
+            "answer": "emissions"
+          },
+          {
+            "id": 27,
+            "text": "Summary 27 [GAP]",
+            "answer": "parks"
+          },
+          {
+            "id": 28,
+            "text": "Summary 28 [GAP]",
+            "answer": "construction"
+          },
+          {
+            "id": 29,
+            "text": "Summary 29 [GAP]",
+            "answer": "corridors"
+          },
+          {
+            "id": 30,
+            "text": "Summary 30 [GAP]",
+            "answer": "sustainability"
+          }
+        ]
+      },
+      "task_3_writing": "Article (150-180 words): Write an article about the benefits of hybrid work models for employees and employers. Discuss flexibility, cost savings, and potential challenges.",
+      "task_4_writing": "Essay (150-180 words): Write an essay discussing whether technology in education improves or hinders learning outcomes. Support your argument with examples."
+    }
+  },
+  {
+    "exam_id": "ai_gen_1789146889",
+    "title": "[IA] B2 Exam: Digital Transformation in Education and Work",
+    "tasks": {
+      "task_1_long_reading": {
+        "title": "Task 1 - Long Reading: The Impact of Technology on Learning",
+        "reading_text": "### Paragraph 1\nThe integration of digital tools into modern educational systems has revolutionized the way students access information. Schools are increasingly adopting platforms that allow for remote collaboration, enabling learners to work together regardless of their physical location. This shift not only broadens the scope of available resources but also prepares young people for a globalized workforce where connectivity is essential.\n\n### Paragraph 2\nArtificial Intelligence (AI) has emerged as a powerful ally in personalized learning environments. Algorithms can now analyze student performance data to identify areas where additional support is needed, tailoring exercises to individual strengths and weaknesses. Consequently, teachers can focus more on mentorship and critical thinking skills rather than repetitive grading tasks.\n\n### Paragraph 3\nDespite the advantages, there are significant challenges associated with heavy reliance on technology. Excessive screen time can lead to health issues such as eye strain and sleep disturbances. Furthermore, the digital divide remains a pressing concern, as students from lower-income backgrounds may lack access to reliable internet connections or up-to-date devices.\n\n### Paragraph 4\nEducators must adapt their pedagogical strategies to accommodate these technological changes effectively. Professional development programs are essential to ensure that teachers feel confident using new software and hardware in the classroom. Without adequate training, even the most advanced tools can hinder rather than help the learning process.\n\n### Paragraph 5\nIn conclusion, the future of education depends on a balanced approach that leverages technology while maintaining human connection. Lifelong learning is no longer optional but a necessity for career progression in almost every industry. By embracing these changes responsibly, society can ensure that all individuals have the opportunity to thrive in a rapidly evolving digital landscape.",
+        "title_options": [
+          "A. The Health Risks of Digital Overuse",
+          "B. Personalized Learning Through AI",
+          "C. The Necessity of Teacher Training",
+          "D. Global Collaboration and Connectivity",
+          "E. The Future of Lifelong Learning",
+          "F. The Digital Divide in Schools"
+        ],
+        "true_false_statements": [
+          "A. AI tools can help teachers grade assignments faster.",
+          "B. Remote collaboration is limited to students in the same city.",
+          "C. The digital divide affects only wealthy countries.",
+          "D. Technology has completely replaced traditional teaching methods.",
+          "E. Sleep disturbances are not mentioned as a risk of screen time.",
+          "F. Professional development is considered optional for teachers.",
+          "G. Connectivity is essential for the globalized workforce.",
+          "H. All students have equal access to reliable internet connections."
+        ],
+        "questions": [
+          {
+            "id": 1,
+            "text": "Which heading matches Paragraph 1?",
+            "answer": "D"
+          },
+          {
+            "id": 2,
+            "text": "Which heading matches Paragraph 2?",
+            "answer": "B"
+          },
+          {
+            "id": 3,
+            "text": "Which heading matches Paragraph 3?",
+            "answer": "A"
+          },
+          {
+            "id": 4,
+            "text": "Which heading matches Paragraph 4?",
+            "answer": "C"
+          },
+          {
+            "id": 5,
+            "text": "Which heading matches Paragraph 5?",
+            "answer": "E"
+          },
+          {
+            "id": 6,
+            "text": "Statement: Algorithms can analyze student performance data to identify areas where additional support is needed.",
+            "answer": "A"
+          },
+          {
+            "id": 7,
+            "text": "Statement: Remote collaboration is limited to students in the same city.",
+            "answer": "B"
+          },
+          {
+            "id": 8,
+            "text": "Statement: The digital divide affects only wealthy countries.",
+            "answer": "C"
+          },
+          {
+            "id": 9,
+            "text": "Statement: Technology has completely replaced traditional teaching methods.",
+            "answer": "D"
+          },
+          {
+            "id": 10,
+            "text": "Statement: Connectivity is essential for the globalized workforce.",
+            "answer": "G"
+          },
+          {
+            "id": 11,
+            "text": "Sentence: Students from lower-income backgrounds may lack access to reliable internet connections or up-to-date [DEVICE].",
+            "answer": "devices"
+          },
+          {
+            "id": 12,
+            "text": "Sentence: The digital divide remains a pressing concern for students lacking reliable [CONNECTION].",
+            "answer": "connections"
+          },
+          {
+            "id": 13,
+            "text": "Sentence: Teachers must adapt their pedagogical strategies to accommodate these technological changes effectively.",
+            "answer": "strategies"
+          },
+          {
+            "id": 14,
+            "text": "Sentence: Without adequate training, even the most advanced tools can hinder rather than help the learning process.",
+            "answer": "process"
+          },
+          {
+            "id": 15,
+            "text": "Sentence: By embracing these changes responsibly, society can ensure that all individuals have the opportunity to thrive in a rapidly evolving digital [LANDSCAPE].",
+            "answer": "landscape"
+          }
+        ]
+      },
+      "task_2_multi_text": {
+        "title": "Task 2 - Multi-Text Reading: Perspectives on Remote Work",
+        "reading_text": "### Text A\nMany companies are now offering flexible working hours as part of their employee benefits package. This policy allows staff to manage their personal lives more effectively while maintaining productivity levels. However, some managers worry that without strict supervision, output might decrease over time.\n\n### Text B\nA recent survey conducted by a major HR consultancy revealed that 60% of employees prefer working from home at least two days a week. The primary reasons cited include reduced commuting stress and a quieter environment for concentration. Conversely, some team members feel isolated when not interacting with colleagues daily.\n\n### Text C\nCritics argue that remote work erodes company culture. Face-to-face interactions are crucial for building trust and camaraderie among staff. Without regular in-person meetings, it becomes difficult to foster innovation through spontaneous brainstorming sessions that often happen in traditional offices.\n\n### Text D\nTo address these concerns, hybrid models have become popular. Organizations combine the flexibility of remote work with scheduled office days for collaboration. This approach aims to capture the benefits of both environments while mitigating the downsides associated with full-time isolation or rigid schedules.",
+        "questions": [
+          {
+            "id": 16,
+            "text": "Which heading matches Text A?",
+            "answer": "A"
+          },
+          {
+            "id": 17,
+            "text": "Which heading matches Text B?",
+            "answer": "B"
+          },
+          {
+            "id": 18,
+            "text": "Which heading matches Text C?",
+            "answer": "C"
+          },
+          {
+            "id": 19,
+            "text": "Which heading matches Text D?",
+            "answer": "D"
+          },
+          {
+            "id": 20,
+            "text": "Question: What is the main benefit mentioned in Text A?",
+            "answer": "A"
+          },
+          {
+            "id": 21,
+            "text": "Statement: Flexible working hours allow staff to manage their personal lives more effectively.",
+            "answer": "A"
+          },
+          {
+            "id": 22,
+            "text": "Statement: The primary reasons cited for preferring home work include reduced commuting stress.",
+            "answer": "B"
+          },
+          {
+            "id": 23,
+            "text": "Statement: Face-to-face interactions are considered crucial for building trust and camaraderie among staff.",
+            "answer": "C"
+          },
+          {
+            "id": 24,
+            "text": "Statement: Hybrid models combine the flexibility of remote work with scheduled office days.",
+            "answer": "D"
+          },
+          {
+            "id": 25,
+            "text": "Statement: Some team members feel isolated when not interacting with colleagues daily.",
+            "answer": "F"
+          },
+          {
+            "id": 26,
+            "text": "Summary: Text A discusses [POLICY] regarding flexible working hours.",
+            "answer": "policy"
+          },
+          {
+            "id": 27,
+            "text": "Summary: Text B cites a survey where 60% of employees prefer working from home at least two days a week.",
+            "answer": "week"
+          },
+          {
+            "id": 28,
+            "text": "Summary: Text C argues that remote work erodes [CULTURE].",
+            "answer": "culture"
+          },
+          {
+            "id": 29,
+            "text": "Summary: Text D suggests hybrid models aim to capture the benefits of both environments.",
+            "answer": "environments"
+          },
+          {
+            "id": 30,
+            "text": "Summary: Text D mentions mitigating the downsides associated with full-time [ISOLATION].",
+            "answer": "isolation"
+          }
+        ]
+      },
+      "task_3_writing": "Article (150-180 words): Write an article about the benefits of learning a second language for your career prospects. Include examples of how communication skills can open doors in international business.",
+      "task_4_writing": "Essay (150-180 words): To what extent do you agree or disagree with the following statement: \"Technology has made traditional education methods obsolete.\" Give reasons for your answer and include any relevant examples from your knowledge or experience."
+    }
+  }
+]

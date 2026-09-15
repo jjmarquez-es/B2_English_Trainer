@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>TYPES_OF_TEXT // NEURAL DECK</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Rajdhani:wght@500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <script src="theme.js"></script>
+    <style>
+        .admin-only {
+            transition: opacity 0.2s ease;
+        }
+    </style>
+</head>
+<body class="subpage">
+
+    <div class="sidebar-overlay" id="sidebar-overlay" onclick="toggleSidebar()"></div>
+
+    <!-- BARRA LATERAL -->
+    <div class="sidebar" id="sidebar">
+        <div class="brand-header">
+            <div class="brand-info">
+                <div>
+                    <div class="brand-title">TEXT_TYPES</div>
+                    <div class="brand-subtitle">
+                        OPERATOR: <span id="current-user-sidebar" style="color: var(--neon-yellow);">SYNC...</span>
+                    </div>
+                </div>
+            </div>
+            <button class="close-sidebar-btn" onclick="toggleSidebar()">[X]</button>
+        </div>
+
+        <div class="section-label">SYSTEM_NAVIGATION</div>
+        <a href="index.html" class="category-btn" style="text-decoration:none; border-color: var(--neon-yellow); color: var(--neon-yellow);">MISSION_CONTROL (TRACKER)</a>
+        <a href="vobaudi.html" class="category-btn" style="text-decoration:none;">VOBAUDI</a>
+        <a href="grammar_deck.html" class="category-btn" style="text-decoration:none; border-color: var(--neon-pink); color: var(--neon-pink);">GRAMMAR_CLINIC</a>
+        <a href="speaking.html" class="category-btn" style="text-decoration:none; border-color: var(--neon-cyan); color: var(--neon-cyan);">SPEAKING_DECK</a>
+        <a href="prompt.html" class="category-btn" style="text-decoration:none; border-color: var(--neon-green); color: var(--neon-green);">INTERACTIVE_PROMPTS</a>
+
+        <div class="section-label">TEXT FORMATS (B2/C1)</div>
+        <div id="text-nodes-list"></div>
+
+        <div style="margin-top: 14px; padding-top: 10px; border-top: 1px solid rgba(255, 0, 85, 0.2);">
+            <button class="cyber-btn pink" onclick="logout()" style="width:100%; justify-content:center;">LOGOUT</button>
+        </div>
+    </div>
+
+    <!-- CONTENEDOR PRINCIPAL -->
+    <div class="main-content" id="workspace-container" style="margin-bottom: 0;">
+        <div class="deck-header">
+            <div style="display: flex; align-items: center; gap: 10px; min-width: 0;">
+                <button class="mobile-menu-trigger" onclick="toggleSidebar()">MENU</button>
+                <div style="min-width: 0;">
+                    <div style="font-family: 'Share Tech Mono'; font-size: 0.68rem; color: var(--neon-cyan);" id="status-line">FORMAT_ACTIVE</div>
+                    <div class="deck-title" id="current-node-title">01 // FORMAL_LETTER</div>
+                </div>
+            </div>
+            <div class="hud-actions">
+                <div class="admin-only" style="display: flex; align-items: center; gap: 6px;">
+                    <label for="model-select" style="font-family: 'Share Tech Mono'; font-size: 0.75rem; color: var(--neon-yellow);">ENGINE:</label>
+                    <select id="model-select" class="cyber-select" onchange="changeActiveModel(this.value)">
+                        <option value="">Cargando modelos...</option>
+                    </select>
+                </div>
+                <label for="theme-select" style="color: var(--neon-pink); font-family: 'Share Tech Mono'; font-size: 0.75rem;">THEME:</label>
+                <select id="theme-select" class="cyber-select" onchange="changeActiveTheme(this.value)">
+                    <option value="cyberpunk">CYBERPUNK</option>
+                    <option value="matrix">MATRIX</option>
+                    <option value="university">UNIVERSITARIO</option>
+                    <option value="synthwave">OCHENTERO</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- PANTALLA PARTIDA -->
+        <div class="content-split">
+            <!-- COLUMNA IZQUIERDA: PRACTICA Y AUDITORIA -->
+            <div class="tracks-column" style="display: flex; flex-direction: column; gap: 14px; padding-right: 10px;">
+                <div class="protocol-card" style="border-color: var(--neon-cyan); height: 100%; display: flex; flex-direction: column;">
+                    <h2 style="font-size: 1rem; color: var(--neon-cyan);">01 // REDACCION Y AUDITORIA IA</h2>
+                    <p style="font-size: 0.85rem; color: var(--text-dim); font-family: 'Share Tech Mono'; margin-bottom: 10px;">
+                        Escribe un texto siguiendo las pautas formales y estructurales del formato seleccionado.
+                    </p>
+                    <textarea id="text-essay-input" class="cyber-input" style="flex: 1; min-height: 180px;" placeholder="Redacta aquí tu carta, email, artículo, informe, ensayo o texto creativo..."></textarea>
+                    <div style="margin-top: 10px; display: flex; gap: 10px; flex-wrap: wrap;" class="admin-only">
+                        <button class="cyber-btn pink" onclick="auditTextEssay()">AUDITAR FORMATO CON IA</button>
+                    </div>
+                    <div class="terminal-display" id="text-feedback-display" style="display: none; margin-top: 12px; border-left: 3px solid var(--neon-pink);"></div>
+                </div>
+            </div>
+
+            <!-- COLUMNA DERECHA: GUIA TEORICA -->
+            <div class="markdown-column" id="theory-column" style="display: flex; flex-direction: column; min-height: 0;">
+                <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(0, 240, 255, 0.2); padding-bottom: 8px; margin-bottom: 12px; flex-wrap: wrap; gap: 8px;">
+                    <span id="theory-cache-tag" style="font-family: 'Share Tech Mono'; font-size: 0.75rem; color: var(--neon-cyan);">STATUS: IDLE</span>
+                    <button class="cyber-btn yellow admin-only" style="font-size: 0.65rem; padding: 4px 10px;" onclick="selectTextNode(activeNodeKey, true)">
+                        REGENERAR GUIA CON IA
+                    </button>
+                </div>
+                <div id="markdown-viewer" style="overflow-y: auto; flex: 1; padding-right: 4px;">
+                    <p style="color: var(--text-dim); font-family: 'Share Tech Mono';">CARGANDO ESQUEMA DE TEXTOS...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const API_BASE = "/api";
+        let activeNodeKey = "formal_letter";
+
+        const textCorpus = {
+            formal_letter: { title: "01 // FORMAL LETTER", topicLabel: "Formal Letter Structure (Complaints, Applications, Enquiries)" },
+            email: { title: "02 // EMAIL (FORMAL & INFORMAL)", topicLabel: "Email Formats, Opening/Closing Conventions and Register" },
+            article: { title: "03 // ARTICLE", topicLabel: "Engaging Articles (Catchy titles, rhetorical questions, stylistic devices)" },
+            report: { title: "04 // REPORT", topicLabel: "Structured Reports (Headings, bullet points, objective recommendations)" },
+            essay: { title: "05 // ESSAY", topicLabel: "Academic Essay (Balanced argument, thesis statement, formal paragraphing)" },
+            creative: { title: "06 // CREATIVE & NARRATIVE", topicLabel: "Creative Writing / Short Stories (Descriptive language, narrative hooks)" }
+        };
+
+        let userState = { username: "candidate_operator", role: "user", selected_model: "qwen3.5:latest", theme: "cyberpunk" };
+
+        async function init() {
+            // Verificar autenticación
+            try {
+                const whoRes = await fetch(`${API_BASE}/user/whoami`, { credentials: 'include' });
+                if (!whoRes.ok) {
+                    window.location.href = '/login.html';
+                    return;
+                }
+            } catch (e) {
+                window.location.href = '/login.html';
+                return;
+            }
+
+            try {
+                const res = await fetch(`${API_BASE}/user/state`, { credentials: 'include' });
+                if (res.ok) userState = Object.assign(userState, await res.json());
+            } catch (e) { console.warn("Fallback local:", e); }
+
+            applyRolePermissions();
+
+            if (userState.theme && typeof applyTheme === 'function') applyTheme(userState.theme);
+
+            if (userState.role === 'admin') {
+                await loadModels();
+            }
+
+            renderSidebarNodes();
+            selectTextNode('formal_letter');
+        }
+
+        function applyRolePermissions() {
+            const isAdmin = userState.role === 'admin';
+            document.querySelectorAll('.admin-only').forEach(el => {
+                el.style.display = isAdmin ? '' : 'none';
+            });
+
+            const operatorElem = document.getElementById('current-user-sidebar');
+            if (operatorElem) {
+                const badgeColor = isAdmin ? 'var(--neon-pink)' : 'var(--neon-cyan)';
+                const badgeText = isAdmin ? '[ADMIN]' : '[STUDENT]';
+                operatorElem.innerHTML = `${(userState.username || "OPERATOR").toUpperCase()} <span style="font-size:0.65rem; color:${badgeColor}; font-weight:bold;">${badgeText}</span>`;
+            }
+        }
+
+        async function loadModels() {
+            const select = document.getElementById('model-select');
+            try {
+                const res = await fetch(`${API_BASE}/models`, { credentials: 'include' });
+                if (res.ok) {
+                    const data = await res.json();
+                    select.innerHTML = '';
+                    data.models.forEach(m => {
+                        const opt = document.createElement('option');
+                        opt.value = m; opt.innerText = m; select.appendChild(opt);
+                    });
+                    select.value = userState.selected_model && data.models.includes(userState.selected_model) ? userState.selected_model : data.models[0];
+                }
+            } catch (e) { console.warn("Modelos no disponibles:", e); }
+        }
+
+        function changeActiveModel(val) {
+            userState.selected_model = val;
+        }
+
+        function renderSidebarNodes() {
+            const container = document.getElementById('text-nodes-list');
+            container.innerHTML = '';
+            for (const key in textCorpus) {
+                const node = textCorpus[key];
+                const btn = document.createElement('button');
+                btn.className = 'category-btn';
+                btn.id = 'node-btn-' + key;
+                btn.innerText = '> ' + node.title;
+                btn.onclick = () => { selectTextNode(key); closeSidebarOnMobile(); };
+                container.appendChild(btn);
+            }
+        }
+
+        async function selectTextNode(key, forceRefresh = false) {
+            if (forceRefresh && userState.role !== 'admin') {
+                return alert("Función restringida a administradores.");
+            }
+
+            activeNodeKey = key;
+            const node = textCorpus[key];
+            document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
+            const activeBtn = document.getElementById('node-btn-' + key);
+            if (activeBtn) activeBtn.classList.add('active');
+
+            document.getElementById('current-node-title').innerText = node.title;
+            document.getElementById('status-line').innerText = 'FORMAT_ACTIVE // ' + key.toUpperCase();
+
+            const viewer = document.getElementById('markdown-viewer');
+            const cacheTag = document.getElementById('theory-cache-tag');
+            const modelToUse = userState.selected_model || (document.getElementById('model-select') ? document.getElementById('model-select').value : "");
+
+            cacheTag.innerText = forceRefresh ? "STATUS: REGENERANDO..." : "STATUS: VERIFICANDO CACHE...";
+            viewer.innerHTML = `<p style="color: var(--neon-yellow); font-family: 'Share Tech Mono';">[PROCESANDO] Consultando guía teórica para ${node.title}...</p>`;
+            document.getElementById('text-feedback-display').style.display = "none";
+            document.getElementById('text-essay-input').value = "";
+
+            try {
+                const res = await fetch(`${API_BASE}/grammar/theory/text_${key}?topic_label=${encodeURIComponent(node.topicLabel)}&model=${encodeURIComponent(modelToUse)}&force_refresh=${forceRefresh}`, {
+                    credentials: 'include'
+                });
+                if (!res.ok) throw new Error(await res.text());
+                const data = await res.json();
+                viewer.innerHTML = marked.parse(data.content);
+                cacheTag.innerText = data.cached ? "STATUS: CACHE LOCAL" : "STATUS: SINTETIZADO IA";
+            } catch (err) {
+                viewer.innerHTML = `<p style="color: var(--neon-pink); font-family: 'Share Tech Mono';">[ERROR] ${err.message}</p>`;
+            }
+        }
+
+        async function auditTextEssay() {
+            if (userState.role !== 'admin') {
+                return alert("Función restringida a administradores.");
+            }
+
+            const input = document.getElementById('text-essay-input').value.trim();
+            const feedback = document.getElementById('text-feedback-display');
+            const node = textCorpus[activeNodeKey];
+            const modelToUse = userState.selected_model || (document.getElementById('model-select') ? document.getElementById('model-select').value : "");
+
+            if (!input) return alert("Escribe un texto antes de auditar.");
+
+            feedback.style.display = "block";
+            feedback.innerHTML = `<span style='color: var(--neon-yellow);'>[>] AUDITANDO FORMATO "${node.title}" CON IA...</span>`;
+
+            try {
+                const res = await fetch(`${API_BASE}/generate`, {
+                    method: 'POST',
+                    credentials: 'include',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        category: "grammar_writing_audit",
+                        topic: `Format: ${node.topicLabel}`,
+                        user_input: input,
+                        model: modelToUse
+                    })
+                });
+                if (!res.ok) throw new Error(await res.text());
+                const data = await res.json();
+                feedback.innerText = data.content;
+            } catch (err) {
+                feedback.innerHTML = `<span style='color: var(--neon-pink);'>[ERROR] ${err.message}</span>`;
+            }
+        }
+
+        function toggleSidebar() {
+            document.getElementById('sidebar').classList.toggle('open');
+            document.getElementById('sidebar-overlay').classList.toggle('active');
+        }
+
+        function closeSidebarOnMobile() {
+            if (window.innerWidth <= 960) {
+                document.getElementById('sidebar').classList.remove('open');
+                document.getElementById('sidebar-overlay').classList.remove('active');
+            }
+        }
+
+        async function logout() {
+            try {
+                await fetch('/api/auth/logout', { method: 'POST', credentials: 'include' });
+            } catch (e) {}
+            window.location.href = '/login.html';
+        }
+
+        window.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>
