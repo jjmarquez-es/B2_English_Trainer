@@ -42,12 +42,91 @@
             background: rgba(255, 0, 85, 0.1);
         }
 
+        .tab-btn.yellow.active {
+            border-color: var(--neon-yellow);
+            color: var(--neon-yellow);
+            background: rgba(255, 230, 0, 0.1);
+        }
+
         .admin-only {
             transition: opacity 0.2s ease;
+        }
+
+        /* Resaltado dinámico para la fila del término en reproducción (notes.md) */
+        tr.playing-row {
+            background: rgba(0, 240, 255, 0.2) !important;
+            outline: 1px solid var(--neon-cyan) !important;
+            box-shadow: 0 0 12px rgba(0, 240, 255, 0.35);
+            transition: background 0.2s ease;
+        }
+
+        tr.playing-row td {
+            color: #ffffff !important;
+            font-weight: bold;
         }
     </style>
 </head>
 <body>
+
+    <!-- BANNER DE RUTA GUIADA (SE ACTIVA SOLO CON ?mode=guided) -->
+    <div id="guided-hud-bar" class="guided-hud-bar" style="display: none;">
+        <div class="guided-hud-title">
+            <span style="color: var(--neon-yellow);">FASE 01/05:</span> SHADOWING & VOCABULARIO
+        </div>
+        <div style="display: flex; align-items: center; gap: 14px;">
+            <div id="guided-timer" class="guided-hud-timer">05:00</div>
+            <a href="index.html" class="del-btn" style="text-decoration:none; padding: 4px 8px;">SALIR</a>
+        </div>
+    </div>
+
+    <!-- MODAL DE TRANSICIÓN ENTRE FASES -->
+    <div id="guided-modal" class="guided-modal-overlay" style="display: none;">
+        <div class="guided-modal-card">
+            <div style="font-family:'Share Tech Mono'; color:var(--neon-green); font-size:0.8rem; margin-bottom:6px;">
+                // FASE 01 COMPLETADA //
+            </div>
+            <h2 style="font-family:'Orbitron'; font-size:1.3rem; color:#ffffff; margin-bottom:12px;">
+                ¡SHADOWING SUPERADO!
+            </h2>
+            <p style="font-family:'Share Tech Mono'; font-size:0.85rem; color:var(--text-main); line-height:1.5; margin-bottom:20px;">
+                Completaste 5 minutos de articulación continua. Avanzamos a <strong>Grammar Clinic</strong> para resolver 5 transformaciones (Use of English).
+            </p>
+            <div style="display: flex; flex-direction: column; gap: 10px;">
+                <a href="grammar_deck.html?mode=guided&step=2" class="cyber-btn primary-action" style="width:100%; justify-content:center; text-decoration:none; padding:12px;">
+                    CONTINUAR A GRAMMAR CLINIC (FASE 02) ->
+                </a>
+                <button type="button" class="cyber-btn yellow" onclick="continuePracticingHere()" style="width:100%; justify-content:center; padding:10px;">
+                    ↻ SEGUIR PRACTICANDO EN VOBAUDI
+                </button>
+            </div>
+        </div>
+    </div>
+
+	<!-- MODAL DE FIN DE CATEGORÍA -->
+    <div id="category-end-modal" class="guided-modal-overlay" style="display: none;">
+        <div class="guided-modal-card" style="border-color: var(--neon-cyan); box-shadow: 0 0 35px rgba(0, 240, 255, 0.4);">
+            <div style="font-family:'Share Tech Mono'; color:var(--neon-cyan); font-size:0.8rem; margin-bottom:6px;">
+                // REPOSITORIO COMPLETADO //
+            </div>
+            <h2 style="font-family:'Orbitron'; font-size:1.25rem; color:#ffffff; margin-bottom:12px;" id="cat-end-modal-title">
+                CATEGORÍA FINALIZADA
+            </h2>
+            <p style="font-family:'Share Tech Mono'; font-size:0.85rem; color:var(--text-main); line-height:1.5; margin-bottom:20px;" id="cat-end-modal-desc">
+                Has escuchado y practicado todas las pistas de esta sección. ¿Deseas saltar a la siguiente categoría o repetir el bloque?
+            </p>
+            <div style="display: flex; flex-direction: column; gap: 10px;">
+                <button type="button" class="cyber-btn primary-action" onclick="advanceToNextCategory()" style="width:100%; justify-content:center; padding:12px;">
+                    ▶ CONTINUAR CON LA SIGUIENTE CATEGORÍA
+                </button>
+                <button type="button" class="cyber-btn yellow" onclick="restartCurrentCategory()" style="width:100%; justify-content:center; padding:10px;">
+                    ↻ REPETIR ESTA CATEGORÍA
+                </button>
+                <button type="button" class="cyber-btn" onclick="closeCategoryEndModal()" style="width:100%; justify-content:center; padding:8px; font-size:0.75rem;">
+                    CERRAR
+                </button>
+            </div>
+        </div>
+    </div>
 
     <div class="sidebar-overlay" id="sidebar-overlay" onclick="toggleSidebar()"></div>
 
@@ -69,20 +148,24 @@
             <input type="text" id="global-search" class="cyber-search" placeholder="SEARCH_DATABASE..." oninput="handleGlobalSearch(this.value)">
         </div>
 
-        <div class="section-label">SYSTEM_NAVIGATION</div>
-        <a href="index.html" class="category-btn" style="text-decoration:none; border-color: var(--neon-yellow); color: var(--neon-yellow);">MISSION_CONTROL (TRACKER)</a>
-        <a href="grammar_deck.html" class="category-btn" style="text-decoration:none; border-color: var(--neon-pink); color: var(--neon-pink);">GRAMMAR_CLINIC</a>
-        <a href="speaking.html" class="category-btn" style="text-decoration:none; border-color: var(--neon-cyan); color: var(--neon-cyan);">SPEAKING_DECK</a>
-        <a href="prompt.html" class="category-btn" style="text-decoration:none; border-color: var(--neon-green); color: var(--neon-green);">INTERACTIVE_PROMPTS</a>
+        <div class="section-label">MENÚ PRINCIPAL</div>
+        <a href="index.html" class="nav-category-btn yellow">01 // MISSION_CONTROL</a>
+        <a href="vobaudi.html" class="nav-category-btn cyan">02 // VOBAUDI</a>
+        <a href="grammar_deck.html" class="nav-category-btn pink">03 // GRAMMAR_CLINIC</a>
+        <a href="speaking.html" class="nav-category-btn blue">04 // SPEAKING_DECK</a>
+        <a href="prompt.html" class="nav-category-btn green">05 // INTERACTIVE_PROMPTS</a>
+        <a href="types_of_text.html" class="nav-category-btn orange">06 // TYPES_OF_TEXT</a>
+        <a href="exams.html" class="nav-category-btn purple">07 // EXAM_CLINIC (ISE II)</a>
+        <a href="admin_users.html" class="nav-category-btn red admin-only">> GESTOR_OPERADORES</a>		
+		
+        <div class="section-label">ÁREA DE REPASO</div>
+        <button class="category-btn hard-btn" id="btn-hard-targets" onclick="loadHardTargets(); closeSidebarOnMobile();">REPASO CRÍTICO (<span id="hard-count">0</span>)</button>
 
-        <div class="section-label">FOCUS_BANKS</div>
-        <button class="category-btn hard-btn" id="btn-hard-targets" onclick="loadHardTargets(); closeSidebarOnMobile();">HARD_TARGETS (<span id="hard-count">0</span>)</button>
-
-        <div class="section-label">DATA_BANKS</div>
+        <div class="section-label">CATEGORÍAS DE ESTUDIO</div>
         <div id="category-list"></div>
 
         <div class="section-label admin-only">MANAGEMENT</div>
-        <button class="category-btn admin-only" onclick="showAudioOps(); closeSidebarOnMobile();">> AUDIO_SYNTHESIS_OPS</button>
+        <button class="category-btn admin-only" onclick="showAudioOps('gen'); closeSidebarOnMobile();">> AUDIO_SYNTHESIS_OPS</button>
 
         <div style="margin-top: 14px; padding-top: 10px; border-top: 1px solid rgba(255, 0, 85, 0.2);">
             <button class="cyber-btn pink" onclick="logout()" style="width:100%; justify-content:center;">LOGOUT</button>
@@ -98,17 +181,20 @@
                 <div style="display: flex; align-items: center; gap: 10px; min-width: 0;">
                     <button class="mobile-menu-trigger" onclick="toggleSidebar()">MENU</button>
                     <div style="min-width: 0;">
-                        <div style="font-family: 'Share Tech Mono'; font-size: 0.68rem; color: var(--neon-cyan);" id="status-line">NODE_READY</div>
-                        <div class="deck-title" id="current-category-title">SELECT_DATA_NODE</div>
+                        <div style="font-family: 'Share Tech Mono'; font-size: 0.68rem; color: var(--neon-cyan);" id="status-line">SISTEMA LISTO</div>
+                        <div class="deck-title" id="current-category-title">SELECCIONA UNA CATEGORÍA</div>
                     </div>
                 </div>
                 <div class="hud-actions">
                     <button class="cyber-btn yellow admin-only" id="btn-generate-md" onclick="generateCategoryMarkdown()" style="display:none; font-size:0.68rem; padding:6px 12px;">
                         REGENERAR APUNTES IA
                     </button>
+                    <button class="cyber-btn pink admin-only" id="btn-quick-batch" onclick="showAudioOps('batch')" style="display:none; font-size:0.68rem; padding:6px 12px;">
+                        + INGEST TXT
+                    </button>
                     <button class="cyber-btn" id="recall-toggle-btn" onclick="toggleActiveRecall()">RECALL</button>
-                    <button class="cyber-btn" onclick="playAll()">EXECUTE</button>
-                    <button class="cyber-btn pink" onclick="playSelected()">SELECTED</button>
+                    <button class="cyber-btn" onclick="playAll()">▶ REPROD. TODO</button>
+                    <button class="cyber-btn pink" onclick="playSelected()">▶ SELECCIÓN</button>
                     <label for="theme-select" style="color: var(--neon-pink); font-family: 'Share Tech Mono'; font-size: 0.75rem;">THEME:</label>
                     <select id="theme-select" class="cyber-select" onchange="changeActiveTheme(this.value)">
                         <option value="cyberpunk">CYBERPUNK</option>
@@ -141,8 +227,10 @@
             <div class="tabs-header" style="margin-top: 14px;">
                 <button class="tab-btn active" id="tab-btn-gen" onclick="switchOpsTab('gen')">01 // SINTETIZAR AUDIO NEURONAL</button>
                 <button class="tab-btn pink" id="tab-btn-up" onclick="switchOpsTab('up')">02 // SUBIR ARCHIVO MP3</button>
+                <button class="tab-btn yellow" id="tab-btn-batch" onclick="switchOpsTab('batch')">03 // INGESTA BATCH (.TXT)</button>
             </div>
 
+            <!-- TAB 01: SINTETIZAR INDIVIDUAL -->
             <div id="ops-gen-panel" class="protocol-card" style="border-color: var(--neon-cyan);">
                 <h3 style="font-family: 'Orbitron'; font-size: 1rem; color: var(--neon-cyan); margin-bottom: 8px;">
                     SINTETIZAR NUEVO AUDIO NEURONAL (EDGE-TTS)
@@ -190,6 +278,7 @@
                 </div>
             </div>
 
+            <!-- TAB 02: SUBIR MP3 MANUAL -->
             <div id="ops-up-panel" class="protocol-card" style="display: none; border-color: var(--neon-pink);">
                 <h3 style="font-family: 'Orbitron'; font-size: 1rem; color: var(--neon-pink); margin-bottom: 8px;">
                     SUBIR ARCHIVO MP3 AL SERVIDOR
@@ -214,6 +303,43 @@
                     <span id="up-status" style="font-family: 'Share Tech Mono'; font-size: 0.8rem;"></span>
                 </div>
             </div>
+
+            <!-- TAB 03: INGESTA BATCH DESDE ARCHIVO TXT -->
+            <div id="ops-batch-panel" class="protocol-card" style="display: none; border-color: var(--neon-yellow);">
+                <h3 style="font-family: 'Orbitron'; font-size: 1rem; color: var(--neon-yellow); margin-bottom: 8px;">
+                    INGESTA POR LOTE Y SINTESIS DESDE ARCHIVO (.TXT)
+                </h3>
+                <p style="font-size: 0.85rem; color: var(--text-dim); font-family: 'Share Tech Mono'; margin-bottom: 14px;">
+                    Sube un archivo .txt con términos y traducciones (formato: "Término : Traducción"). Se generarán los audios MP3 en <code>/generated_audio/&lt;categoria&gt;/</code> y se creará su <code>notes.md</code> con la tabla sincronizada:
+                </p>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px;">
+                    <div>
+                        <label style="font-family: 'Share Tech Mono'; font-size: 0.78rem; color: var(--neon-yellow);">CATEGORIA DE DESTINO:</label>
+                        <input type="text" id="batch-cat-input" class="cyber-input" placeholder="Ej. work_unions" list="existing-cats-list">
+                    </div>
+                    <div>
+                        <label style="font-family: 'Share Tech Mono'; font-size: 0.78rem; color: var(--neon-green);">VOZ BRITANICA (EDGE-TTS):</label>
+                        <select id="batch-voice-select" class="cyber-select" style="width: 100%; padding: 10px;">
+                            <option value="en-GB-RyanNeural">en-GB-RyanNeural (Masculina B2/C1)</option>
+                            <option value="en-GB-SoniaNeural">en-GB-SoniaNeural (Femenina)</option>
+                            <option value="en-US-GuyNeural">en-US-GuyNeural (US Masculina)</option>
+                            <option value="en-US-JennyNeural">en-US-JennyNeural (US Femenina)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="upload-drop-zone" style="margin-bottom: 12px;">
+                    <input type="file" id="batch-file-input" accept=".txt" style="display: none;" onchange="updateBatchUploadLabel(this)">
+                    <button type="button" class="cyber-btn yellow" onclick="document.getElementById('batch-file-input').click()">SELECCIONAR ARCHIVO .TXT</button>
+                    <div id="batch-file-label" style="font-family: 'Share Tech Mono'; font-size: 0.8rem; margin-top: 8px; color: var(--text-dim);">Ningún archivo seleccionado</div>
+                </div>
+
+                <div style="margin-top: 14px; display: flex; align-items: center; gap: 12px;">
+                    <button type="button" id="btn-submit-batch" class="cyber-btn" onclick="submitBatchTxtAudio()">SINTETIZAR Y CREAR BANCO DE VOCABULARIO</button>
+                    <span id="batch-status" style="font-family: 'Share Tech Mono'; font-size: 0.8rem;"></span>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -236,29 +362,36 @@
             <audio id="main-player" controls></audio>
             
             <div class="hud-actions-row">
-                <button id="shuffle-btn" class="hud-mini-btn" onclick="toggleShuffle()">SHUFFLE</button>
+                <!-- CONTROLES BÁSICOS DE REPRODUCCIÓN -->
+                <div style="display: flex; align-items: center; gap: 6px; padding-right: 8px; border-right: 1px solid rgba(255,255,255,0.15);">
+                    <button class="hud-mini-btn" onclick="playPrevious()" title="Pista anterior (Tecla A)">◀ PREV</button>
+                    <button id="shuffle-btn" class="hud-mini-btn" onclick="toggleShuffle()">SHUFFLE</button>
+                    <button class="hud-mini-btn" onclick="advanceToNext()" title="Siguiente pista (Tecla D)">NEXT ▶</button>
+                </div>
                 
+                <!-- PARÁMETROS DE TÉCNICA PEDAGÓGICA -->
                 <div class="control-group">
-                    <span style="color: var(--text-dim);">L:</span>
+                    <span style="color: var(--text-dim);">LOOP:</span>
                     <button class="control-btn active" onclick="setLoopCount(1, this)">1x</button>
                     <button class="control-btn" onclick="setLoopCount(2, this)">2x</button>
                     <button class="control-btn" onclick="setLoopCount(3, this)">3x</button>
                 </div>
 
-                <div class="control-group">
-                    <span style="color: var(--neon-yellow);">SHAD:</span>
+                <div class="control-group" id="shad-control">
+                    <span style="color: var(--neon-yellow);">SHADOWING:</span>
                     <button class="control-btn active" onclick="setShadowDelay(0, this)">0s</button>
                     <button class="control-btn" onclick="setShadowDelay(1.5, this)">1.5s</button>
                     <button class="control-btn" onclick="setShadowDelay(3, this)">3s</button>
                 </div>
 
                 <div class="control-group">
-                    <span style="color: var(--text-dim);">SPD:</span>
+                    <span style="color: var(--text-dim);">VEL:</span>
                     <button class="control-btn" onclick="setSpeed(0.8, this)">0.8x</button>
                     <button class="control-btn active" onclick="setSpeed(1.0, this)">1.0x</button>
                     <button class="control-btn" onclick="setSpeed(1.25, this)">1.25x</button>
                 </div>
             </div>
+            
         </div>
     </div>
 
@@ -269,12 +402,12 @@
         let userState = { username: "candidate_operator", role: "user", theme: "cyberpunk", hard_targets: [] };
 
         async function initUserProfile() {
-			// Si no hay operador autenticado, enviar a login
-			const whoRes = await fetch('/api/user/whoami', { credentials: 'include' });
-			if (!whoRes.ok) {
-				window.location.href = '/login.html';
-				return;
-			}
+            // Si no hay operador autenticado, enviar a login
+            const whoRes = await fetch('/api/user/whoami', { credentials: 'include' });
+            if (!whoRes.ok) {
+                window.location.href = '/login.html';
+                return;
+            }
             try {
                 const res = await fetch(`${API_BASE}/user/state`, { credentials: 'include' });
                 if (res.ok) {
@@ -369,6 +502,7 @@
 
             if (categoryData.markdown && categoryData.markdown.trim() !== "") {
                 mdContent.innerHTML = marked.parse(categoryData.markdown);
+                tagNotesTableRows();
             } else {
                 mdContent.innerHTML = `
                     <p style="color: var(--neon-yellow); font-family: Share Tech Mono;">
@@ -393,6 +527,7 @@
                 const data = await res.json();
                 audioData[activeCategory].markdown = data.markdown;
                 mdContent.innerHTML = marked.parse(data.markdown);
+                tagNotesTableRows();
             } catch (e) {
                 mdContent.innerHTML = `<p style="color: var(--neon-pink); font-family: 'Share Tech Mono';">[ERROR] ${e.message}</p>`;
             }
@@ -458,19 +593,26 @@
             closeSidebarOnMobile();
         }
 
-        function showAudioOps() {
+        function showAudioOps(tab = 'gen') {
             if (userState.role !== 'admin') return alert("Operación exclusiva de administradores.");
             document.getElementById('audio-view').style.display = 'none';
             document.getElementById('ops-view').style.display = 'block';
             document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
+            switchOpsTab(tab);
         }
 
         function switchOpsTab(tab) {
             const isGen = tab === 'gen';
+            const isUp = tab === 'up';
+            const isBatch = tab === 'batch';
+
             document.getElementById('ops-gen-panel').style.display = isGen ? 'block' : 'none';
-            document.getElementById('ops-up-panel').style.display = !isGen ? 'block' : 'none';
+            document.getElementById('ops-up-panel').style.display = isUp ? 'block' : 'none';
+            document.getElementById('ops-batch-panel').style.display = isBatch ? 'block' : 'none';
+
             document.getElementById('tab-btn-gen').classList.toggle('active', isGen);
-            document.getElementById('tab-btn-up').classList.toggle('active', !isGen);
+            document.getElementById('tab-btn-up').classList.toggle('active', isUp);
+            document.getElementById('tab-btn-batch').classList.toggle('active', isBatch);
         }
 
         async function submitGenerateAudio() {
@@ -491,12 +633,19 @@
                     method: 'POST',
                     credentials: 'include',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ text: text, voice: voice, rate: rate })
+                    body: JSON.stringify({ 
+                        text: text, 
+                        voice: voice, 
+                        rate: rate,
+                        category: cat,
+                        filename: filename
+                    })
                 });
                 if (!res.ok) throw new Error(await res.text());
                 const data = await res.json();
                 status.innerHTML = `<span style="color: var(--neon-green);">[OK] Audio guardado correctamente.</span>`;
                 document.getElementById('gen-text-input').value = "";
+                document.getElementById('gen-name-input').value = "";
                 await loadCatalog();
             } catch (err) {
                 status.innerHTML = `<span style="color: var(--neon-pink);">[ERROR] ${err.message}</span>`;
@@ -538,6 +687,61 @@
                 await loadCatalog();
             } catch (err) {
                 status.innerHTML = `<span style="color: var(--neon-pink);">[ERROR] ${err.message}</span>`;
+            }
+        }
+
+        /* --- LOGICA DE SUBIDA E INGESTA BATCH (.TXT) --- */
+        function updateBatchUploadLabel(input) {
+            const label = document.getElementById('batch-file-label');
+            label.innerText = (input.files && input.files.length > 0) ? input.files[0].name : "Ningún archivo seleccionado";
+            label.style.color = "var(--neon-yellow)";
+        }
+
+        async function submitBatchTxtAudio() {
+            if (userState.role !== 'admin') return alert("Operación exclusiva de administradores.");
+            const cat = document.getElementById('batch-cat-input').value.trim();
+            const fileInput = document.getElementById('batch-file-input');
+            const voice = document.getElementById('batch-voice-select').value;
+            const status = document.getElementById('batch-status');
+            const submitBtn = document.getElementById('btn-submit-batch');
+
+            if (!cat) return alert("Indica la categoría de destino.");
+            if (!fileInput.files || fileInput.files.length === 0) return alert("Selecciona un archivo .TXT con los términos.");
+
+            status.innerHTML = `<span style="color: var(--neon-yellow);">[PROCESANDO] Sintetizando audios MP3 y generando notes.md... Espera.</span>`;
+            submitBtn.disabled = true;
+
+            const formData = new FormData();
+            formData.append('file', fileInput.files[0]);
+            formData.append('category', cat);
+            formData.append('voice', voice);
+            formData.append('rate', '-5%');
+
+            try {
+                const res = await fetch(`${API_BASE}/vocab/import-txt`, {
+                    method: 'POST',
+                    credentials: 'include',
+                    body: formData
+                });
+                if (!res.ok) {
+                    const errData = await res.json().catch(() => ({}));
+                    throw new Error(errData.detail || await res.text());
+                }
+                const data = await res.json();
+                status.innerHTML = `<span style="color: var(--neon-green);">[OK] ${data.tracks_generated} audios generados en '${data.category}'.</span>`;
+                fileInput.value = "";
+                document.getElementById('batch-file-label').innerText = "Ningún archivo seleccionado";
+                document.getElementById('batch-cat-input').value = "";
+                
+                await loadCatalog();
+                setTimeout(() => {
+                    const catBtn = document.getElementById('cat-btn-' + data.category.replace(/\//g, '_'));
+                    if (catBtn) catBtn.click();
+                }, 1000);
+            } catch (err) {
+                status.innerHTML = `<span style="color: var(--neon-pink);">[ERROR] ${err.message}</span>`;
+            } finally {
+                submitBtn.disabled = false;
             }
         }
 
@@ -669,6 +873,8 @@
             const fileName = path.split('/').pop().replace('.mp3', '');
             nowPlayingText.innerText = fileName.toUpperCase();
             loopIndicator.innerText = `L: ${currentLoopCount}/${loopLimit}`;
+
+            highlightTableRow(fileName);
             
             document.querySelectorAll('.track-item').forEach(el => el.classList.remove('playing'));
             const activeItem = document.getElementById('track-' + index);
@@ -774,7 +980,68 @@
             if (currentIndex < currentPlaylist.length) {
                 playAudio(currentPlaylist[currentIndex].path, currentPlaylist[currentIndex].id);
             } else {
-                nowPlayingText.innerText = '// COMPLETED';
+                // Llegamos al final de la categoría: pausar y abrir el modal
+                player.pause();
+                if (shadowTimeout) {
+                    clearTimeout(shadowTimeout);
+                    shadowTimeout = null;
+                }
+                progressBar.style.width = '0%';
+                nowPlayingText.innerText = '// CATEGORY COMPLETED';
+                showCategoryEndModal();
+            }
+        }
+
+        /* --- CONTROLADORES DE TRANSICIÓN ENTRE CATEGORÍAS --- */
+        function showCategoryEndModal() {
+            const modal = document.getElementById('category-end-modal');
+            const title = document.getElementById('cat-end-modal-title');
+            const desc = document.getElementById('cat-end-modal-desc');
+
+            if (title) {
+                title.innerText = activeCategory ? `CATEGORÍA '${activeCategory.toUpperCase()}' FINALIZADA` : "BANCO DE PISTAS COMPLETADO";
+            }
+            if (desc) {
+                desc.innerHTML = `Has completado las <strong>${currentPlaylist.length} pistas</strong> asignadas a este nodo. ¿Deseas saltar a la siguiente categoría o repetir el bloque actual?`;
+            }
+            if (modal) modal.style.display = 'flex';
+        }
+
+        function closeCategoryEndModal() {
+            const modal = document.getElementById('category-end-modal');
+            if (modal) modal.style.display = 'none';
+        }
+
+        function restartCurrentCategory() {
+            closeCategoryEndModal();
+            currentIndex = 0;
+            currentLoopCount = 1;
+            if (currentPlaylist.length > 0) {
+                playAudio(currentPlaylist[0].path, currentPlaylist[0].id);
+            }
+        }
+
+        function advanceToNextCategory() {
+            closeCategoryEndModal();
+            const categories = Object.keys(audioData);
+            if (!categories.length) return;
+
+            let nextCategoryIndex = 0;
+            if (activeCategory) {
+                const currentIdx = categories.indexOf(activeCategory);
+                if (currentIdx !== -1 && currentIdx + 1 < categories.length) {
+                    nextCategoryIndex = currentIdx + 1;
+                }
+            }
+
+            const targetCategory = categories[nextCategoryIndex];
+            const targetBtn = document.getElementById('cat-btn-' + targetCategory.replace(/\//g, '_'));
+
+            if (targetBtn) {
+                targetBtn.click();
+                setTimeout(() => {
+                    playAll();
+                }, 500);
             }
         }
 
@@ -785,30 +1052,221 @@
             playAudio(currentPlaylist[currentIndex].path, currentPlaylist[currentIndex].id);
         }
 
+        async function logout() {
+            try {
+                await fetch('/api/auth/logout', { method: 'POST', credentials: 'include' });
+            } catch (e) {}
+            window.location.href = '/login.html';
+        }
+
+        window.addEventListener('DOMContentLoaded', initUserProfile);
+
+        /* --- SINCRONIZACION Y SEGUIMIENTO CON NOTES.MD --- */
+        function tagNotesTableRows() {
+            const rows = document.querySelectorAll('#markdown-content table tbody tr, #markdown-content tr');
+            
+            rows.forEach(row => {
+                const cells = row.querySelectorAll('td');
+                if (!cells.length) return;
+
+                let term = cells[0].textContent.trim().toLowerCase();
+                if (/^#?\d+$/.test(term) && cells.length > 1) {
+                    term = cells[1].textContent.trim().toLowerCase();
+                }
+                term = term.replace(/^\*+|\*+$/g, '').trim();
+                row.setAttribute('data-term', term);
+            });
+        }
+
+        function getTermFromFilename(filename) {
+            return filename
+                .replace(/\.[^/.]+$/, '')
+                .replace(/^\d+[\._\s-]*/, '')
+                .replace(/[\._-]+/g, ' ')
+                .trim()
+                .toLowerCase();
+        }
+
+        function highlightTableRow(audioFilename) {
+            document.querySelectorAll('tr.playing-row').forEach(tr => tr.classList.remove('playing-row'));
+            if (!audioFilename) return;
+
+            const targetTerm = getTermFromFilename(audioFilename);
+            let targetRow = document.querySelector(`tr[data-term="${targetTerm}"]`);
+
+            if (!targetRow) {
+                const allRows = document.querySelectorAll('#markdown-content tr[data-term]');
+                for (const r of allRows) {
+                    const dt = r.getAttribute('data-term') || '';
+                    if (dt === targetTerm || dt.includes(targetTerm) || targetTerm.includes(dt)) {
+                        targetRow = r;
+                        break;
+                    }
+                }
+            }
+            
+            if (targetRow) {
+                targetRow.classList.add('playing-row');
+                targetRow.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+        }
+
+        /* --- CONTROL DE RETARDO SHADOWING MEDIANTE TECLADO (W / S) --- */
+        function adjustShadowDelay(step) {
+            const buttons = Array.from(document.querySelectorAll('button[onclick*="setShadowDelay"]'));
+            if (!buttons.length) return;
+
+            let curIdx = buttons.findIndex(btn => btn.classList.contains('active'));
+            if (curIdx === -1) curIdx = 0;
+
+            let newIdx = Math.max(0, Math.min(buttons.length - 1, curIdx + step));
+
+            if (newIdx !== curIdx) {
+                buttons[newIdx].click();
+            }
+        }
+
+        function togglePlay() {
+            if (!player.src) return;
+
+            if (shadowTimeout) {
+                clearTimeout(shadowTimeout);
+                shadowTimeout = null;
+                progressBar.style.transition = 'none';
+                progressBar.style.width = '0%';
+                nowPlayingText.innerText = '// PAUSED (SHAD)';
+                return;
+            }
+
+            if (player.paused) {
+                player.play().catch(e => console.log("Play error:", e));
+            } else {
+                player.pause();
+            }
+        }
+
+        /* --- GESTOR DE EVENTOS DE TECLADO (WASD / ESPACIO) --- */
         document.addEventListener('keydown', (e) => {
             if (['input', 'textarea', 'select'].includes(document.activeElement.tagName.toLowerCase())) return;
-            if (e.code === 'Space') {
+
+            const key = e.key.toLowerCase();
+            const code = e.code;
+
+            if (code === 'Space' || key === ' ') {
                 e.preventDefault();
-                if (player.src) player.paused ? player.play() : player.pause();
-            } else if (e.code === 'ArrowRight') {
+                togglePlay();
+            } else if (code === 'KeyD' || key === 'd') {
                 e.preventDefault();
                 clearTimeout(shadowTimeout);
                 advanceToNext();
-            } else if (e.code === 'ArrowLeft') {
+            } else if (code === 'KeyA' || key === 'a') {
                 e.preventDefault();
                 clearTimeout(shadowTimeout);
                 playPrevious();
+            } else if (code === 'KeyW' || key === 'w') {
+                e.preventDefault();
+                adjustShadowDelay(1);
+            } else if (code === 'KeyS' || key === 's') {
+                e.preventDefault();
+                adjustShadowDelay(-1);
             }
         });
 
-		async function logout() {
-			try {
-				await fetch('/api/auth/logout', { method: 'POST', credentials: 'include' });
-			} catch (e) {}
-			window.location.href = '/login.html';
-		}
+/* --- MOTOR DE ENTRENAMIENTO GUIADO (FASE 3) --- */
+        function checkGuidedMode() {
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.get('mode') !== 'guided') return;
 
-        window.addEventListener('DOMContentLoaded', initUserProfile);
+            const hud = document.getElementById('guided-hud-bar');
+            const timerDisplay = document.getElementById('guided-timer');
+            const modal = document.getElementById('guided-modal');
+            if (!hud || !timerDisplay || !modal) return;
+
+            hud.style.display = 'flex';
+            document.body.style.paddingTop = '45px';
+
+            // Configurar automáticamente Shadowing en 1.5s
+            shadowDelay = 1.5;
+            document.querySelectorAll('#shad-control .control-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.innerText.trim() === '1.5s');
+            });
+
+            // Auto-cargar la primera categoría disponible y comenzar
+            setTimeout(() => {
+                const firstCatBtn = document.querySelector('#category-list .category-btn');
+                if (firstCatBtn && !activeCategory) {
+                    firstCatBtn.click();
+                    setTimeout(playAll, 400);
+                }
+            }, 800);
+
+            // Temporizador de 5 minutos (300 segundos) activo solo durante reproducción o shadowing
+            let secondsLeft = 300;
+            const guidedInterval = setInterval(() => {
+                // Solo descuenta si el reproductor está sonando o está en la pausa activa de Shadowing
+                const isActivelyStudying = (!player.paused && !player.ended) || shadowTimeout !== null;
+
+                if (isActivelyStudying) {
+                    secondsLeft--;
+                    const mins = String(Math.floor(secondsLeft / 60)).padStart(2, '0');
+                    const secs = String(secondsLeft % 60).padStart(2, '0');
+                    timerDisplay.innerText = `${mins}:${secs}`;
+                    timerDisplay.style.opacity = '1';
+
+                    if (secondsLeft <= 0) {
+                        clearInterval(guidedInterval);
+                        player.pause();
+                        if (shadowTimeout) {
+                            clearTimeout(shadowTimeout);
+                            shadowTimeout = null;
+                        }
+                        modal.style.display = 'flex';
+                    }
+                } else {
+                    // Indicador visual tenue cuando la sesión está detenida
+                    timerDisplay.style.opacity = '0.5';
+                }
+            }, 1000);
+        }
+
+		function continuePracticingHere() {
+            // Ocultar modal de transición
+            const modal = document.getElementById('guided-modal');
+            if (modal) modal.style.display = 'none';
+
+            // Actualizar el banner superior a modo práctica libre
+            const hud = document.getElementById('guided-hud-bar');
+            if (hud) {
+                hud.innerHTML = `
+                    <div class="guided-hud-title">
+                        <span style="color: var(--neon-cyan);">PRÁCTICA LIBRE:</span> VOBAUDI ACTIVO
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <a href="grammar_deck.html?mode=guided&step=2" class="cyber-btn primary-action" style="font-size: 0.68rem; padding: 4px 10px; text-decoration: none;">
+                            IR A FASE 02 (GRAMMAR) ->
+                        </a>
+                        <a href="index.html" class="del-btn" style="text-decoration: none; padding: 4px 8px;">SALIR</a>
+                    </div>
+                `;
+            }
+
+            // Limpiar parámetro de la URL sin recargar la página
+            const newUrl = window.location.pathname;
+            window.history.replaceState({}, document.title, newUrl);
+
+            // Reanudar la reproducción de audios
+            if (currentPlaylist && currentPlaylist.length > 0) {
+                if (player.paused) {
+                    player.play().catch(e => console.log("Play:", e));
+                }
+            } else {
+                playAll();
+            }
+        }
+
+        window.addEventListener('load', () => {
+            setTimeout(checkGuidedMode, 1000);
+        });
     </script>
 </body>
 </html>

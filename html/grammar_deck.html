@@ -148,12 +148,16 @@
             <button class="close-sidebar-btn" onclick="toggleSidebar()">[X]</button>
         </div>
 
-        <div class="section-label">SYSTEM_NAVIGATION</div>
-        <a href="index.html" class="category-btn" style="text-decoration:none; border-color: var(--neon-yellow); color: var(--neon-yellow);">MISSION_CONTROL (TRACKER)</a>
-        <a href="vobaudi.html" class="category-btn" style="text-decoration:none;">VOBAUDI</a>
-        <a href="speaking.html" class="category-btn" style="text-decoration:none; border-color: var(--neon-cyan); color: var(--neon-cyan);">SPEAKING_DECK</a>
-        <a href="prompt.html" class="category-btn" style="text-decoration:none; border-color: var(--neon-green); color: var(--neon-green);">INTERACTIVE_PROMPTS</a>
-        <a href="types_of_text.html" class="category-btn" style="text-decoration:none; border-color: var(--neon-red); color: var(--neon-red);">TEXT_TYPES</a>
+        <div class="section-label">MENÚ PRINCIPAL</div>
+        <a href="index.html" class="nav-category-btn yellow">01 // MISSION_CONTROL</a>
+        <a href="vobaudi.html" class="nav-category-btn cyan">02 // VOBAUDI</a>
+        <a href="grammar_deck.html" class="nav-category-btn pink">03 // GRAMMAR_CLINIC</a>
+        <a href="speaking.html" class="nav-category-btn blue">04 // SPEAKING_DECK</a>
+        <a href="prompt.html" class="nav-category-btn green">05 // INTERACTIVE_PROMPTS</a>
+        <a href="types_of_text.html" class="nav-category-btn orange">06 // TYPES_OF_TEXT</a>
+        <a href="exams.html" class="nav-category-btn purple">07 // EXAM_CLINIC (ISE II)</a>
+        <a href="admin_users.html" class="nav-category-btn red admin-only">> GESTOR_OPERADORES</a>
+		
 
         <div class="section-label">GRAMMAR_NODES (B2/C1)</div>
         <div id="grammar-nodes-list"></div>
@@ -169,7 +173,7 @@
             <div style="display: flex; align-items: center; gap: 10px; min-width: 0;">
                 <button class="mobile-menu-trigger" onclick="toggleSidebar()">MENU</button>
                 <div style="min-width: 0;">
-                    <div style="font-family: 'Share Tech Mono'; font-size: 0.68rem; color: var(--neon-cyan);" id="status-line">NODE_ACTIVE</div>
+                    <div style="font-family: 'Share Tech Mono'; font-size: 0.68rem; color: var(--neon-cyan);" id="status-line">MÓDULO ACTIVO</div>
                     <div class="deck-title" id="current-node-title">01 // RELATIVE_CLAUSES</div>
                 </div>
             </div>
@@ -193,8 +197,18 @@
             </div>
         </div>
 
+		<!-- SELECTOR DE VISTA PARA PANTALLAS MÓVILES/TABLETS -->
+        <div class="mobile-view-tabs" id="mobile-view-switcher">
+            <button type="button" class="mobile-view-tab active" id="tab-mob-practice" onclick="switchMobileView('practice')">
+                01 // PRÁCTICA
+            </button>
+            <button type="button" class="mobile-view-tab" id="tab-mob-theory" onclick="switchMobileView('theory')">
+                02 // APUNTES TEÓRICOS
+            </button>
+        </div>
+
         <!-- PANTALLA PARTIDA -->
-        <div class="content-split">
+        <div class="content-split show-practice" id="content-split-container">
             
             <!-- COLUMNA IZQUIERDA: TRANSFORMACIONES Y WRITING -->
             <div class="tracks-column" style="display: flex; flex-direction: column; gap: 14px; padding-right: 10px;">
@@ -412,7 +426,7 @@
             if (activeBtn) activeBtn.classList.add('active');
 
             document.getElementById('current-node-title').innerText = node.title;
-            document.getElementById('status-line').innerText = 'NODE_ACTIVE // ' + key.toUpperCase();
+            document.getElementById('status-line').innerText = 'MÓDULO ACTIVO // ' + key.toUpperCase();
 
             const viewer = document.getElementById('markdown-viewer');
             const cacheTag = document.getElementById('theory-cache-tag');
@@ -493,8 +507,15 @@
                     </div>
 
                     <div>
-                        <div class="drill-label">// MANDATORY KEYWORD (DO NOT CHANGE)</div>
-                        <div class="drill-keyword">${drill.keyword.toUpperCase()}</div>
+                        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 4px;">
+                            <div class="drill-label">// MANDATORY KEYWORD (DO NOT CHANGE)</div>
+                            <button type="button" class="cyber-btn yellow" id="btn-toggle-keyword-blur" onclick="toggleKeywordBlur()" style="font-size: 0.65rem; padding: 2px 8px;">
+                                QUITAR BLUR
+                            </button>
+                        </div>
+                        <div id="drill-keyword-blur" class="answer-blur-container" style="display: inline-block; cursor: pointer;" onclick="toggleKeywordBlur()" title="Clic para desvelar/ocultar palabra clave">
+                            <div class="drill-keyword">${drill.keyword.toUpperCase()}</div>
+                        </div>
                     </div>
 
                     <div>
@@ -506,16 +527,16 @@
                         <div class="drill-label">// TU PROPUESTA DE RESPUESTA</div>
                         <div class="input-check-row">
                             <input type="text" id="user-drill-attempt" class="cyber-input" style="margin-bottom: 0; flex: 1;" placeholder="Escribe aquí las palabras que faltan..." autocomplete="off" onkeydown="if(event.key==='Enter') checkDrillAnswer()">
-                            <button class="cyber-btn green" onclick="checkDrillAnswer()" style="font-size: 0.72rem; padding: 10px 18px; white-space: nowrap;">
-                                COMPROBAR
-                            </button>
+                            <button class="cyber-btn primary-action" onclick="checkDrillAnswer()" style="white-space: nowrap;">
+								COMPROBAR
+							</button>
                         </div>
                         <div id="drill-check-feedback" class="check-feedback-badge"></div>
                     </div>
 
                     <div class="answer-box">
                         <div class="answer-header">
-                            <span class="drill-label" style="color: var(--neon-green); font-weight: bold;">// TELEMETRY: CORRECT_ANSWER</span>
+                            <span class="drill-label" style="color: var(--neon-green); font-weight: bold;">// SOLUCIÓN OFICIAL</span>
                             <button class="cyber-btn yellow" id="btn-toggle-blur" onclick="toggleAnswerBlur()" style="font-size: 0.65rem; padding: 4px 10px;">
                                 QUITAR BLUR
                             </button>
@@ -570,10 +591,33 @@
                         btn.classList.add('active');
                     }
                 }
+
+                // Desvelar también la palabra clave al acertar
+                const kwContainer = document.getElementById('drill-keyword-blur');
+                const kwBtn = document.getElementById('btn-toggle-keyword-blur');
+                if (kwContainer && !kwContainer.classList.contains('revealed')) {
+                    kwContainer.classList.add('revealed');
+                    if (kwBtn) {
+                        kwBtn.innerText = "APLICAR BLUR";
+                        kwBtn.classList.add('active');
+                    }
+                }
             } else {
                 feedback.style.borderColor = 'var(--neon-pink)';
                 feedback.style.color = 'var(--neon-pink)';
                 feedback.innerHTML = '<strong>[INCORRECTO]</strong> Tu respuesta difiere de la solución esperada. Comprueba la longitud o pulsa "QUITAR BLUR" para contrastar.';
+            }
+        }
+
+		function toggleKeywordBlur() {
+            const kwContainer = document.getElementById('drill-keyword-blur');
+            const kwBtn = document.getElementById('btn-toggle-keyword-blur');
+            if (!kwContainer) return;
+
+            const isRevealed = kwContainer.classList.toggle('revealed');
+            if (kwBtn) {
+                kwBtn.innerText = isRevealed ? "APLICAR BLUR" : "QUITAR BLUR";
+                kwBtn.classList.toggle('active', isRevealed);
             }
         }
 
@@ -585,6 +629,19 @@
             const isRevealed = container.classList.toggle('revealed');
             btn.innerText = isRevealed ? "APLICAR BLUR" : "QUITAR BLUR";
             btn.classList.toggle('active', isRevealed);
+
+            // Al desvelar la solución, también se revela la palabra clave
+            if (isRevealed) {
+                const kwContainer = document.getElementById('drill-keyword-blur');
+                const kwBtn = document.getElementById('btn-toggle-keyword-blur');
+                if (kwContainer && !kwContainer.classList.contains('revealed')) {
+                    kwContainer.classList.add('revealed');
+                    if (kwBtn) {
+                        kwBtn.innerText = "APLICAR BLUR";
+                        kwBtn.classList.add('active');
+                    }
+                }
+            }
         }
 
         async function fetchNodeDrill() {
@@ -620,14 +677,45 @@
             }
         }
 
+// Historial de ejercicios vistos por nodo para evitar repeticiones
+        let nodeHistory = {};
+
         function loadRandomGrammarFromBank() {
             const bank = userState.custom_grammar || [];
             if (!bank.length) return alert("El banco de gramática está vacío. Ejecuta seed_all_banks.py o sube un PDF.");
-            
-            const activeFiltered = bank.filter(item => item.topic && item.topic.toLowerCase().includes(activeNodeKey));
-            const item = activeFiltered.length > 0 
-                ? activeFiltered[Math.floor(Math.random() * activeFiltered.length)]
-                : bank[Math.floor(Math.random() * bank.length)];
+
+            // Filtro flexible: busca coincidencias tanto con guiones bajos como con espacios
+            const keyWithUnderscores = activeNodeKey.toLowerCase();
+            const keyWithSpaces = activeNodeKey.replace(/_/g, ' ').toLowerCase();
+
+            const activeFiltered = bank.filter(item => {
+                if (!item.topic) return false;
+                const top = item.topic.toLowerCase();
+                return top.includes(keyWithUnderscores) || top.includes(keyWithSpaces);
+            });
+
+            const pool = activeFiltered.length > 0 ? activeFiltered : bank;
+
+            // Inicializar el registro de preguntas vistas para este nodo
+            if (!nodeHistory[activeNodeKey]) {
+                nodeHistory[activeNodeKey] = [];
+            }
+
+            // Si ya se mostraron todas las preguntas del nodo, reiniciar el mazo
+            if (nodeHistory[activeNodeKey].length >= pool.length) {
+                nodeHistory[activeNodeKey] = [];
+            }
+
+            // Extraer solo los índices de preguntas que no han salido todavía
+            const availableIndices = pool
+                .map((_, idx) => idx)
+                .filter(idx => !nodeHistory[activeNodeKey].includes(idx));
+
+            // Seleccionar al azar entre las no vistas
+            const chosenIndex = availableIndices[Math.floor(Math.random() * availableIndices.length)];
+            nodeHistory[activeNodeKey].push(chosenIndex);
+
+            const item = pool[chosenIndex];
 
             renderInteractiveDrill({
                 original: item.original,
@@ -636,8 +724,8 @@
                 answer: item.answer,
                 explanation: item.explanation
             });
-        }
-
+		}
+		
         async function speakDrill() {
             if (!currentDrill.original) return;
             try {
@@ -744,7 +832,24 @@
             } catch (e) {}
             window.location.href = '/login.html';
         }
+		function switchMobileView(view) {
+            const container = document.getElementById('content-split-container');
+            const tabPractice = document.getElementById('tab-mob-practice');
+            const tabTheory = document.getElementById('tab-mob-theory');
+            if (!container || !tabPractice || !tabTheory) return;
 
+            if (view === 'practice') {
+                container.classList.add('show-practice');
+                container.classList.remove('show-theory');
+                tabPractice.classList.add('active');
+                tabTheory.classList.remove('active');
+            } else {
+                container.classList.add('show-theory');
+                container.classList.remove('show-practice');
+                tabTheory.classList.add('active');
+                tabPractice.classList.remove('active');
+            }
+        }
         window.addEventListener('DOMContentLoaded', init);
     </script>
 </body>

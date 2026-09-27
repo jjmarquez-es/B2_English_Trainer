@@ -25,8 +25,8 @@
             max-width: 400px;
             padding: 30px;
             background: rgba(6, 7, 10, 0.95);
-            border: 1px solid var(--border-glow);
-            border-top: 3px solid var(--neon-cyan);
+            border: 1px solid var(--border-glow, #00f0ff33);
+            border-top: 3px solid var(--neon-cyan, #00f0ff);
             box-shadow: 0 0 30px rgba(0, 240, 255, 0.15);
             box-sizing: border-box;
             position: relative;
@@ -39,7 +39,7 @@
             right: 12px;
             font-family: 'Share Tech Mono', monospace;
             font-size: 0.6rem;
-            color: var(--text-dim);
+            color: var(--text-dim, #666);
         }
 
         .login-header {
@@ -58,7 +58,7 @@
         .login-subtitle {
             font-family: 'Share Tech Mono', monospace;
             font-size: 0.75rem;
-            color: var(--neon-yellow);
+            color: var(--neon-yellow, #ffe600);
             margin-top: 4px;
         }
 
@@ -70,7 +70,7 @@
             display: block;
             font-family: 'Share Tech Mono', monospace;
             font-size: 0.75rem;
-            color: var(--neon-cyan);
+            color: var(--neon-cyan, #00f0ff);
             margin-bottom: 6px;
         }
 
@@ -80,9 +80,9 @@
             font-family: 'Share Tech Mono', monospace;
             font-size: 0.8rem;
             margin-bottom: 16px;
-            border-left: 3px solid var(--neon-pink);
+            border-left: 3px solid var(--neon-pink, #ff0055);
             background: rgba(255, 0, 85, 0.1);
-            color: var(--neon-pink);
+            color: var(--neon-pink, #ff0055);
         }
     </style>
 </head>
@@ -99,7 +99,8 @@
         <form onsubmit="handleLogin(event)">
             <div class="form-group">
                 <label for="username">OPERATOR_CALLSIGN (USER):</label>
-                <input type="text" id="username" class="cyber-input" placeholder="ej. user" required autocomplete="username">
+                <!-- Desactivamos autocapitalize y autocorrect para evitar fallos de mayúsculas -->
+                <input type="text" id="username" class="cyber-input" placeholder="ej. admin" required autocomplete="username" autocapitalize="none" autocorrect="off" spellcheck="false">
             </div>
 
             <div class="form-group">
@@ -118,7 +119,9 @@
     <script>
         async function handleLogin(e) {
             e.preventDefault();
-            const user = document.getElementById('username').value.trim();
+            
+            // Normalización estricta: recortar espacios y forzar minúsculas en el usuario
+            const user = document.getElementById('username').value.trim().toLowerCase();
             const pass = document.getElementById('password').value.trim();
             const btn = document.getElementById('btn-submit');
             const feedback = document.getElementById('feedback-msg');
@@ -131,17 +134,20 @@
                 const res = await fetch('/api/auth/login', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
+                    credentials: 'include', // Garantiza que la cookie se acepte y guarde en el navegador
                     body: JSON.stringify({ username: user, password: pass })
                 });
 
+                const data = await res.json().catch(() => ({}));
+
                 if (!res.ok) {
-                    const err = await res.json().catch(() => ({ detail: "Error de autenticación" }));
-                    throw new Error(err.detail || "Error en el inicio de sesión");
+                    throw new Error(data.detail || `Error del servidor HTTP ${res.status}`);
                 }
 
-                // Redirigir a la interfaz principal
-                window.location.href = '/index.html';
+                // Redirigir a la interfaz principal reemplazando el historial para evitar bucles
+                window.location.replace('/index.html');
             } catch (err) {
+                console.error("Fallo de autenticación:", err);
                 feedback.style.display = "block";
                 feedback.innerText = `[ERROR] ${err.message}`;
                 btn.innerText = "INITIALIZE_SESSION ->";

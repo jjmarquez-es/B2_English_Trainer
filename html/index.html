@@ -72,39 +72,43 @@
         }
     </style>
 </head>
-<body class="subpage">
+<body>
 
     <div class="tracker-container">
         <!-- CABECERA PRINCIPAL -->
         <header class="tracker-nav">
             <div>
                 <div style="font-family: 'Share Tech Mono'; font-size: 0.75rem; color: var(--neon-cyan); display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 4px;">
-                    <span>OPERATOR: <strong id="current-user-tag" style="color: var(--neon-yellow);">SYNCING...</strong></span>
-                    <span>//</span>
-                    <label for="model-select" style="color: var(--neon-cyan);">ENGINE:</label>
-                    <select id="model-select" class="cyber-select" onchange="changeActiveModel(this.value)">
+					<span>OPERATOR: <strong id="current-user-tag" style="color: var(--neon-yellow);">SYNCING...</strong></span>
+					
+					<!-- Bloque ENGINE restringido exclusivamente a administradores -->
+					<span class="admin-only">//</span>
+                    <label for="model-select" class="admin-only" style="color: var(--neon-cyan);">ENGINE:</label>
+                    <select id="model-select" class="cyber-select admin-only" onchange="changeActiveModel(this.value)">
                         <option value="">Cargando modelos...</option>
                     </select>
                     <span>//</span>
-                    <label for="theme-select" style="color: var(--neon-pink);">THEME:</label>
-                    <select id="theme-select" class="cyber-select" onchange="changeActiveTheme(this.value)">
-                        <option value="cyberpunk">CYBERPUNK</option>
-                        <option value="matrix">MATRIX</option>
-                        <option value="university">UNIVERSITARIO</option>
-                        <option value="synthwave">OCHENTERO</option>
-                    </select>
-                </div>
+					<label for="theme-select" style="color: var(--neon-pink);">THEME:</label>
+					<select id="theme-select" class="cyber-select" onchange="changeActiveTheme(this.value)">
+						<option value="cyberpunk">CYBERPUNK</option>
+						<option value="matrix">MATRIX</option>
+						<option value="university">UNIVERSITARIO</option>
+						<option value="synthwave">OCHENTERO</option>
+					</select>
+				</div>
                 <h1 style="font-family: 'Orbitron'; font-size: 1.4rem; color: #fff; letter-spacing: 1px;">
                     MISSION_CONTROL // B2 EXAM TRACKER
                 </h1>
             </div>
-            <div class="nav-actions">
-                <a href="vobaudi.html" class="nav-back-btn yellow">VOBAUDI</a>
+			<div class="nav-actions">
+                <a href="index.html" class="nav-back-btn yellow">TRACKER</a>
+                <a href="vobaudi.html" class="nav-back-btn cyan">VOBAUDI</a>
                 <a href="grammar_deck.html" class="nav-back-btn pink">GRAMMAR</a>
-                <a href="speaking.html" class="nav-back-btn">SPEAKING</a>
+                <a href="speaking.html" class="nav-back-btn blue">SPEAKING</a>
                 <a href="prompt.html" class="nav-back-btn green">PROMPTS</a>
-                <a href="types_of_text.html" class="nav-back-btn yellow">TEXT_TYPES</a>
-                <a href="exams.html" class="nav-back-btn pink">EXAM_CLINIC (ISE II)</a>
+                <a href="types_of_text.html" class="nav-back-btn orange">TEXT_TYPES</a>
+                <a href="exams.html" class="nav-back-btn purple">EXAM_CLINIC</a>
+                <a href="admin_users.html" class="nav-back-btn red admin-only">OPERATORS</a>
                 <button class="nav-back-btn pink" onclick="logout()">LOGOUT</button>
             </div>
         </header>
@@ -130,6 +134,11 @@
                 </div>
             </div>
         </div>
+
+        <!-- BOTÓN RUTA GUIADA SIN FRICCIÓN -->
+        <a href="vobaudi.html?mode=guided&step=1" class="guided-launch-btn">
+            ▶ INICIAR ENTRENAMIENTO GUIADO DE HOY (26 MIN)
+        </a>
 
         <!-- 01 // PROTOCOLO DIARIO DE PREPARACION -->
         <section class="protocol-card">
@@ -315,6 +324,7 @@
 
         let userState = {
             username: "candidate_operator",
+            role: "user",
             selected_model: "qwen3.5:latest",
             target_date: "2026-10-07",
             theme: "cyberpunk",
@@ -322,75 +332,92 @@
             daily_tracker: {}
         };
 
-async function initUserProfile() {
-		// Si no hay operador autenticado, enviar a login
-	const whoRes = await fetch('/api/user/whoami', { credentials: 'include' });
-	if (!whoRes.ok) {
-		window.location.href = '/login.html';
-		return;
-	}
-    try {
-        // Consultar quién es el usuario autenticado
-        const whoRes = await fetch(`${API_BASE}/user/whoami`, { credentials: 'same-origin' });
-        if (whoRes.ok) {
-            const whoData = await whoRes.json();
-            if (whoData.username) {
-                userState.username = whoData.username;
+        function applyRolePermissions() {
+            const isAdmin = userState.role === 'admin';
+            document.querySelectorAll('.admin-only').forEach(el => {
+                el.style.display = isAdmin ? '' : 'none';
+            });
+
+            const userTag = document.getElementById('current-user-tag');
+            if (userTag) {
+                const badgeColor = isAdmin ? 'var(--neon-pink)' : 'var(--neon-cyan)';
+                const badgeText = isAdmin ? '[ADMIN]' : '[STUDENT]';
+                userTag.innerHTML = `${(userState.username || "OPERATOR").toUpperCase()} <span style="font-size:0.65rem; color:${badgeColor}; font-weight:bold;">${badgeText}</span>`;
             }
         }
 
-        // Consultar el estado y progreso del usuario
-        const res = await fetch(`${API_BASE}/user/state`, { credentials: 'same-origin' });
-        if (res.ok) {
-            const data = await res.json();
-            userState = Object.assign(userState, data);
-            if (!userState.daily_tracker) userState.daily_tracker = {};
-            if (!userState.target_date) userState.target_date = "2026-10-07";
+        async function initUserProfile() {
+            // 1. Verificación de autenticación y rol
+            try {
+                const whoRes = await fetch(`${API_BASE}/user/whoami`, { credentials: 'include' });
+                if (!whoRes.ok) {
+                    window.location.href = '/login.html';
+                    return;
+                }
+                const whoData = await whoRes.json();
+                userState.username = whoData.username || "OPERATOR";
+                userState.role = whoData.role || "user";
+            } catch (e) {
+                window.location.href = '/login.html';
+                return;
+            }
+
+            // 2. Cargar estado persistente del usuario
+            try {
+                const res = await fetch(`${API_BASE}/user/state`, { credentials: 'include' });
+                if (res.ok) {
+                    const data = await res.json();
+                    userState = Object.assign(userState, data);
+                    if (!userState.daily_tracker) userState.daily_tracker = {};
+                    if (!userState.target_date) userState.target_date = "2026-10-07";
+                }
+            } catch (e) {
+                console.warn("Modo fallback local:", e);
+            }
+
+            // 3. Aplicar tema y permisos visuales
+            if (userState.theme && typeof applyTheme === 'function') {
+                applyTheme(userState.theme);
+            }
+            applyRolePermissions();
+
+            // 4. Si es admin, cargar la lista de modelos de Ollama en el selector
+            if (userState.role === 'admin') {
+                await loadAvailableModels();
+            }
+
+            // 5. Inicializar seguimiento de bloques del día
+            if (!userState.daily_tracker[todayStr]) {
+                userState.daily_tracker[todayStr] = { tasks: new Array(TOTAL_BLOCKS).fill(false) };
+            } else {
+                while (userState.daily_tracker[todayStr].tasks.length < TOTAL_BLOCKS) {
+                    userState.daily_tracker[todayStr].tasks.push(false);
+                }
+            }
+
+            updateStats();
         }
-    } catch (e) {
-        console.warn("Modo fallback local:", e);
-    }
 
-    // Actualizar visualmente el tag del operador
-    const userTag = document.getElementById('current-user-tag');
-    if (userTag) {
-        userTag.innerText = (userState.username || "SPACEMAN8").toUpperCase();
-    }
-    
-    if (userState.theme && typeof applyTheme === 'function') {
-        applyTheme(userState.theme);
-    }
-
-    if (!userState.daily_tracker[todayStr]) {
-        userState.daily_tracker[todayStr] = { tasks: new Array(TOTAL_BLOCKS).fill(false) };
-    } else {
-        while (userState.daily_tracker[todayStr].tasks.length < TOTAL_BLOCKS) {
-            userState.daily_tracker[todayStr].tasks.push(false);
+        async function persistState() {
+            updateStats();
+            try {
+                await fetch(`${API_BASE}/user/state`, {
+                    method: 'POST',
+                    credentials: 'include',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(userState)
+                });
+            } catch (err) {
+                console.error("Error persistiendo datos:", err);
+            }
         }
-    }
-
-    await loadAvailableModels();
-    updateStats();
-}
-
-async function persistState() {
-    updateStats();
-    try {
-        await fetch(`${API_BASE}/user/state`, {
-            method: 'POST',
-            credentials: 'same-origin',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(userState)
-        });
-    } catch (err) {
-        console.error("Error persistiendo datos:", err);
-    }
-}
 
         async function loadAvailableModels() {
             const select = document.getElementById('model-select');
+            if (!select) return;
+
             try {
-                const res = await fetch(`${API_BASE}/models`);
+                const res = await fetch(`${API_BASE}/models`, { credentials: 'include' });
                 if (res.ok) {
                     const data = await res.json();
                     select.innerHTML = '';
@@ -402,7 +429,7 @@ async function persistState() {
                         select.appendChild(opt);
                     });
 
-                    const activeModel = userState.selected_model || data.models[0];
+                    const activeModel = userState.selected_model || (data.models.length > 0 ? data.models[0] : "");
                     if (data.models.includes(activeModel)) {
                         select.value = activeModel;
                     } else if (data.models.length > 0) {
@@ -417,7 +444,7 @@ async function persistState() {
 
         function changeActiveModel(modelName) {
             userState.selected_model = modelName;
-	    persistState();
+            persistState();
         }
 
         function toggleTask(idx) {
@@ -539,21 +566,14 @@ async function persistState() {
             });
         }
 
-		async function logout() {
-			try {
-				await fetch('/api/auth/logout', { method: 'POST', credentials: 'include' });
-			} catch (e) {}
-			window.location.href = '/login.html';
-		}
+        async function logout() {
+            try {
+                await fetch(`${API_BASE}/auth/logout`, { method: 'POST', credentials: 'include' });
+            } catch (e) {}
+            window.location.href = '/login.html';
+        }
 
         window.addEventListener('DOMContentLoaded', initUserProfile);
-		const userTag = document.getElementById('current-user-tag');
-		if (userTag) {
-			const isAdmin = userState.role === 'admin';
-			const badgeColor = isAdmin ? 'var(--neon-pink)' : 'var(--neon-cyan)';
-			const badgeText = isAdmin ? '[ADMIN]' : '[STUDENT]';
-			userTag.innerHTML = `${(userState.username || "SPACEMANS8").toUpperCase()} <span style="font-size:0.65rem; color:${badgeColor}; font-weight:bold;">${badgeText}</span>`;
-		}
     </script>
 </body>
 </html>

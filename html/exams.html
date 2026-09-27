@@ -53,7 +53,7 @@
         }
     </style>
 </head>
-<body class="subpage">
+<body>
 
     <div class="sidebar-overlay" id="sidebar-overlay" onclick="toggleSidebar()"></div>
 
@@ -71,13 +71,16 @@
             <button class="close-sidebar-btn" onclick="toggleSidebar()">[X]</button>
         </div>
 
-        <div class="section-label">SYSTEM_NAVIGATION</div>
-        <a href="index.html" class="category-btn" style="text-decoration:none; border-color: var(--neon-yellow); color: var(--neon-yellow);">MISSION_CONTROL (TRACKER)</a>
-        <a href="types_of_text.html" class="category-btn" style="text-decoration:none;">TYPES_OF_TEXT</a>
-        <a href="grammar_deck.html" class="category-btn" style="text-decoration:none; border-color: var(--neon-pink); color: var(--neon-pink);">GRAMMAR_CLINIC</a>
-        <a href="vobaudi.html" class="category-btn" style="text-decoration:none;">VOBAUDI</a>
-        <a href="speaking.html" class="category-btn" style="text-decoration:none; border-color: var(--neon-cyan); color: var(--neon-cyan);">SPEAKING_DECK</a>
-
+        <div class="section-label">MENÚ PRINCIPAL</div>
+        <a href="index.html" class="nav-category-btn yellow">01 // MISSION_CONTROL</a>
+        <a href="vobaudi.html" class="nav-category-btn cyan">02 // VOBAUDI</a>
+        <a href="grammar_deck.html" class="nav-category-btn pink">03 // GRAMMAR_CLINIC</a>
+        <a href="speaking.html" class="nav-category-btn blue">04 // SPEAKING_DECK</a>
+        <a href="prompt.html" class="nav-category-btn green">05 // INTERACTIVE_PROMPTS</a>
+        <a href="types_of_text.html" class="nav-category-btn orange">06 // TYPES_OF_TEXT</a>
+        <a href="exams.html" class="nav-category-btn purple">07 // EXAM_CLINIC (ISE II)</a>
+        <a href="admin_users.html" class="nav-category-btn red admin-only">> GESTOR_OPERADORES</a>
+		
         <div class="section-label admin-only">ADMIN_OPERATIONS</div>
         <div style="padding: 6px 0;" class="admin-only">
             <button class="cyber-btn yellow" style="width: 100%; font-size: 0.7rem;" onclick="generateFullExam()">+ GENERAR EXAMEN IA</button>

@@ -28,6 +28,8 @@
             border-bottom: 1px solid rgba(255, 255, 255, 0.08);
             font-size: 0.85rem;
         }
+        
+        /* Badges de Roles */
         .badge-role {
             display: inline-block;
             padding: 2px 8px;
@@ -35,12 +37,56 @@
             font-weight: bold;
             border-radius: 2px;
         }
-        .badge-admin { border: 1px solid var(--neon-pink); color: var(--neon-pink); }
-        .badge-user { border: 1px solid var(--neon-green); color: var(--neon-green); }
+        .badge-admin { border: 1px solid var(--neon-pink); color: var(--neon-pink); background: rgba(255, 0, 85, 0.08); }
+        .badge-user { border: 1px solid var(--neon-green); color: var(--neon-green); background: rgba(0, 255, 65, 0.08); }
+
+        /* Badges de Estado ONLINE / OFFLINE */
+        .badge-status {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 2px 8px;
+            border-radius: 3px;
+            font-size: 0.75rem;
+            font-family: 'Share Tech Mono', monospace;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+        .status-online {
+            background: rgba(0, 255, 65, 0.15);
+            color: var(--neon-green, #00ff41);
+            border: 1px solid var(--neon-green, #00ff41);
+            box-shadow: 0 0 8px rgba(0, 255, 65, 0.25);
+        }
+        .status-offline {
+            background: rgba(120, 120, 120, 0.1);
+            color: #888888;
+            border: 1px solid #444444;
+        }
+        .status-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+        .status-online .status-dot {
+            background-color: var(--neon-green, #00ff41);
+            box-shadow: 0 0 6px var(--neon-green, #00ff41);
+            animation: pulse-dot 1.5s infinite;
+        }
+        .status-offline .status-dot {
+            background-color: #666;
+        }
+
+        @keyframes pulse-dot {
+            0% { opacity: 0.3; }
+            50% { opacity: 1; }
+            100% { opacity: 0.3; }
+        }
     </style>
 </head>
-<body class="subpage">
-    <div class="prompt-container" style="max-width: 900px;">
+<body>
+    <div class="prompt-container" style="max-width: 960px;">
         <header class="prompt-nav" style="border-bottom-color: var(--neon-pink);">
             <div>
                 <div style="font-family: 'Share Tech Mono'; font-size: 0.75rem; color: var(--neon-pink); margin-bottom: 4px;">
@@ -52,7 +98,13 @@
             </div>
             <div class="nav-actions">
                 <a href="index.html" class="nav-back-btn yellow">TRACKER</a>
+                <a href="vobaudi.html" class="nav-back-btn cyan">VOBAUDI</a>
+                <a href="grammar_deck.html" class="nav-back-btn pink">GRAMMAR</a>
+                <a href="speaking.html" class="nav-back-btn blue">SPEAKING</a>
                 <a href="prompt.html" class="nav-back-btn green">PROMPTS</a>
+                <a href="types_of_text.html" class="nav-back-btn orange">TEXT_TYPES</a>
+                <a href="exams.html" class="nav-back-btn purple">EXAM_CLINIC</a>
+                <a href="admin_users.html" class="nav-back-btn red admin-only">OPERATORS</a>
                 <button class="nav-back-btn pink" onclick="logout()">LOGOUT</button>
             </div>
         </header>
@@ -87,14 +139,15 @@
             <table class="table-cyber">
                 <thead>
                     <tr>
-                        <th>USUARIO</th>
-                        <th>ROL</th>
-                        <th>ULTIMA ACTIVIDAD</th>
-                        <th style="text-align: right;">ACCIONES</th>
+                        <th>OPERATOR</th>
+                        <th>ROLE</th>
+                        <th>STATUS</th>
+                        <th>LAST SEEN</th>
+                        <th style="text-align: right;">ACTIONS</th>
                     </tr>
                 </thead>
-                <tbody id="user-rows">
-                    <tr><td colspan="4" style="text-align: center; color: var(--text-dim);">Cargando directorio...</td></tr>
+                <tbody id="users-tbody">
+                    <!-- Se rellena dinámicamente con JavaScript -->
                 </tbody>
             </table>
         </section>
@@ -105,59 +158,113 @@
         let currentAdminUser = "";
 
         async function init() {
-            // Guardián de acceso: debe ser admin
-            try {
-                const res = await fetch(`${API_BASE}/user/whoami`, { credentials: 'include' });
-                if (!res.ok) throw new Error("No autenticado");
-                const who = await res.json();
-                
-                if (who.role !== 'admin') {
-                    alert("Acceso denegado: Zona exclusiva para administradores.");
-                    window.location.href = '/index.html';
-                    return;
-                }
-                currentAdminUser = who.username;
-            } catch (e) {
-                window.location.href = '/login.html';
-                return;
-            }
+		try {
+			const res = await fetch(`${API_BASE}/user/whoami`, { credentials: 'include' });
+			if (!res.ok) throw new Error("No autenticado");
+			const who = await res.json();
+			
+			if (who.role !== 'admin') {
+				alert("Acceso denegado: Zona exclusiva para administradores.");
+				window.location.href = '/index.html';
+				return;
+			}
+			currentAdminUser = who.username;
+		} catch (e) {
+			window.location.href = '/login.html';
+			return;
+		}
 
-            await loadUserList();
+		// 1. Carga inicial inmediata
+		await loadUserList();
+
+		// 2. Comprobación periódica cada 10 segundos (10000 ms)
+		setInterval(() => {
+			// Solo ejecuta la petición si la pestaña del navegador está visible
+			if (!document.hidden) {
+				loadUserList();
+			}
+		}, 10000);
+	}
+
+        function formatLastLogin(epoch) {
+            if (!epoch) return '<span style="color: #666;">NEVER</span>';
+            
+            const date = new Date(epoch * 1000);
+            const now = new Date();
+            const diffMin = Math.floor((now - date) / 60000);
+
+            if (diffMin < 1) return '<span style="color: var(--neon-cyan, #00e5ff); font-weight: bold;">JUST NOW</span>';
+            if (diffMin < 60) return `${diffMin}m AGO`;
+            
+            const yyyy = date.getFullYear();
+            const mm = String(date.getMonth() + 1).padStart(2, '0');
+            const dd = String(date.getDate()).padStart(2, '0');
+            const hh = String(date.getHours()).padStart(2, '0');
+            const min = String(date.getMinutes()).padStart(2, '0');
+            return `${yyyy}-${mm}-${dd} ${hh}:${min}`;
         }
 
         async function loadUserList() {
-            const tbody = document.getElementById('user-rows');
+            const tbody = document.getElementById('users-tbody');
             try {
                 const res = await fetch(`${API_BASE}/admin/users`, { credentials: 'include' });
-                if (!res.ok) throw new Error(await res.text());
-                const users = await res.json();
+                if (!res.ok) {
+                    const errData = await res.json().catch(() => ({}));
+                    throw new Error(errData.detail || `HTTP ${res.status}`);
+                }
 
-                tbody.innerHTML = users.map(u => {
-                    const isSelf = u.username.toLowerCase() === currentAdminUser.toLowerCase();
-                    const dateStr = u.updated_at ? new Date(u.updated_at * 1000).toLocaleString() : 'N/A';
-                    const roleBadge = u.role === 'admin' 
-                        ? '<span class="badge-role badge-admin">ADMIN</span>' 
-                        : '<span class="badge-role badge-user">STUDENT</span>';
+                const rawData = await res.json();
+                const users = Array.isArray(rawData) ? rawData : (rawData.users || []);
 
-                    return `
-                        <tr>
-                            <td style="color: #fff; font-weight: bold;">${u.username} ${isSelf ? '<span style="color: var(--neon-yellow); font-size: 0.7rem;">(TU CUENTA)</span>' : ''}</td>
-                            <td>${roleBadge}</td>
-                            <td style="color: var(--text-dim);">${dateStr}</td>
-                            <td style="text-align: right;">
-                                <button class="play-btn-mini" onclick="promptResetPass('${u.username}')" style="margin-right: 6px;">PASS</button>
-                                ${!isSelf ? `<button class="del-btn" onclick="handleDeleteUser('${u.username}')">BORRAR</button>` : ''}
-                            </td>
-                        </tr>
-                    `;
-                }).join('');
+                renderUsers(users);
             } catch (err) {
-                tbody.innerHTML = `<tr><td colspan="4" style="color: var(--neon-pink);">Error cargando usuarios: ${err.message}</td></tr>`;
+                console.error("Error cargando operadores:", err);
+                tbody.innerHTML = `<tr><td colspan="5" style="color: var(--neon-pink); text-align: center; padding: 20px;">[ERROR] Fallo cargando operadores: ${err.message}</td></tr>`;
             }
         }
 
+        function renderUsers(users) {
+            const tbody = document.getElementById('users-tbody');
+            tbody.innerHTML = '';
+
+            if (users.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="5" style="text-align: center; color: var(--text-dim); padding: 15px;">No se han encontrado registros en base de datos.</td></tr>`;
+                return;
+            }
+
+            users.forEach(u => {
+                const isSelf = u.username.toLowerCase() === currentAdminUser.toLowerCase();
+                const isProtected = u.username.toLowerCase() === 'admin' || u.username.toLowerCase() === 'spacemans8';
+
+                const roleBadge = u.role === 'admin' 
+                    ? '<span class="badge-role badge-admin">ADMIN</span>' 
+                    : '<span class="badge-role badge-user">STUDENT</span>';
+
+                const statusHtml = u.is_online
+                    ? `<span class="badge-status status-online"><span class="status-dot"></span>ONLINE</span>`
+                    : `<span class="badge-status status-offline"><span class="status-dot"></span>OFFLINE</span>`;
+
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td style="color: #fff; font-weight: bold;">
+                        ${u.username}
+                        ${isSelf ? '<span style="color: var(--neon-yellow); font-size: 0.7rem; margin-left: 6px;">(TU CUENTA)</span>' : ''}
+                    </td>
+                    <td>${roleBadge}</td>
+                    <td>${statusHtml}</td>
+                    <td style="font-family: monospace; font-size: 0.8rem; color: var(--text-dim);">${formatLastLogin(u.last_login)}</td>
+                    <td style="text-align: right;">
+                        <button class="play-btn-mini" onclick="promptResetPass('${u.username}')" style="margin-right: 6px;">PASS</button>
+                        ${!isSelf && !isProtected ? `<button class="del-btn" onclick="handleDeleteUser('${u.username}')">BORRAR</button>` : ''}
+                        ${isProtected && !isSelf ? `<span style="color: #666; font-size: 0.75rem;">ROOT</span>` : ''}
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
         async function handleCreateUser() {
-            const username = document.getElementById('new-user').value.trim();
+            const username = document.getElementById('new-user').value.trim().toLowerCase();
             const password = document.getElementById('new-pass').value.trim();
             const role = document.getElementById('new-role').value;
             const status = document.getElementById('status-msg');
@@ -178,7 +285,7 @@
                 });
 
                 if (!res.ok) {
-                    const errData = await res.json();
+                    const errData = await res.json().catch(() => ({}));
                     throw new Error(errData.detail || "Error registrando usuario");
                 }
 
@@ -200,7 +307,7 @@
                     credentials: 'include'
                 });
                 if (!res.ok) {
-                    const errData = await res.json();
+                    const errData = await res.json().catch(() => ({}));
                     throw new Error(errData.detail || "Error eliminando usuario");
                 }
                 await loadUserList();
@@ -220,7 +327,10 @@
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ new_password: newPass.trim() })
                 });
-                if (!res.ok) throw new Error(await res.text());
+                if (!res.ok) {
+                    const errData = await res.json().catch(() => ({}));
+                    throw new Error(errData.detail || "Error actualizando contraseña");
+                }
                 alert(`Contraseña actualizada para '${user}'.`);
             } catch (e) {
                 alert(`Error restableciendo contraseña: ${e.message}`);

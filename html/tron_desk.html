@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>THE GRID // VOBAUDI 3D RESPONSIVE</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body, html {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background-color: #020306;
+            font-family: 'Share Tech Mono', monospace;
+            color: #fff;
+            user-select: none;
+            -webkit-user-select: none;
+            touch-action: none;
+        }
+
+        #webgl-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            display: block;
+            touch-action: none;
+        }
+
+        /* HUD SUPERIOR RESPONSIVO */
+        .hud-top-bar {
+            position: fixed;
+            top: 12px;
+            left: 12px;
+            right: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 8px;
+            z-index: 10;
+            pointer-events: none;
+        }
+
+        .hud-chip {
+            background: rgba(4, 8, 16, 0.8);
+            border: 1px solid rgba(0, 240, 255, 0.4);
+            border-left: 3px solid #00f0ff;
+            padding: 6px 12px;
+            font-family: 'Orbitron', monospace;
+            font-size: 0.7rem;
+            color: #00f0ff;
+            letter-spacing: 1.5px;
+            backdrop-filter: blur(8px);
+            box-shadow: 0 0 15px rgba(0, 240, 255, 0.2);
+            white-space: nowrap;
+        }
+
+        .hud-keys-legend {
+            position: fixed;
+            bottom: 12px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 10;
+            font-size: 0.68rem;
+            color: #64748b;
+            background: rgba(4, 7, 12, 0.75);
+            padding: 4px 14px;
+            border-radius: 4px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            pointer-events: none;
+            letter-spacing: 1px;
+            text-align: center;
+            max-width: 90%;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        @media (max-width: 768px) {
+            .hud-top-bar {
+                flex-direction: column;
+                align-items: stretch;
+                top: 8px;
+            }
+            .hud-chip {
+                font-size: 0.62rem;
+                padding: 4px 10px;
+                text-align: center;
+            }
+            .hud-keys-legend {
+                font-size: 0.6rem;
+                bottom: 8px;
+            }
+        }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+</head>
+<body>
+
+    <div class="hud-top-bar">
+        <div class="hud-chip">VOBAUDI // 3D COCKPIT SIMULATOR</div>
+        <div class="hud-chip" id="hud-status" style="border-left-color: #00ff66; color: #00ff66;">
+            ● SECTOR: CORE_B2 // VOCABULARY
+        </div>
+    </div>
+
+    <div class="hud-keys-legend" id="hud-legend">
+        [PC]: RATÓN PARALLAX // [ESPACIO]: PLAY // [W/S]: SHADOWING // [A/D]: PISTAS
+    </div>
+
+    <canvas id="webgl-canvas"></canvas>
+
+    <script>
+        // ==============================================================
+        // 0. DATOS DE VOCABULARIO (B2/C1 CAMBRIDGE/TRINITY)
+        // ==============================================================
+        const trackList = [
+            { term: "Shelter", ipa: "/ˈʃel.tər/", level: "B2 CORE", meaning: "Refugio / Cobijo", ex: "The hikers sought shelter from the unexpected blizzard." },
+            { term: "Aim", ipa: "/eɪm/", level: "B2 CORE", meaning: "Objetivo / Pretender", ex: "Our team aims to achieve complete fluency before the exam." },
+            { term: "Take over", ipa: "/teɪk ˈəʊ.vər/", level: "B2 PHRASAL", meaning: "Asumir el control", ex: "The vice president will take over the project negotiations." },
+            { term: "Sympathetic", ipa: "/ˌsɪm.pəˈθet.ɪk/", level: "B2 FALSE FRIEND", meaning: "Comprensivo / Empático", ex: "She was remarkably sympathetic when I explained my anxiety." },
+            { term: "Amount", ipa: "/əˈmaʊnt/", level: "B2 NOUN", meaning: "Cantidad / Cuantía", ex: "A significant amount of discipline is required for C1." },
+            { term: "Awareness", ipa: "/əˈweə.nəs/", level: "C1 UPGRADE", meaning: "Concienciación / Percepción", ex: "Environmental awareness has expanded rapidly across Europe." }
+        ];
+
+        let currentTrackIdx = 0;
+        let isRecallMode = false;
+        let shadowDelay = 1.5;
+        let isPlaying = false;
+        let speechActive = false;
+
+        // Detección táctil para leyenda inferior
+        if ('ontouchstart' in window || navigator.maxTouchPoints > 0) {
+            document.getElementById('hud-legend').innerText = "TOCA LOS BOTONES Y PISTAS 3D // DESLIZA PARA INCLINAR CABINA";
+        }
+
+        // ==============================================================
+        // 1. SÍNTESIS DE AUDIO Y PRONUNCIACIÓN BRITÁNICA NATIVA
+        // ==============================================================
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
+        function unlockAudioContext() {
+            if (audioCtx.state === 'suspended') {
+                audioCtx.resume();
+            }
+        }
+
+        function playTronBeep(freq = 480, duration = 0.08) {
+            unlockAudioContext();
+            try {
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+                osc.type = 'square';
+                osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+                osc.frequency.exponentialRampToValueAtTime(120, audioCtx.currentTime + duration);
+                gain.gain.setValueAtTime(0.08, audioCtx.currentTime);
+                gain.gain.linearRampToValueAtTime(0.001, audioCtx.currentTime + duration);
+                osc.start();
+                osc.stop(audioCtx.currentTime + duration);
+            } catch(e) {}
+        }
+
+        function speakTerm(text, callback) {
+            if (!('speechSynthesis' in window)) {
+                if (callback) callback();
+                return;
+            }
+            window.speechSynthesis.cancel();
+            const utter = new SpeechSynthesisUtterance(text);
+            utter.lang = 'en-GB';
+            utter.rate = 0.9;
+
+            const voices = window.speechSynthesis.getVoices();
+            const gbVoice = voices.find(v => v.lang === 'en-GB' || v.name.includes('United Kingdom'));
+            if (gbVoice) utter.voice = gbVoice;
+
+            speechActive = true;
+            utter.onend = () => {
+                speechActive = false;
+                if (callback) callback();
+            };
+            utter.onerror = () => {
+                speechActive = false;
+                if (callback) callback();
+            };
+
+            window.speechSynthesis.speak(utter);
+        }
+
+        // ==============================================================
+        // 2. CONFIGURACIÓN THREE.JS, ILUMINACIÓN Y REJILLAS TRON
+        // ==============================================================
+        const canvas = document.getElementById('webgl-canvas');
+        const scene = new THREE.Scene();
+        scene.fog = new THREE.FogExp2(0x020306, 0.024);
+
+        const camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.1, 1000);
+        camera.position.set(0, 0, 11.5);
+
+        const renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+        scene.add(new THREE.AmbientLight(0xffffff, 0.7));
+
+        const keyLight = new THREE.PointLight(0x00f0ff, 2.5, 40);
+        keyLight.position.set(-4, 5, 8);
+        scene.add(keyLight);
+
+        const rimLight = new THREE.PointLight(0xff0055, 1.8, 35);
+        rimLight.position.set(4, -4, 6);
+        scene.add(rimLight);
+
+        // The Grid (Suelo y Techo vectoriales infinitos)
+        const floorGrid = new THREE.GridHelper(140, 70, 0x00f0ff, 0x002b36);
+        floorGrid.position.y = -5.8;
+        scene.add(floorGrid);
+
+        const ceilGrid = new THREE.GridHelper(140, 70, 0xff0055, 0x2b0014);
+        ceilGrid.position.y = 8.5;
+        scene.add(ceilGrid);
+
+        // Contenedor principal de la cabina (Parallax Rig)
+        const masterRig = new THREE.Group();
+        scene.add(masterRig);
+
+        // ==============================================================
+        // 3. PANTALLA PRINCIPAL: TEXTURA DINÁMICA 2D/3D (CANVAS)
+        // ==============================================================
+        const mainCanvas = document.createElement('canvas');
+        mainCanvas.width = 1200;
+        mainCanvas.height = 700;
+        const mCtx = mainCanvas.getContext('2d');
+        const mainTexture = new THREE.CanvasTexture(mainCanvas);
+
+        function updateMainScreenTexture() {
+            const item = trackList[currentTrackIdx];
+            mCtx.clearRect(0, 0, mainCanvas.width, mainCanvas.height);
+
+            const grad = mCtx.createLinearGradient(0, 0, 0, mainCanvas.height);
+            grad.addColorStop(0, 'rgba(6, 12, 24, 0.96)');
+            grad.addColorStop(1, 'rgba(3, 6, 14, 0.98)');
+            mCtx.fillStyle = grad;
+            mCtx.fillRect(0, 0, mainCanvas.width, mainCanvas.height);
+
+            // Scanlines fósforo
+            mCtx.fillStyle = 'rgba(0, 240, 255, 0.025)';
+            for (let y = 0; y < mainCanvas.height; y += 6) {
+                mCtx.fillRect(0, y, mainCanvas.width, 2);
+            }
+
+            // Cabecera
+            mCtx.font = 'bold 24px Orbitron';
+            mCtx.fillStyle = '#00f0ff';
+            mCtx.fillText(`// VOBAUDI // TRACK [${currentTrackIdx + 1}/${trackList.length}]`, 40, 60);
+
+            mCtx.font = '18px Share Tech Mono';
+            mCtx.fillStyle = '#64748b';
+            mCtx.fillText(`SHADOW_DELAY: ${shadowDelay}s  |  MODE: ${isRecallMode ? "RECALL" : "STANDARD"}`, 720, 60);
+
+            mCtx.strokeStyle = 'rgba(0, 240, 255, 0.35)';
+            mCtx.lineWidth = 2;
+            mCtx.beginPath();
+            mCtx.moveTo(40, 80);
+            mCtx.lineTo(1160, 80);
+            mCtx.stroke();
+
+            // Bloque Término
+            mCtx.font = 'bold 64px Orbitron';
+            mCtx.fillStyle = '#ffffff';
+            mCtx.shadowColor = '#00f0ff';
+            mCtx.shadowBlur = 18;
+            mCtx.fillText(item.term.toUpperCase(), 40, 165);
+            mCtx.shadowBlur = 0;
+
+            mCtx.font = '24px Share Tech Mono';
+            mCtx.fillStyle = '#38bdf8';
+            mCtx.fillText(item.ipa, 40, 205);
+
+            // Nivel
+            mCtx.fillStyle = 'rgba(0, 255, 102, 0.15)';
+            mCtx.fillRect(920, 120, 240, 42);
+            mCtx.strokeStyle = '#00ff66';
+            mCtx.strokeRect(920, 120, 240, 42);
+            mCtx.font = 'bold 18px Orbitron';
+            mCtx.fillStyle = '#00ff66';
+            mCtx.textAlign = 'center';
+            mCtx.fillText(item.level, 1040, 148);
+            mCtx.textAlign = 'left';
+
+            // Significado con Recall/Blur
+            mCtx.font = 'bold 20px Share Tech Mono';
+            mCtx.fillStyle = '#f59e0b';
+            mCtx.fillText('// SIGNIFICADO & TRADUCCIÓN:', 40, 275);
+
+            mCtx.fillStyle = 'rgba(15, 23, 42, 0.8)';
+            mCtx.fillRect(40, 290, 1120, 120);
+            mCtx.strokeStyle = isRecallMode ? '#f59e0b' : 'rgba(0, 240, 255, 0.4)';
+            mCtx.strokeRect(40, 290, 1120, 120);
+
+            if (isRecallMode) {
+                mCtx.font = 'bold 24px Orbitron';
+                mCtx.fillStyle = '#f59e0b';
+                mCtx.shadowColor = '#f59e0b';
+                mCtx.shadowBlur = 10;
+                mCtx.fillText('[MODO RECALL] PULSA EL BOTÓN 3D "RECALL" PARA DESVELAR', 100, 360);
+                mCtx.shadowBlur = 0;
+            } else {
+                mCtx.font = 'bold 36px Share Tech Mono';
+                mCtx.fillStyle = '#00ff66';
+                mCtx.shadowColor = '#00ff66';
+                mCtx.shadowBlur = 12;
+                mCtx.fillText(item.meaning, 70, 362);
+                mCtx.shadowBlur = 0;
+            }
+
+            // Frase de contexto
+            mCtx.font = 'bold 20px Share Tech Mono';
+            mCtx.fillStyle = '#94a3b8';
+            mCtx.fillText('// EJEMPLO EN CONTEXTO DE EXAMEN (CAMBRIDGE):', 40, 460);
+
+            mCtx.font = 'italic 26px Share Tech Mono';
+            mCtx.fillStyle = '#e2e8f0';
+            mCtx.fillText(`"${item.ex}"`, 40, 500);
+
+            // Barra inferior
+            mCtx.fillStyle = isPlaying ? '#00ff66' : '#64748b';
+            mCtx.fillRect(40, 640, isPlaying ? 1120 : 20, 4);
+
+            mainTexture.needsUpdate = true;
+        }
+
+        // Chasis central 3D
+        const centerPanelGeom = new THREE.BoxGeometry(8.2, 4.8, 0.35);
+        const centerPanelMesh = new THREE.Mesh(centerPanelGeom, [
+            new THREE.MeshStandardMaterial({ color: 0x050b14, metalness: 0.8, roughness: 0.3 }),
+            new THREE.MeshStandardMaterial({ color: 0x050b14, metalness: 0.8, roughness: 0.3 }),
+            new THREE.MeshStandardMaterial({ color: 0x050b14, metalness: 0.8, roughness: 0.3 }),
+            new THREE.MeshStandardMaterial({ color: 0x050b14, metalness: 0.8, roughness: 0.3 }),
+            new THREE.MeshBasicMaterial({ map: mainTexture }),
+            new THREE.MeshStandardMaterial({ color: 0x010204 })
+        ]);
+        masterRig.add(centerPanelMesh);
+
+        centerPanelMesh.add(new THREE.LineSegments(
+            new THREE.EdgesGeometry(centerPanelGeom),
+            new THREE.LineBasicMaterial({ color: 0x00f0ff })
+        ));
+
+        // ==============================================================
+        // 4. RACK LATERAL / INFERIOR 3D (TRACKLIST CLICABLE)
+        // ==============================================================
+        const rackCanvas = document.createElement('canvas');
+        rackCanvas.width = 460;
+        rackCanvas.height = 700;
+        const rCtx = rackCanvas.getContext('2d');
+        const rackTexture = new THREE.CanvasTexture(rackCanvas);
+
+        function updateRackTexture() {
+            rCtx.clearRect(0, 0, rackCanvas.width, rackCanvas.height);
+            rCtx.fillStyle = 'rgba(4, 8, 16, 0.95)';
+            rCtx.fillRect(0, 0, rackCanvas.width, rackCanvas.height);
+
+            rCtx.font = 'bold 22px Orbitron';
+            rCtx.fillStyle = '#00f0ff';
+            rCtx.fillText('// TRACK_INDEX', 30, 50);
+
+            trackList.forEach((item, idx) => {
+                const y = 80 + idx * 95;
+                const isSelected = idx === currentTrackIdx;
+
+                rCtx.fillStyle = isSelected ? 'rgba(0, 240, 255, 0.22)' : 'rgba(15, 23, 42, 0.55)';
+                rCtx.fillRect(20, y, 420, 80);
+                rCtx.strokeStyle = isSelected ? '#00f0ff' : 'rgba(255, 255, 255, 0.12)';
+                rCtx.lineWidth = isSelected ? 2 : 1;
+                rCtx.strokeRect(20, y, 420, 80);
+
+                rCtx.font = 'bold 20px Orbitron';
+                rCtx.fillStyle = isSelected ? '#00ff66' : '#ffffff';
+                rCtx.fillText(`${idx + 1}. ${item.term}`, 36, y + 36);
+
+                rCtx.font = '16px Share Tech Mono';
+                rCtx.fillStyle = '#94a3b8';
+                rCtx.fillText(item.ipa + "  //  " + item.level, 36, y + 64);
+            });
+
+            rackTexture.needsUpdate = true;
+        }
+
+        const rackGeom = new THREE.BoxGeometry(2.8, 4.8, 0.35);
+        const rackMesh = new THREE.Mesh(rackGeom, [
+            new THREE.MeshStandardMaterial({ color: 0x050b14 }),
+            new THREE.MeshStandardMaterial({ color: 0x050b14 }),
+            new THREE.MeshStandardMaterial({ color: 0x050b14 }),
+            new THREE.MeshStandardMaterial({ color: 0x050b14 }),
+            new THREE.MeshBasicMaterial({ map: rackTexture }),
+            new THREE.MeshStandardMaterial({ color: 0x010204 })
+        ]);
+        masterRig.add(rackMesh);
+
+        rackMesh.add(new THREE.LineSegments(
+            new THREE.EdgesGeometry(rackGeom),
+            new THREE.LineBasicMaterial({ color: 0x38bdf8 })
+        ));
+
+        // ==============================================================
+        // 5. BOTONES FÍSICOS 3D
+        // ==============================================================
+        const interactiveMeshes = [];
+
+        function build3DButton(parent, label, colorHex, x, y, width, callback) {
+            const btnCanvas = document.createElement('canvas');
+            btnCanvas.width = 380;
+            btnCanvas.height = 120;
+            const bCtx = btnCanvas.getContext('2d');
+            bCtx.fillStyle = '#060a14';
+            bCtx.fillRect(0, 0, btnCanvas.width, btnCanvas.height);
+            bCtx.font = 'bold 36px Orbitron';
+            bCtx.textAlign = 'center';
+            bCtx.textBaseline = 'middle';
+            bCtx.fillStyle = '#' + colorHex.toString(16).padStart(6, '0');
+            bCtx.shadowColor = bCtx.fillStyle;
+            bCtx.shadowBlur = 10;
+            bCtx.fillText(label, 190, 60);
+            const bTexture = new THREE.CanvasTexture(btnCanvas);
+
+            const bGeom = new THREE.BoxGeometry(width, 0.55, 0.3);
+            const bMesh = new THREE.Mesh(bGeom, [
+                new THREE.MeshStandardMaterial({ color: 0x0a1222 }),
+                new THREE.MeshStandardMaterial({ color: 0x0a1222 }),
+                new THREE.MeshStandardMaterial({ color: 0x0a1222 }),
+                new THREE.MeshStandardMaterial({ color: 0x0a1222 }),
+                new THREE.MeshBasicMaterial({ map: bTexture }),
+                new THREE.MeshStandardMaterial({ color: 0x000000 })
+            ]);
+
+            bMesh.add(new THREE.LineSegments(
+                new THREE.EdgesGeometry(bGeom),
+                new THREE.LineBasicMaterial({ color: colorHex })
+            ));
+
+            const btnGroup = new THREE.Group();
+            btnGroup.position.set(x, y, 0.22);
+            btnGroup.add(bMesh);
+
+            btnGroup.userData = {
+                baseZ: btnGroup.position.z,
+                action: callback,
+                updateLabel: (newLabel, newColor) => {
+                    bCtx.fillStyle = '#060a14';
+                    bCtx.fillRect(0, 0, btnCanvas.width, btnCanvas.height);
+                    bCtx.fillStyle = newColor || ('#' + colorHex.toString(16).padStart(6, '0'));
+                    bCtx.fillText(newLabel, 190, 60);
+                    bTexture.needsUpdate = true;
+                }
+            };
+
+            interactiveMeshes.push(bMesh);
+            parent.add(btnGroup);
+            return btnGroup;
+        }
+
+        // Botones 3D montados en el chasis
+        build3DButton(centerPanelMesh, "◀ PREV", 0x00f0ff, -2.8, -1.9, 1.5, () => {
+            currentTrackIdx = (currentTrackIdx > 0) ? currentTrackIdx - 1 : trackList.length - 1;
+            refreshAll();
+            playTronBeep(420);
+            if (isPlaying) triggerVocabAudio();
+        });
+
+        const playBtnObj = build3DButton(centerPanelMesh, "▶ PLAY", 0x00ff66, -1.1, -1.9, 1.6, () => {
+            isPlaying = !isPlaying;
+            playBtnObj.userData.updateLabel(isPlaying ? "❚❚ PAUSE" : "▶ PLAY", isPlaying ? "#ff0055" : "#00ff66");
+            playTronBeep(isPlaying ? 600 : 300);
+            if (isPlaying) {
+                triggerVocabAudio();
+            } else {
+                window.speechSynthesis.cancel();
+            }
+            updateMainScreenTexture();
+        });
+
+        build3DButton(centerPanelMesh, "NEXT ▶", 0x00f0ff, 0.6, -1.9, 1.5, () => {
+            currentTrackIdx = (currentTrackIdx + 1) % trackList.length;
+            refreshAll();
+            playTronBeep(520);
+            if (isPlaying) triggerVocabAudio();
+        });
+
+        const recallBtnObj = build3DButton(centerPanelMesh, "RECALL: OFF", 0xf59e0b, 2.3, -1.9, 1.6, () => {
+            isRecallMode = !isRecallMode;
+            recallBtnObj.userData.updateLabel(isRecallMode ? "RECALL: ON" : "RECALL: OFF", isRecallMode ? "#ff0055" : "#f59e0b");
+            playTronBeep(isRecallMode ? 740 : 380);
+            updateMainScreenTexture();
+        });
+
+        const shadBtnObj = build3DButton(centerPanelMesh, "SHAD: 1.5s", 0xff0055, 3.8, -1.9, 1.2, () => {
+            if (shadowDelay === 0) shadowDelay = 1.5;
+            else if (shadowDelay === 1.5) shadowDelay = 3.0;
+            else shadowDelay = 0;
+
+            shadBtnObj.userData.updateLabel(`SHAD: ${shadowDelay}s`);
+            playTronBeep(480);
+            updateMainScreenTexture();
+        });
+
+        // ==============================================================
+        // 6. VISUALIZADOR 3D REACTIVO (BARRAS HOLOGRÁFICAS)
+        // ==============================================================
+        const visualizerGroup = new THREE.Group();
+        masterRig.add(visualizerGroup);
+
+        const visualBars = [];
+        const BAR_COUNT = 18;
+        const barGeom = new THREE.BoxGeometry(0.28, 1, 0.28);
+
+        for (let i = 0; i < BAR_COUNT; i++) {
+            const barMat = new THREE.MeshStandardMaterial({
+                color: i % 2 === 0 ? 0x00f0ff : 0x00ff66,
+                roughness: 0.2,
+                metalness: 0.8
+            });
+            const bar = new THREE.Mesh(barGeom, barMat);
+            bar.position.x = (i - BAR_COUNT / 2) * 0.42;
+            bar.scale.y = 0.1;
+            visualizerGroup.add(bar);
+            visualBars.push(bar);
+        }
+
+        // ==============================================================
+        // 7. RESPONSIVIDAD DINÁMICA: ADAPTACIÓN PC VS MÓVIL
+        // ==============================================================
+        function applyResponsiveLayout() {
+            const width = window.innerWidth;
+            const height = window.innerHeight;
+            const aspect = width / height;
+
+            camera.aspect = aspect;
+
+            const isMobile = width <= 960 || aspect < 1.15;
+
+            if (isMobile) {
+                // Modo Móvil / Vertical: Apilar consola arriba y rack abajo
+                centerPanelMesh.position.set(0, 1.8, 0);
+                centerPanelMesh.scale.set(0.72, 0.72, 0.72);
+
+                visualizerGroup.position.set(0, -0.2, 0.2);
+                visualizerGroup.scale.set(0.65, 0.65, 0.65);
+
+                rackMesh.position.set(0, -2.9, 0);
+                rackMesh.rotation.y = 0;
+                rackMesh.scale.set(0.85, 0.52, 0.85);
+
+                // Ajustar distancia de cámara según altura/ancho de pantalla
+                const calculatedZ = Math.max(12.5, 11.5 / Math.min(aspect, 1) * 0.75);
+                camera.position.set(0, 0, calculatedZ);
+            } else {
+                // Modo PC / Panorámico: Distribución de cabina Tron lado a lado
+                centerPanelMesh.position.set(1.4, 0.4, 0);
+                centerPanelMesh.scale.set(1, 1, 1);
+
+                visualizerGroup.position.set(1.4, -2.6, 0.2);
+                visualizerGroup.scale.set(1, 1, 1);
+
+                rackMesh.position.set(-4.5, 0.4, 0);
+                rackMesh.rotation.y = 0.25;
+                rackMesh.scale.set(1, 1, 1);
+
+                camera.position.set(0, 0.2, 11.5);
+            }
+
+            camera.updateProjectionMatrix();
+            renderer.setSize(width, height);
+        }
+
+        // ==============================================================
+        // 8. FLUJO PEDAGÓGICO DE VOBAUDI
+        // ==============================================================
+        function triggerVocabAudio() {
+            if (!isPlaying) return;
+            const term = trackList[currentTrackIdx].term;
+
+            speakTerm(term, () => {
+                if (!isPlaying) return;
+                setTimeout(() => {
+                    if (!isPlaying) return;
+                    currentTrackIdx = (currentTrackIdx + 1) % trackList.length;
+                    refreshAll();
+                    triggerVocabAudio();
+                }, shadowDelay * 1000);
+            });
+        }
+
+        function refreshAll() {
+            updateMainScreenTexture();
+            updateRackTexture();
+        }
+
+        refreshAll();
+
+        // ==============================================================
+        // 9. RAYCASTING UNIVERSAL (RATÓN + TÁCTIL)
+        // ==============================================================
+        const raycaster = new THREE.Raycaster();
+        const pointer = new THREE.Vector2(-999, -999);
+        let targetRotX = 0;
+        let targetRotY = 0;
+
+        function updatePointerCoords(clientX, clientY) {
+            pointer.x = (clientX / window.innerWidth) * 2 - 1;
+            pointer.y = -(clientY / window.innerHeight) * 2 + 1;
+
+            targetRotY = pointer.x * 0.15;
+            targetRotX = -pointer.y * 0.1;
+        }
+
+        window.addEventListener('pointermove', (e) => {
+            updatePointerCoords(e.clientX, e.clientY);
+        }, { passive: true });
+
+        window.addEventListener('pointerdown', (e) => {
+            unlockAudioContext();
+            updatePointerCoords(e.clientX, e.clientY);
+            raycaster.setFromCamera(pointer, camera);
+
+            // Clic o toque en los botones 3D
+            const btnHits = raycaster.intersectObjects(interactiveMeshes);
+            if (btnHits.length > 0) {
+                const btnGroup = btnHits[0].object.parent;
+                btnGroup.position.z = btnGroup.userData.baseZ - 0.12;
+                btnGroup.userData.action();
+                setTimeout(() => {
+                    btnGroup.position.z = btnGroup.userData.baseZ;
+                }, 120);
+                return;
+            }
+
+            // Clic o toque en el rack de pistas 3D
+            const rackHits = raycaster.intersectObject(rackMesh);
+            if (rackHits.length > 0) {
+                const uv = rackHits[0].uv;
+                const canvasY = (1 - uv.y) * 700;
+                if (canvasY >= 80) {
+                    const clickedIndex = Math.floor((canvasY - 80) / 95);
+                    if (clickedIndex >= 0 && clickedIndex < trackList.length) {
+                        currentTrackIdx = clickedIndex;
+                        refreshAll();
+                        playTronBeep(560);
+                        if (isPlaying) triggerVocabAudio();
+                    }
+                }
+            }
+        });
+
+        // Atajos de teclado en PC
+        document.addEventListener('keydown', (e) => {
+            unlockAudioContext();
+            if (e.code === 'Space') {
+                e.preventDefault();
+                playBtnObj.children[0].parentElement.userData.action();
+            } else if (e.code === 'KeyD') {
+                currentTrackIdx = (currentTrackIdx + 1) % trackList.length;
+                refreshAll();
+                if (isPlaying) triggerVocabAudio();
+            } else if (e.code === 'KeyA') {
+                currentTrackIdx = (currentTrackIdx > 0) ? currentTrackIdx - 1 : trackList.length - 1;
+                refreshAll();
+                if (isPlaying) triggerVocabAudio();
+            } else if (e.code === 'KeyW' || e.code === 'KeyS') {
+                shadBtnObj.children[0].parentElement.userData.action();
+            }
+        });
+
+        // ==============================================================
+        // 10. BUCLE DE RENDERIZADO Y ANIMACIÓN
+        // ==============================================================
+        let gridSpeed = 0;
+
+        function animate() {
+            requestAnimationFrame(animate);
+
+            gridSpeed += 0.05;
+            if (gridSpeed > 2) gridSpeed = 0;
+            floorGrid.position.z = gridSpeed;
+            ceilGrid.position.z = gridSpeed;
+
+            // Suave respiración 3D para móviles si no hay puntero activo
+            const idleBob = Math.sin(Date.now() * 0.0015) * 0.02;
+            masterRig.rotation.y += (targetRotY - masterRig.rotation.y) * 0.08;
+            masterRig.rotation.x += (targetRotX + idleBob - masterRig.rotation.x) * 0.08;
+
+            // Animación de barras reactivas
+            visualBars.forEach((bar, idx) => {
+                if (speechActive) {
+                    const wave = Math.sin(Date.now() * 0.016 + idx * 0.42) * 0.5 + 0.5;
+                    bar.scale.y = 0.2 + wave * 1.5;
+                } else {
+                    bar.scale.y = THREE.MathUtils.lerp(bar.scale.y, 0.08, 0.1);
+                }
+            });
+
+            // Hover en PC
+            raycaster.setFromCamera(pointer, camera);
+            const hits = raycaster.intersectObjects([...interactiveMeshes, rackMesh]);
+            document.body.style.cursor = hits.length > 0 ? 'pointer' : 'default';
+
+            renderer.render(scene, camera);
+        }
+
+        window.addEventListener('resize', applyResponsiveLayout);
+        window.addEventListener('orientationchange', () => {
+            setTimeout(applyResponsiveLayout, 150);
+        });
+
+        applyResponsiveLayout();
+        animate();
+    </script>
+</body>
+</html>
